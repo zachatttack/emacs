@@ -1,14 +1,17 @@
 (setq inhibit-startup-message t)
+(setq visible-bell t)
 
 (scroll-bar-mode -1)        ; Disable visible scrollbar
 (tool-bar-mode -1)          ; Disable the toolbar
 (tooltip-mode -1)           ; Disable tooltips
 (set-fringe-mode 10)        ; Give some breathing room
-
 (menu-bar-mode -1)            ; Disable the menu bar
+(recentf-mode 1)
+(global-auto-revert-mode 1)
 
-;; Set up the visible bell
-(setq visible-bell t)
+;; Revert Dired and other buffers
+(setq global-auto-revert-non-file-buffers t)
+
 
 (set-face-attribute 'default nil :font "Fira Code" :height 140)
 
@@ -130,8 +133,6 @@
     "g"  '(:ignore g :which-key "git")
     "gg" '(magit-status :which-key "open magit")
     )
-    
-
 
 (use-package evil
   :init
