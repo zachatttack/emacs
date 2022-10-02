@@ -176,3 +176,22 @@
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
+;;todo
+;;company
+;;hl-todo
+;;ligatures
+;;modeline?
+;;hydra?
+;;workspaces?
+;;vc-gutter?
+;;electric?
+;;undo
+;;vc
+;;sytax
+;;pdf
+;;cc
+;;python
+;;perl
+;;markdown
+;;org
+;;smartparens
