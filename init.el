@@ -6,16 +6,17 @@
 (tooltip-mode -1)           ; Disable tooltips
 (set-fringe-mode 10)        ; Give some breathing room
 (menu-bar-mode -1)            ; Disable the menu bar
-(recentf-mode 1)
 (global-auto-revert-mode 1)
 
 ;; Revert Dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
 
+(use-package no-littering)
+(setq custom-file "~/.emacs.d/custom-file.el")
+(load-file custom-file)
+
 
 (set-face-attribute 'default nil :font "Fira Code" :height 140)
-
-(load-theme 'wombat)
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -46,7 +47,7 @@
          :map ivy-minibuffer-map
          ("TAB" . ivy-alt-done)	
          ("C-l" . ivy-alt-done)
-         ("C-j" . ivy-next-line)
+         ("C-j" . ivy-nextline)
          ("C-k" . ivy-previous-line)
          :map ivy-switch-buffer-map
          ("C-k" . ivy-previous-line)
@@ -58,25 +59,23 @@
   :config
   (ivy-mode 1))
 
+(use-package ivy-rich
+  :doc "Have additional information in empty space of ivy buffers."
+  :disabled t
+  :ensure t
+  :custom
+  (ivy-rich-path-style 'abbreviate)
+  :config
+  (setcdr (assq t ivy-format-functions-alist)
+          #'ivy-format-function-line)
+  (ivy-rich-mode 1)
+  :delight)
+
+
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 15)))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("60ada0ff6b91687f1a04cc17ad04119e59a7542644c7c59fc135909499400ab8" default))
- '(package-selected-packages
-   '(magit evil-magit counsel-projectile evil-collection evil general helpful all-the-icons counsel doom-themes ivy-rich which-key rainbow-delimiters doom-modeline ivy command-log-mode use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 (column-number-mode)
 (global-display-line-numbers-mode t)
@@ -122,12 +121,12 @@
 
 (use-package general
   :config
-  (general-create-definer rune/leader-keys
+  (general-create-definer zt/leader-keys
     :keymaps '(normal insert visual emacs)
     :prefix "SPC"
     :global-prefix "C-SPC")) 
  
-  (rune/leader-keys
+  (zt/leader-keys
     "t"  '(:ignore t :which-key "toggles")
     "tt" '(counsel-load-theme :which-key "choose theme")
     "g"  '(:ignore g :which-key "git")
@@ -140,6 +139,7 @@
   (setq evil-want-keybinding nil)
   (setq evil-want-C-u-scroll t)
   (setq evil-want-C-i-jump t)
+  (setq evil-undo-system 'undo-fu)
   :config
   (evil-mode 1)
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
@@ -156,6 +156,8 @@
   :after evil
   :config
   (evil-collection-init))
+
+(use-package undo-fu)
 
 (use-package projectile
   :diminish projectile-mode
@@ -176,8 +178,46 @@
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump))
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-up-directory
+    "l" 'dired-find-file))
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+(use-package company
+  :config
+  (global-company-mode t)
+  (setq company-idle-delay 0.0)
+  )
+
+(use-package recentf
+  :config
+  (setq recentf-auto-cleanup 'never
+        recentf-max-saved-items 1000
+        recentf-save-file (concat user-emacs-directory ".recentf"))
+  (recentf-mode t)
+  :diminish nil)
+
+(use-package dumb-jump
+  :ensure t
+  :bind ("C-M-." . dumb-jump-go)
+  :delight)
+ 
+(use-package git-gutter
+  :ensure t
+  :config
+  (setq git-gutter:modified-sign "|")
+  (setq git-gutter:added-sign "|")
+  (setq git-gutter:deleted-sign "|")
+  (global-git-gutter-mode t)
+  )
 ;;todo
-;;company
 ;;hl-todo
 ;;ligatures
 ;;modeline?
@@ -185,7 +225,6 @@
 ;;workspaces?
 ;;vc-gutter?
 ;;electric?
-;;undo
 ;;vc
 ;;sytax
 ;;pdf
