@@ -60,20 +60,10 @@
   (ivy-mode 1))
 
 (use-package ivy-rich
-  :doc "Have additional information in empty space of ivy buffers."
-  :disabled t
-  :ensure t
-  :custom
-  (ivy-rich-path-style 'abbreviate)
-  :config
-  (setcdr (assq t ivy-format-functions-alist)
-          #'ivy-format-function-line)
-  (ivy-rich-mode 1)
-  :delight)
-
+  :init
+  (ivy-rich-mode 1))
 
 (use-package doom-modeline
-  :ensure t
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 15)))
 
@@ -205,18 +195,19 @@
   :diminish nil)
 
 (use-package dumb-jump
-  :ensure t
   :bind ("C-M-." . dumb-jump-go)
   :delight)
  
 (use-package git-gutter
-  :ensure t
   :config
   (setq git-gutter:modified-sign "|")
   (setq git-gutter:added-sign "|")
   (setq git-gutter:deleted-sign "|")
   (global-git-gutter-mode t)
   )
+
+(set-default-coding-systems 'utf-8)
+(setq tramp-default-method "ssh")
 ;;todo
 ;;hl-todo
 ;;ligatures
