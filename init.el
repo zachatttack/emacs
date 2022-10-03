@@ -11,7 +11,6 @@
 ;; Revert Dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
 
-(use-package no-littering)
 (setq custom-file "~/.emacs.d/custom-file.el")
 (load-file custom-file)
 
@@ -39,6 +38,7 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+(use-package no-littering)
 (use-package command-log-mode)
 
 (use-package ivy
@@ -69,11 +69,14 @@
 
 (column-number-mode)
 (global-display-line-numbers-mode t)
+(setq display-line-numbers-type 'relative)
 (dolist (mode '(org-mode-hook
 		term-mode-hook
 		eshell-mode-hook))
   (add-hook mode (lambda () (distplay-line-numbers-mode 0))))
 
+(setq org-directory "H:/zthomas/private/org/")
+(setq org-roam-directory "H:/zthomas/private/org/roam")
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
@@ -105,7 +108,7 @@
   ([remap describe-key] . helpful-key))
 
 (use-package doom-themes
-  :init (load-theme 'doom-tokyo-night t))
+  :init (load-theme 'doom-one t))
 
 (use-package all-the-icons)
 
@@ -157,8 +160,8 @@
   ("C-c p" . projectile-command-map)
   :init
   ;; NOTE: Set this to the folder where you keep your Git repos!
-  (when (file-directory-p "~/")
-    (setq projectile-project-search-path '("~/")))
+  (when (file-directory-p "c:/work")
+    (setq projectile-project-search-path '("c:/work")))
   (setq projectile-switch-project-action #'projectile-dired))
 
 (use-package counsel-projectile
@@ -230,3 +233,19 @@
 ;;markdown
 ;;org
 ;;smartparens
+(add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
+(setq delete-by-moving-to-trash t)
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (org-roam-mode 0)
+            ))
+(setq path-to-ctags "C:/Users/zthomas/Documents/emacs-28.1/bin/ctags.exe")
+(defun create-tags (dir-name)
+    "Create tags file."
+    (interactive "DDirectory: ")
+    (shell-command
+     (format "%s -f TAGS -e -R %s" path-to-ctags (directory-file-name dir-name)))
+  )
+
+(autoload 'turn-on-ctags-auto-update-mode "ctags-update" "turn on 'ctags-auto-update-mode'." t)
+(add-hook 'c-mode-common-hook  'turn-on-ctags-auto-update-mode)
