@@ -208,6 +208,11 @@
 
 (set-default-coding-systems 'utf-8)
 (setq tramp-default-method "ssh")
+
+(use-package dashboard
+  :config
+  (dashboard-setup-startup-hook)
+  )
 ;;todo
 ;;hl-todo
 ;;ligatures
