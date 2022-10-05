@@ -292,4 +292,3 @@
 (blink-cursor-mode -1)
 (define-key evil-insert-state-map (kbd "C-c") 'evil-normal-state)
 (define-key evil-normal-state-map (kbd "C-c C-c") 'evil-normal-state)
-
