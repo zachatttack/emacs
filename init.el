@@ -10,7 +10,7 @@
 
 ;; Revert Dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
-
+(setq create-lockfiles nil)
 (setq custom-file "~/.emacs.d/custom-file.el")
 (load-file custom-file)
 
@@ -39,7 +39,6 @@
 (setq use-package-always-ensure t)
 
 (use-package no-littering)
-(use-package command-log-mode)
 
 (use-package ivy
   :diminish
@@ -70,13 +69,11 @@
 (column-number-mode)
 (global-display-line-numbers-mode t)
 (setq display-line-numbers-type 'relative)
-(dolist (mode '(org-mode-hook
+(dolist (mode '(
 		term-mode-hook
 		eshell-mode-hook))
   (add-hook mode (lambda () (distplay-line-numbers-mode 0))))
 
-(setq org-directory "H:/zthomas/private/org/")
-(setq org-roam-directory "H:/zthomas/private/org/roam")
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
@@ -125,7 +122,7 @@
     "g"  '(:ignore g :which-key "git")
     "gg" '(magit-status :which-key "open magit")
     )
-
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 (use-package evil
   :init
   (setq evil-want-integration t)
@@ -197,10 +194,10 @@
   (recentf-mode t)
   :diminish nil)
 
-(use-package dumb-jump
-  :bind ("C-M-." . dumb-jump-go)
-  :delight)
- 
+;;(use-package dumb-jump)
+;;(remove-hook 'xref-backend-functions #'etags--xref-backend)
+;;(add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+
 (use-package git-gutter
   :config
   (setq git-gutter:modified-sign "|")
@@ -233,12 +230,8 @@
 ;;markdown
 ;;org
 ;;smartparens
-(add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
 (setq delete-by-moving-to-trash t)
-(add-hook 'dired-mode-hook
-          (lambda ()
-            (org-roam-mode 0)
-            ))
+
 (setq path-to-ctags "C:/Users/zthomas/Documents/emacs-28.1/bin/ctags.exe")
 (defun create-tags (dir-name)
     "Create tags file."
@@ -249,3 +242,54 @@
 
 (autoload 'turn-on-ctags-auto-update-mode "ctags-update" "turn on 'ctags-auto-update-mode'." t)
 (add-hook 'c-mode-common-hook  'turn-on-ctags-auto-update-mode)
+
+(use-package tree-sitter)
+(use-package tree-sitter-langs)
+(global-tree-sitter-mode)
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+(use-package ripgrep)
+(use-package hl-todo
+       :ensure t
+       :custom-face
+       (hl-todo ((t (:inherit hl-todo :italic t))))
+       :hook ((prog-mode . hl-todo-mode)
+              (yaml-mode . hl-todo-mode)))
+(global-hl-todo-mode)
+
+(setq org-directory "H:/zthomas/private/org/")
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-cb" 'org-switchb)
+(use-package org-roam
+:after org
+:init (setq org-roam-v2-ack t) ;; Acknowledge V2 upgrade
+:custom
+(org-roam-directory (file-truename org-directory))
+:config
+(org-roam-setup)
+:bind (("C-c n f" . org-roam-node-find)
+	("C-c n r" . org-roam-node-random)		    
+	(:map org-mode-map
+		(("C-c n i" . org-roam-node-insert)
+		("C-c n o" . org-id-get-create)
+		("C-c n t" . org-roam-tag-add)
+		("C-c n a" . org-roam-alias-add)
+		("C-c n l" . org-roam-buffer-toggle)))))
+(setq browse-url-browser-function 'eww-browse-url
+    shr-use-colors nil
+    shr-bullet "• "
+    shr-folding-mode t
+    eww-search-prefix "https://duckduckgo.com/html?q="
+    url-privacy-level '(email agent cookies lastloc))
+(use-package pdf-tools
+  :config
+  (pdf-tools-install)
+  (add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
+  ;;(add-hook 'pdf-view-mode-hook (lambda () (blink-cursor-mode -1)))
+  (setq-default pdf-view-display-size 'fit-page)
+  )
+(blink-cursor-mode -1)
+(define-key evil-insert-state-map (kbd "C-c") 'evil-normal-state)
+(define-key evil-normal-state-map (kbd "C-c C-c") 'evil-normal-state)
+
