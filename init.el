@@ -40,27 +40,6 @@
 
 (use-package no-littering)
 
-(use-package ivy
-  :diminish
-  :bind (("C-s" . swiper)
-         :map ivy-minibuffer-map
-         ("TAB" . ivy-alt-done)	
-         ("C-l" . ivy-alt-done)
-         ("C-j" . ivy-nextline)
-         ("C-k" . ivy-previous-line)
-         :map ivy-switch-buffer-map
-         ("C-k" . ivy-previous-line)
-         ("C-l" . ivy-done)
-         ("C-d" . ivy-switch-buffer-kill) 
-         :map ivy-reverse-i-search-map
-         ("C-k" . ivy-previous-line)
-         ("C-d" . ivy-reverse-i-search-kill))
-  :config
-  (ivy-mode 1))
-
-(use-package ivy-rich
-  :init
-  (ivy-rich-mode 1))
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
@@ -72,7 +51,7 @@
 (dolist (mode '(
 		term-mode-hook
 		eshell-mode-hook))
-  (add-hook mode (lambda () (distplay-line-numbers-mode 0))))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -82,10 +61,6 @@
   :diminish which-key-mode
   :config
   (setq which-key-idle-delay 0.3))
-
-(use-package ivy-rich
-  :init
-  (ivy-rich-mode 1))
 
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
@@ -121,8 +96,24 @@
     "tt" '(counsel-load-theme :which-key "choose theme")
     "g"  '(:ignore g :which-key "git")
     "gg" '(magit-status :which-key "open magit")
+    "sr" '(projectile-ripgrep :which-key "ripgrep")
+    "oe" '(eshell :which-key "open shell")
+    "SPC" '(counsel-projectile :which-key "open shell")
     )
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+
+(defun zt/evil-hook ()
+  (dolist (mode '(custom-mode
+                  eshell-mode
+                  git-rebase-mode
+                  erc-mode
+                  circe-server-mode
+                  circe-chat-mode
+                  circe-query-mode
+                  sauron-mode
+                  term-mode))
+   (add-to-list 'evil-emacs-state-modes mode)))
+
 (use-package evil
   :init
   (setq evil-want-integration t)
@@ -130,6 +121,7 @@
   (setq evil-want-C-u-scroll t)
   (setq evil-want-C-i-jump t)
   (setq evil-undo-system 'undo-fu)
+  ;;:hook (evil-mode . zt/evil-hook)
   :config
   (evil-mode 1)
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
@@ -146,6 +138,29 @@
   :after evil
   :config
   (evil-collection-init))
+
+(use-package ivy
+  :diminish
+  :bind (("C-s" . swiper)
+         :map ivy-minibuffer-map
+         ;;("TAB" . ivy-alt-done)	
+         ;;("C-l" . ivy-alt-done)
+         ("C-j" . ivy-nextline)
+         ("C-k" . ivy-previous-line)
+         ;;:map ivy-switch-buffer-map
+         ;;("C-k" . ivy-previous-line)
+         ;;("C-l" . ivy-done)
+         ;;("C-d" . ivy-switch-buffer-kill) 
+         ;;:map ivy-reverse-i-search-map
+         ;;("C-k" . ivy-previous-line)
+         ;;("C-d" . ivy-reverse-i-search-kill))
+	 )
+  :config
+  (ivy-mode 1))
+
+(use-package ivy-rich
+  :init
+  (ivy-rich-mode 1))
 
 (use-package undo-fu)
 
@@ -171,11 +186,11 @@
 (use-package dired
   :ensure nil
   :commands (dired dired-jump)
-  :bind (("C-x C-j" . dired-jump))
-  :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "h" 'dired-up-directory
-    "l" 'dired-find-file))
+  :bind (("C-x C-j" . dired-jump)))
+  ;;:config
+  ;;(evil-collection-define-key 'normal 'dired-mode-map
+   ;; "h" 'dired-up-directory
+   ;; "l" 'dired-find-file))
 
 (use-package all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
@@ -290,5 +305,6 @@
   (setq-default pdf-view-display-size 'fit-page)
   )
 (blink-cursor-mode -1)
+;;(define-key evil-normal-state-map (kbd "C-c C-c") 'evil-normal-state)
 (define-key evil-insert-state-map (kbd "C-c") 'evil-normal-state)
-(define-key evil-normal-state-map (kbd "C-c C-c") 'evil-normal-state)
+
