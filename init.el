@@ -40,7 +40,6 @@
 
 (use-package no-littering)
 
-
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 15)))
@@ -62,25 +61,25 @@
   :config
   (setq which-key-idle-delay 0.3))
 
-(use-package counsel
-  :bind (("M-x" . counsel-M-x)
-         ("C-x b" . counsel-ibuffer)
-         ("C-x C-f" . counsel-find-file)
-         :map minibuffer-local-map
-         ("C-r" . 'counsel-minibuffer-history)))
-
-(use-package helpful
-  :custom
-  (counsel-describe-function-function #'helpful-callable)
-  (counsel-describe-variable-function #'helpful-variable)
-  :bind
-  ([remap describe-function] . counsel-describe-function)
-  ([remap describe-command] . helpful-command)
-  ([remap describe-variable] . counsel-describe-variable)
-  ([remap describe-key] . helpful-key))
+;;(use-package counsel
+  ;;:bind (("M-x" . counsel-M-x)
+         ;;("C-x b" . counsel-ibuffer)
+         ;;("C-x C-f" . counsel-find-file)
+         ;;:map minibuffer-local-map
+         ;;("C-r" . 'counsel-minibuffer-history)))
+;;
+;;(use-package helpful
+  ;;:custom
+  ;;(counsel-describe-function-function #'helpful-callable)
+  ;;(counsel-describe-variable-function #'helpful-variable)
+  ;;:bind
+  ;;([remap describe-function] . counsel-describe-function)
+  ;;([remap describe-command] . helpful-command)
+  ;;([remap describe-variable] . counsel-describe-variable)
+  ;;([remap describe-key] . helpful-key))
 
 (use-package doom-themes
-  :init (load-theme 'doom-one t))
+  :init (load-theme 'doom-tokyo-night t))
 
 (use-package all-the-icons)
 
@@ -95,11 +94,17 @@
     "t"  '(:ignore t :which-key "toggles")
     "tt" '(counsel-load-theme :which-key "choose theme")
     "g"  '(:ignore g :which-key "git")
+    "p"  '(:ignore p :which-key "project")
+    "pp"  '(projectile-switch-project :which-key "open project")
     "gg" '(magit-status :which-key "open magit")
     "sr" '(projectile-ripgrep :which-key "ripgrep")
-    "oe" '(eshell :which-key "open shell")
-    "SPC" '(counsel-projectile :which-key "open shell")
+    "oe" '(eshell :which-key "open eshell")
+    "os" '(eshell :which-key "open shell")
+    "SPC" '(projectile-find-file :which-key "search in project")
+    "bb" '(ibuffer :which-key "buffers")
+    "bm" '(bookmark-jump :which-key "jump to bookmark")
     )
+
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (defun zt/evil-hook ()
@@ -121,7 +126,8 @@
   (setq evil-want-C-u-scroll t)
   (setq evil-want-C-i-jump t)
   (setq evil-undo-system 'undo-fu)
-  ;;:hook (evil-mode . zt/evil-hook)
+  (setq evil-want-minibuffer t)
+  :hook (evil-mode . zt/evil-hook)
   :config
   (evil-mode 1)
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
@@ -134,40 +140,26 @@
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal))
 
+(use-package evil-goggles
+  :ensure t
+  :init 
+  (setq evil-goggles-duration 0.100)
+  :config
+  (evil-goggles-mode))
+
 (use-package evil-collection
   :after evil
+  :custom (evil-collection-setup-minibuffer t)
   :config
   (evil-collection-init))
 
-(use-package ivy
-  :diminish
-  :bind (("C-s" . swiper)
-         :map ivy-minibuffer-map
-         ;;("TAB" . ivy-alt-done)	
-         ;;("C-l" . ivy-alt-done)
-         ("C-j" . ivy-nextline)
-         ("C-k" . ivy-previous-line)
-         ;;:map ivy-switch-buffer-map
-         ;;("C-k" . ivy-previous-line)
-         ;;("C-l" . ivy-done)
-         ;;("C-d" . ivy-switch-buffer-kill) 
-         ;;:map ivy-reverse-i-search-map
-         ;;("C-k" . ivy-previous-line)
-         ;;("C-d" . ivy-reverse-i-search-kill))
-	 )
-  :config
-  (ivy-mode 1))
-
-(use-package ivy-rich
-  :init
-  (ivy-rich-mode 1))
 
 (use-package undo-fu)
 
 (use-package projectile
   :diminish projectile-mode
   :config (projectile-mode)
-  :custom ((projectile-completion-system 'ivy))
+  :custom ((projectile-completion-system 'vertico))
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :init
@@ -176,8 +168,8 @@
     (setq projectile-project-search-path '("c:/work")))
   (setq projectile-switch-project-action #'projectile-dired))
 
-(use-package counsel-projectile
-  :config (counsel-projectile-mode))
+;;(use-package counsel-projectile
+  ;;:config (counsel-projectile-mode))
 
 (use-package magit
   :custom
@@ -308,3 +300,27 @@
 ;;(define-key evil-normal-state-map (kbd "C-c C-c") 'evil-normal-state)
 (define-key evil-insert-state-map (kbd "C-c") 'evil-normal-state)
 
+(use-package vertico
+  :ensure t
+  :bind (:map vertico-map
+         ("C-j" . vertico-next)
+         ("C-k" . vertico-previous)
+         ("C-f" . vertico-exit)
+         :map minibuffer-local-map
+         ("M-h" . backward-kill-word))
+  :custom
+  (vertico-cycle t)
+  :init
+  (vertico-mode))
+
+(use-package savehist
+  :init
+  (savehist-mode))
+
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+              (ggtags-mode 1))))
+
+(setq scroll-margin 5)
+(setq scroll-conservatively 100)
