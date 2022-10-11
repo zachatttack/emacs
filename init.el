@@ -61,23 +61,6 @@
   :config
   (setq which-key-idle-delay 0.3))
 
-;;(use-package counsel
-  ;;:bind (("M-x" . counsel-M-x)
-         ;;("C-x b" . counsel-ibuffer)
-         ;;("C-x C-f" . counsel-find-file)
-         ;;:map minibuffer-local-map
-         ;;("C-r" . 'counsel-minibuffer-history)))
-;;
-;;(use-package helpful
-  ;;:custom
-  ;;(counsel-describe-function-function #'helpful-callable)
-  ;;(counsel-describe-variable-function #'helpful-variable)
-  ;;:bind
-  ;;([remap describe-function] . counsel-describe-function)
-  ;;([remap describe-command] . helpful-command)
-  ;;([remap describe-variable] . counsel-describe-variable)
-  ;;([remap describe-key] . helpful-key))
-
 (use-package doom-themes
   :init (load-theme 'doom-tokyo-night t))
 
@@ -223,23 +206,7 @@
   :config
   (dashboard-setup-startup-hook)
   )
-;;todo
-;;hl-todo
-;;ligatures
-;;modeline?
-;;hydra?
-;;workspaces?
-;;vc-gutter?
-;;electric?
-;;vc
-;;sytax
-;;pdf
-;;cc
-;;python
-;;perl
-;;markdown
-;;org
-;;smartparens
+
 (setq delete-by-moving-to-trash t)
 
 (setq path-to-ctags "C:/Users/zthomas/Documents/emacs-28.1/bin/ctags.exe")
@@ -303,31 +270,10 @@
 ;;(define-key evil-normal-state-map (kbd "C-c C-c") 'evil-normal-state)
 (define-key evil-insert-state-map (kbd "C-c") 'evil-normal-state)
 
-;;(use-package vertico
-  ;;:ensure t
-  ;;:bind (:map vertico-map
-         ;;("C-j" . vertico-next)
-         ;;("C-k" . vertico-previous)
-         ;;("C-f" . vertico-exit)
-         ;;:map minibuffer-local-map
-         ;;("M-h" . backward-kill-word))
-  ;;:custom
-  ;;(vertico-cycle t)
-  ;;:init
-  ;;(vertico-mode))
-;;
-;;(use-package consult
-  ;;:after vertico 
-  ;;)
-
 (use-package savehist
   :init
   (savehist-mode))
 
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-              (ggtags-mode 1))))
 
 (setq scroll-margin 5)
 (setq scroll-conservatively 100)
@@ -374,3 +320,8 @@
   ([remap describe-command] . helpful-command)
   ([remap describe-variable] . counsel-describe-variable)
   ([remap describe-key] . helpful-key))
+
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+              (ggtags-mode 1))))
