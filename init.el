@@ -209,7 +209,7 @@
 
 (setq delete-by-moving-to-trash t)
 
-(setq path-to-ctags "C:/Users/zthomas/Documents/emacs-28.1/bin/ctags.exe")
+
 (defun create-tags (dir-name)
     "Create tags file."
     (interactive "DDirectory: ")
@@ -233,7 +233,11 @@
               (yaml-mode . hl-todo-mode)))
 (global-hl-todo-mode)
 
+(when (window-system)
 (setq org-directory "H:/zthomas/private/org/")
+(setq path-to-ctags "C:/Users/zthomas/Documents/emacs-28.1/bin/ctags.exe")
+)
+
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
