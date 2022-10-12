@@ -115,7 +115,7 @@
   :config
   (evil-mode 1)
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
-  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+  ;;(define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
 
   ;; Use visual line motions even outside of visual-line-mode buffers
   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
@@ -284,19 +284,19 @@
 
 (use-package ivy
   :diminish
-  :bind (("C-s" . swiper)
-         :map ivy-minibuffer-map
-         ("TAB" . ivy-alt-done)
-         ("C-l" . ivy-alt-done)
-         ("C-j" . ivy-next-line)
-         ("C-k" . ivy-previous-line)
-         :map ivy-switch-buffer-map
-         ("C-k" . ivy-previous-line)
-         ("C-l" . ivy-done)
-         ("C-d" . ivy-switch-buffer-kill)
-         :map ivy-reverse-i-search-map
-         ("C-k" . ivy-previous-line)
-         ("C-d" . ivy-reverse-i-search-kill))
+  ;; :bind (("C-s" . swiper)
+  ;;        :map ivy-minibuffer-map
+  ;;        ("TAB" . ivy-alt-done)
+  ;;        ("C-l" . ivy-alt-done)
+  ;;        ("C-j" . ivy-next-line)
+  ;;        ("C-k" . ivy-previous-line)
+  ;;        :map ivy-switch-buffer-map
+  ;;        ("C-k" . ivy-previous-line)
+  ;;        ("C-l" . ivy-done)
+  ;;        ("C-d" . ivy-switch-buffer-kill)
+  ;;        :map ivy-reverse-i-search-map
+  ;;        ("C-k" . ivy-previous-line)
+  ;;        ("C-d" . ivy-reverse-i-search-kill))
   :config
   (ivy-mode 1))
 
