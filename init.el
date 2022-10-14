@@ -49,8 +49,10 @@
 (setq display-line-numbers-type 'relative)
 (dolist (mode '(
 		term-mode-hook
+		pdf-view-mode-hook
 		eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -87,6 +89,7 @@
     "SPC" '(projectile-find-file :which-key "search in project")
     "bb" '(ibuffer :which-key "buffers")
     "bm" '(bookmark-jump :which-key "jump to bookmark")
+    "bo" '(previous-buffer :which-key "jump to previous buffer")
     )
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -217,8 +220,8 @@
      (format "%s -f TAGS -e -R %s" path-to-ctags (directory-file-name dir-name)))
   )
 
-(autoload 'turn-on-ctags-auto-update-mode "ctags-update" "turn on 'ctags-auto-update-mode'." t)
-(add-hook 'c-mode-common-hook  'turn-on-ctags-auto-update-mode)
+;; (autoload 'turn-on-ctags-auto-update-mode "ctags-update" "turn on 'ctags-auto-update-mode'." t)
+;; (add-hook 'c-mode-common-hook  'turn-on-ctags-auto-update-mode)
 
 (use-package tree-sitter)
 (use-package tree-sitter-langs)
