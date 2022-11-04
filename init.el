@@ -114,7 +114,7 @@
   (setq evil-want-C-u-scroll t)
   (setq evil-want-C-i-jump t)
   (setq evil-undo-system 'undo-fu)
-  (setq evil-want-minibuffer t)
+  (setq evil-want-minibuffer nil)
   :hook (evil-mode . zt/evil-hook)
   :config
   (evil-mode 1)
@@ -137,7 +137,7 @@
 
 (use-package evil-collection
   :after evil
-  :custom (evil-collection-setup-minibuffer t)
+  :custom (evil-collection-setup-minibuffer nil)
   :config
   (evil-collection-init))
 
@@ -226,6 +226,7 @@
 
 (use-package tree-sitter)
 (use-package tree-sitter-langs)
+(tree-sitter-require 'c)
 (global-tree-sitter-mode)
 (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
 (use-package ripgrep)
@@ -288,19 +289,19 @@
 
 (use-package ivy
   :diminish
-  ;; :bind (("C-s" . swiper)
-  ;;        :map ivy-minibuffer-map
-  ;;        ("TAB" . ivy-alt-done)
-  ;;        ("C-l" . ivy-alt-done)
-  ;;        ("C-j" . ivy-next-line)
-  ;;        ("C-k" . ivy-previous-line)
-  ;;        :map ivy-switch-buffer-map
-  ;;        ("C-k" . ivy-previous-line)
-  ;;        ("C-l" . ivy-done)
-  ;;        ("C-d" . ivy-switch-buffer-kill)
-  ;;        :map ivy-reverse-i-search-map
-  ;;        ("C-k" . ivy-previous-line)
-  ;;        ("C-d" . ivy-reverse-i-search-kill))
+  :bind (("C-s" . swiper)
+         :map ivy-minibuffer-map
+         ("TAB" . ivy-alt-done)
+         ("C-l" . ivy-alt-done)
+         ("C-j" . ivy-next-line)
+         ("C-k" . ivy-previous-line)
+         :map ivy-switch-buffer-map
+         ("C-k" . ivy-previous-line)
+         ("C-l" . ivy-done)
+         ("C-d" . ivy-switch-buffer-kill)
+         :map ivy-reverse-i-search-map
+         ("C-k" . ivy-previous-line)
+         ("C-d" . ivy-reverse-i-search-kill))
   :config
   (ivy-mode 1))
 
