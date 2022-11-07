@@ -63,8 +63,6 @@
   :config
   (setq which-key-idle-delay 0.3))
 
-(use-package doom-themes
-  :init (load-theme 'doom-tokyo-night t))
 
 (use-package all-the-icons)
 
@@ -374,3 +372,21 @@
 
 (advice-add 'ggtags-prev-mark :override
 	    (lambda () (pop-tag-mark)))
+; Default colours are too light (to see colour names do M-x list-colors-display
+; and to see faces do M-x list-faces-display):
+
+(use-package doom-themes
+  :init 
+    (set-face-foreground font-lock-type-face          "dark green")
+    (set-face-foreground font-lock-builtin-face       "Orchid4")
+    (set-face-foreground font-lock-constant-face      "CadetBlue4")
+    (set-face-foreground font-lock-keyword-face       "Purple4")
+    (set-face-foreground font-lock-string-face        "IndianRed4")
+    (set-face-foreground font-lock-variable-name-face "SaddleBrown")
+  :config (load-theme 'doom-one t))
+
+(add-to-list 'auto-mode-alist '("\\.dsc" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.inf" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.dec" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.dsc" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.fdf" . conf-mode))
