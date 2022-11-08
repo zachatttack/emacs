@@ -81,6 +81,7 @@
     "f"  '(:ignore f :which-key "file")
     "pp"  '(projectile-switch-project :which-key "open project")
     "gg" '(magit-status :which-key "open magit")
+    "gs" '((lambda () (interactive)(counsel-projectile-switch-project 13)):which-key "open magit for project")
     "sr" '(projectile-ripgrep :which-key "ripgrep")
     "oe" '(eshell :which-key "open eshell")
     "os" '(shell :which-key "open shell")
