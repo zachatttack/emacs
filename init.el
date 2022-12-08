@@ -82,7 +82,7 @@
     "pp"  '(projectile-switch-project :which-key "open project")
     "gg" '(magit-status :which-key "open magit")
     "gs" '((lambda () (interactive)(counsel-projectile-switch-project 13)):which-key "open magit for project")
-    "sr" '(projectile-ripgrep :which-key "ripgrep")
+    "sr" '(ripgrep-regexp :which-key "ripgrep")
     "oe" '(eshell :which-key "open eshell")
     "os" '(shell :which-key "open shell")
     "od" '(dired-jump :which-key "open dired")
@@ -203,14 +203,12 @@
   )
 
 (set-default-coding-systems 'utf-8)
-(setq tramp-default-method "ssh")
 
 (use-package dashboard
   :config
   (dashboard-setup-startup-hook)
   )
 
-(setq delete-by-moving-to-trash t)
 
 
 (defun create-tags (dir-name)
@@ -391,3 +389,22 @@
 (add-to-list 'auto-mode-alist '("\\.dec" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.dsc" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.fdf" . conf-mode))
+
+;; (use-package counsel-tramp
+;;   :config
+;;   (setq counsel-tramp-custom-connections '(/ssh:zthomas2|zthomas@localhost:/))
+;;   (define-key global-map (kbd "C-c s") 'counsel-tramp)
+;;   )
+
+(setq tramp-default-method "plink")
+
+;; Dired stuff
+
+;; Open dired folders in same buffer
+(put 'dired-find-alternate-file 'disabled nil)
+;; Sort Dired buffers
+(setq dired-listing-switches "-agho --group-directories-first")
+;; Copy and move files netween dired buffers
+(setq dired-dwim-target t)
+;;trash instead of delete
+(setq delete-by-moving-to-trash t)
