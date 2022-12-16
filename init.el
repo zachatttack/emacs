@@ -11,6 +11,7 @@
 ;; Revert Dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
 (setq create-lockfiles nil)
+(setq dired-dwim-target t)
 (setq custom-file "~/.emacs.d/custom-file.el")
 (load-file custom-file)
 
@@ -92,7 +93,6 @@
     "bo" '(previous-buffer :which-key "jump to previous buffer")
     )
 
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (defun zt/evil-hook ()
   (dolist (mode '(custom-mode
@@ -389,6 +389,7 @@
 (add-to-list 'auto-mode-alist '("\\.dec" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.dsc" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.fdf" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.robot" . python-mode))
 
 ;; (use-package counsel-tramp
 ;;   :config
@@ -396,7 +397,7 @@
 ;;   (define-key global-map (kbd "C-c s") 'counsel-tramp)
 ;;   )
 
-(setq tramp-default-method "plink")
+(setq tramp-default-method "sshx")
 
 ;; Dired stuff
 
@@ -408,3 +409,15 @@
 (setq dired-dwim-target t)
 ;;trash instead of delete
 (setq delete-by-moving-to-trash t)
+;; warn when opening files bigger than 100MB
+(setq large-file-warning-threshold 100000000)
+
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe")
+
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+(add-hook 'ibuffer-mode-hook
+	  '(lambda ()
+	     (ibuffer-auto-mode 1)))
+
