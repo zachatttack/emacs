@@ -442,7 +442,7 @@
                 (ibuffer-switch-to-saved-filter-groups "default")))
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/Documents/org/todo.org" "Tasks")
+      '(("t" "Todo" entry (file+headline "~/Documents/org/GTD.org" "Tasks")
          "* TODO %?\n  %i\n")
         ("j" "Journal" entry (file+datetree "~/Documents/org/journal.org")
          "* %?\nEntered on %U\n  %i\n  %a")))
