@@ -81,7 +81,9 @@
     "p"  '(:ignore p :which-key "project")
     "f"  '(:ignore f :which-key "file")
     "pp"  '(projectile-switch-project :which-key "open project")
-    "gg" '(magit-status :which-key "open magit")
+    "gg" '(magit-status :which-key "Open Magit")
+    "gb" '(magit-blame :which-key "Inline git blame")
+    "gh" '(magit-log-buffer-file :which-key "Open git history")
     "gs" '((lambda () (interactive)(counsel-projectile-switch-project 13)):which-key "open magit for project")
     "sr" '(ripgrep-regexp :which-key "ripgrep")
     "oe" '(eshell :which-key "open eshell")
@@ -236,7 +238,7 @@
 (global-hl-todo-mode)
 
 (when (window-system)
-(setq org-directory "H:/zthomas/private/org/")
+(setq org-directory "~/Documents/org/")
 (setq path-to-ctags "C:/Users/zthomas/Documents/emacs-28.1/bin/ctags.exe")
 )
 
@@ -421,3 +423,26 @@
 	  '(lambda ()
 	     (ibuffer-auto-mode 1)))
 
+
+(use-package async)
+
+(setq org-agenda-files '("~/Documents/org/"))
+
+(setq ibuffer-saved-filter-groups
+          (quote (("default"
+                   ("dired" (mode . dired-mode))
+                   ("emacs" (or
+                             (name . "^\\*scratch\\*$")
+                             (name . "^\\*Messages\\*$")))
+		   ("pdfs" (name . "\\.pdf"))
+                   ("org" (name . "\\.org"))))))
+
+ (add-hook 'ibuffer-mode-hook
+              (lambda ()
+                (ibuffer-switch-to-saved-filter-groups "default")))
+
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/Documents/org/todo.org" "Tasks")
+         "* TODO %?\n  %i\n")
+        ("j" "Journal" entry (file+datetree "~/Documents/org/journal.org")
+         "* %?\nEntered on %U\n  %i\n  %a")))
