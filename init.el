@@ -435,7 +435,10 @@
                              (name . "^\\*scratch\\*$")
                              (name . "^\\*Messages\\*$")))
 		   ("pdfs" (name . "\\.pdf"))
-                   ("org" (name . "\\.org"))))))
+                   ))))
+
+(require 'ibuf-ext)
+(add-to-list 'ibuffer-never-show-predicates "\\.org")
 
  (add-hook 'ibuffer-mode-hook
               (lambda ()
