@@ -477,9 +477,9 @@
   )
 (when (eq system-type 'gnu/linux)
   (setq org-capture-templates
-	'(("t" "Todo" entry (file+headline "~/Documents/org/GTD.org" "Tasks")
+	'(("t" "Todo" entry (file+headline "/mnt/nas/org/GTD.org" "Tasks")
 	   "* TODO %?\n  %i\n")
-	  ("j" "Journal" entry (file+datetree "~/Documents/org/journal.org")
+	  ("j" "Journal" entry (file+datetree "/mnt/nas/org/journal.org")
 	   "* %?\nEntered on %U\n  %i\n  %a")))
   )
 
