@@ -155,9 +155,17 @@
   ("C-c p" . projectile-command-map)
   :init
   ;; NOTE: Set this to the folder where you keep your Git repos!
-  (when (file-directory-p "c:/work")
-    (setq projectile-project-search-path '("c:/work")))
-  (setq projectile-switch-project-action #'projectile-dired))
+  (when (eq system-type 'windows-nt)
+    (when (file-directory-p "c:/work")
+      (setq projectile-project-search-path '("c:/work")))
+    (setq projectile-switch-project-action #'projectile-dired)
+    )
+  (when (eq system-type 'gnu/linux)
+    (when (file-directory-p "~/")
+      (setq projectile-project-search-path '("~/")))
+    (setq projectile-switch-project-action #'projectile-dired)
+    )
+  )
 
 (use-package counsel-projectile
   :config (counsel-projectile-mode))
@@ -237,10 +245,15 @@
               (yaml-mode . hl-todo-mode)))
 (global-hl-todo-mode)
 
-(when (window-system)
-(setq org-directory "~/Documents/org/")
+(when (eq system-type 'windows-nt)
+  (setq org-directory "~/Documents/org/")
+  )
+(when (eq system-type 'gnu/linux)
+  (setq org-directory "/mnt/nas/org")
+  )
+
+
 (setq path-to-ctags "C:/Users/zthomas/Documents/emacs-28.1/bin/ctags.exe")
-)
 
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
@@ -414,8 +427,14 @@
 ;; warn when opening files bigger than 100MB
 (setq large-file-warning-threshold 100000000)
 
+(when (eq system-type 'windows-nt)
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe")
+)
+(when (eq system-type 'gnu/linux)
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "firefox")
+)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
@@ -426,7 +445,12 @@
 
 (use-package async)
 
-(setq org-agenda-files '("~/Documents/org/"))
+(when (eq system-type 'windows-nt)
+  (setq org-agenda-files '("~/Documents/org/"))
+  )
+(when (eq system-type 'gnu/linux)
+  (setq org-agenda-files '("/mnt/nas/org"))
+  )
 
 (setq ibuffer-saved-filter-groups
           (quote (("default"
@@ -444,8 +468,18 @@
               (lambda ()
                 (ibuffer-switch-to-saved-filter-groups "default")))
 
-(setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/Documents/org/GTD.org" "Tasks")
-         "* TODO %?\n  %i\n")
-        ("j" "Journal" entry (file+datetree "~/Documents/org/journal.org")
-         "* %?\nEntered on %U\n  %i\n  %a")))
+(when (eq system-type 'windows-nt)
+  (setq org-capture-templates
+	'(("t" "Todo" entry (file+headline "~/Documents/org/GTD.org" "Tasks")
+	   "* TODO %?\n  %i\n")
+	  ("j" "Journal" entry (file+datetree "~/Documents/org/journal.org")
+	   "* %?\nEntered on %U\n  %i\n  %a")))
+  )
+(when (eq system-type 'gnu/linux)
+  (setq org-capture-templates
+	'(("t" "Todo" entry (file+headline "~/Documents/org/GTD.org" "Tasks")
+	   "* TODO %?\n  %i\n")
+	  ("j" "Journal" entry (file+datetree "~/Documents/org/journal.org")
+	   "* %?\nEntered on %U\n  %i\n  %a")))
+  )
+
