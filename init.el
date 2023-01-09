@@ -483,3 +483,5 @@
 	   "* %?\nEntered on %U\n  %i\n  %a")))
   )
 
+(use-package nix-mode
+  :mode "\\.nix\\'")
