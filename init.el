@@ -256,7 +256,7 @@
 (global-hl-todo-mode)
 
 (when (eq system-type 'windows-nt)
-  (setq org-directory "~/Documents/org/")
+  (setq org-directory "H:/zthomas/private/org")
   )
 (when (eq system-type 'gnu/linux)
   (setq org-directory "/mnt/nas/org")
@@ -456,7 +456,7 @@
 (use-package async)
 
 (when (eq system-type 'windows-nt)
-  (setq org-agenda-files '("~/Documents/org/"))
+  (setq org-agenda-files '("H:/zthomas/private/org"))
   )
 (when (eq system-type 'gnu/linux)
   (setq org-agenda-files '("/mnt/nas/org"))
@@ -477,12 +477,11 @@
  (add-hook 'ibuffer-mode-hook
               (lambda ()
                 (ibuffer-switch-to-saved-filter-groups "default")))
-
 (when (eq system-type 'windows-nt)
   (setq org-capture-templates
-	'(("t" "Todo" entry (file+headline "~/Documents/org/GTD.org" "Tasks")
+	'(("t" "Todo" entry (file+headline "H:/zthomas/private/org/GTD.org" "Tasks")
 	   "* TODO %?\n  %i\n")
-	  ("j" "Journal" entry (file+datetree "~/Documents/org/journal.org")
+	  ("j" "Journal" entry (file+datetree "h:/zthomas/private/org/journal.org")
 	   "* %?\nEntered on %U\n  %i\n  %a")))
   )
 (when (eq system-type 'gnu/linux)
