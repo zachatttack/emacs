@@ -399,6 +399,13 @@
   (global-idle-highlight-mode)
   )
 
+(add-hook 'evil-visual-state-entry-hook
+	  (lambda () (global-idle-highlight-mode -1))
+	  )
+(add-hook 'evil-visual-state-exit-hook
+	  (lambda () (global-idle-highlight-mode))
+	  )
+
 (advice-add 'ggtags-prev-mark :override
 	    (lambda () (pop-tag-mark)))
 ; Default colours are too light (to see colour names do M-x list-colors-display
