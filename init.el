@@ -421,7 +421,10 @@
     (set-face-foreground font-lock-keyword-face       "Purple4")
     (set-face-foreground font-lock-string-face        "IndianRed4")
     (set-face-foreground font-lock-variable-name-face "SaddleBrown")
-  :config (load-theme 'doom-one t))
+    :config (load-theme 'doom-one t)
+    (add-hook 'server-after-make-frame-hook (lambda () (load-theme 'doom-one t)))
+    )
+
 
 (add-to-list 'auto-mode-alist '("\\.dsc" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.inf" . conf-mode))
