@@ -461,7 +461,7 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (add-hook 'ibuffer-mode-hook
-	  '(lambda ()
+	  #'(lambda ()
 	     (ibuffer-auto-mode 1)))
 
 
