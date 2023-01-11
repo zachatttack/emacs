@@ -26,7 +26,9 @@
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+                         ("elpa" . "https://elpa.gnu.org/packages/")
+			 ("melpa-stable" . "https://stable.melpa.org/packages/")
+			 ))
 
 (package-initialize)
 (unless package-archive-contents
@@ -506,3 +508,17 @@
 
 (use-package nix-mode
   :mode "\\.nix\\'")
+
+(use-package olivetti
+  :hook ((text-mode         . olivetti-mode)
+         (prog-mode         . olivetti-mode)
+         (Info-mode         . olivetti-mode)
+         (org-mode          . olivetti-mode)
+         (nov-mode          . olivetti-mode)
+         (markdown-mode     . olivetti-mode)
+         (mu4e-view-mode    . olivetti-mode)
+         (elfeed-show-mode  . olivetti-mode)
+         (mu4e-compose-mode . olivetti-mode))
+ :custom
+  (olivetti-body-width 80)
+  :delight " ⊗") ; Ⓐ ⊛
