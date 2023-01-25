@@ -16,7 +16,7 @@
 (load-file custom-file)
 
 
-(set-face-attribute 'default nil :font "Fira Code" :height 140)
+(set-face-attribute 'default nil :font "Fira Code" :height 130)
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -433,6 +433,7 @@
 (add-to-list 'auto-mode-alist '("\\.fdf" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.robot" . python-mode))
 
+(add-to-list 'auto-mode-alist '("\\.bin\\'" . hexl-mode))
 ;; (use-package counsel-tramp
 ;;   :config
 ;;   (setq counsel-tramp-custom-connections '(/ssh:zthomas2|zthomas@localhost:/))
@@ -523,5 +524,14 @@
          (elfeed-show-mode  . olivetti-mode)
          (mu4e-compose-mode . olivetti-mode))
  :custom
-  (olivetti-body-width 80)
+  (olivetti-body-width 120)
   :delight " ⊗") ; Ⓐ ⊛
+
+(winner-mode)
+
+(use-package sticky-shell
+  :ensure t ; install
+  :custom
+  (sticky-shell-global-mode)
+  ;; add your customization here
+  )
