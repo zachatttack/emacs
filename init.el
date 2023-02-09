@@ -78,15 +78,15 @@
  
   (zt/leader-keys
     "t"  '(:ignore t :which-key "toggles")
-    "tt" '(counsel-load-theme :which-key "choose theme")
     "g"  '(:ignore g :which-key "git")
     "p"  '(:ignore p :which-key "project")
     "f"  '(:ignore f :which-key "file")
     "pp"  '(projectile-switch-project :which-key "open project")
     "gg" '(magit-status :which-key "Open Magit")
     "gb" '(magit-blame :which-key "Inline git blame")
-    "gh" '(magit-log-buffer-file :which-key "Open git history")
-    "gs" '((lambda () (interactive)(counsel-projectile-switch-project 13)):which-key "open magit for project")
+    "gh" '(magit-log-buffer-file :which-key "Open git history for open buffer")
+    "gl" '(magit-log :which-key "Open git log")
+    ;; "gs" '((lambda () (interactive)(counsel-projectile-switch-project 13)):which-key "open magit for project")
     "sr" '(ripgrep-regexp :which-key "ripgrep")
     "oe" '(eshell :which-key "open eshell")
     "os" '(shell :which-key "open shell")
@@ -152,7 +152,6 @@
 (use-package projectile
   :diminish projectile-mode
   :config (projectile-mode)
-  :custom ((projectile-completion-system 'ivy))
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :init
@@ -169,13 +168,9 @@
     )
   )
 
-(use-package counsel-projectile
-  :config (counsel-projectile-mode))
-
 (use-package magit
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
-
 
 (use-package dired
   :ensure nil
@@ -211,10 +206,6 @@
         recentf-save-file (concat user-emacs-directory ".recentf"))
   (recentf-mode t)
   :diminish nil)
-
-;;(use-package dumb-jump)
-;;(remove-hook 'xref-backend-functions #'etags--xref-backend)
-;;(add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
 
 (use-package git-gutter
   :config
@@ -316,49 +307,6 @@
 (setq scroll-margin 5)
 (setq scroll-conservatively 100)
 
-(use-package ivy
-  :diminish
-  :bind (("C-s" . swiper)
-         :map ivy-minibuffer-map
-         ("TAB" . ivy-alt-done)
-         ("C-l" . ivy-alt-done)
-         ("C-j" . ivy-next-line)
-         ("C-k" . ivy-previous-line)
-         :map ivy-switch-buffer-map
-         ("C-k" . ivy-previous-line)
-         ("C-l" . ivy-done)
-         ("C-d" . ivy-switch-buffer-kill)
-         :map ivy-reverse-i-search-map
-         ("C-k" . ivy-previous-line)
-         ("C-d" . ivy-reverse-i-search-kill))
-  :config
-  (ivy-mode 1))
-
-(use-package ivy-rich
-  :after ivy
-  :init
-  (ivy-rich-mode 1))
-
-(use-package counsel
-  :bind (("C-M-j" . 'counsel-switch-buffer)
-         :map minibuffer-local-map
-         ("C-r" . 'counsel-minibuffer-history))
-  :custom
-  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
-  :config
-  (counsel-mode 1))
-
-(use-package helpful
-  :commands (helpful-callable helpful-variable helpful-command helpful-key)
-  :custom
-  (counsel-describe-function-function #'helpful-callable)
-  (counsel-describe-variable-function #'helpful-variable)
-  :bind
-  ([remap describe-function] . counsel-describe-function)
-  ([remap describe-command] . helpful-command)
-  ([remap describe-variable] . counsel-describe-variable)
-  ([remap describe-key] . helpful-key))
-
 (add-hook 'c-mode-common-hook
           (lambda ()
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
@@ -434,12 +382,6 @@
 (add-to-list 'auto-mode-alist '("\\.robot" . python-mode))
 
 (add-to-list 'auto-mode-alist '("\\.bin\\'" . hexl-mode))
-;; (use-package counsel-tramp
-;;   :config
-;;   (setq counsel-tramp-custom-connections '(/ssh:zthomas2|zthomas@localhost:/))
-;;   (define-key global-map (kbd "C-c s") 'counsel-tramp)
-;;   )
-
 (setq tramp-default-method "sshx")
 
 ;; Dired stuff
@@ -535,3 +477,42 @@
   (sticky-shell-global-mode)
   ;; add your customization here
   )
+
+;;;;;;Vertico 
+(use-package vertico
+  :init
+  (vertico-mode)
+  (setq vertico-scroll-margin 0)
+  (setq vertico-count 20)
+  (setq vertico-resize t)
+  (setq vertico-cycle t)
+  )
+
+;; Enable rich annotations using the Marginalia package
+(use-package marginalia
+  ;; Either bind `marginalia-cycle' globally or only in the minibuffer
+  :bind (("M-A" . marginalia-cycle)
+         :map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+
+  ;; The :init configuration is always executed (Not lazy!)
+  :init
+
+  ;; Must be in the :init section of use-package such that the mode gets
+  ;; enabled right away. Note that this forces loading the package.
+  (marginalia-mode))
+
+(use-package savehist
+  :init
+  (savehist-mode))
+
+;; Optionally use the `orderless' completion style.
+(use-package orderless
+  :ensure t
+  :init
+  ;; Configure a custom style dispatcher (see the Consult wiki)
+  ;; (setq orderless-style-dispatchers '(+orderless-dispatch)
+  ;;       orderless-component-separator #'orderless-escapable-split-on-space)
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
