@@ -82,7 +82,7 @@
     "p"  '(:ignore p :which-key "project")
     "f"  '(:ignore f :which-key "file")
     "pp"  '(projectile-switch-project :which-key "open project")
-    "gg" '(magit-status :which-key "Open Magit")
+    "gs" '(magit-status :which-key "Open Magit")
     "gb" '(magit-blame :which-key "Inline git blame")
     "gh" '(magit-log-buffer-file :which-key "Open git history for open buffer")
     "gl" '(magit-log :which-key "Open git log")
