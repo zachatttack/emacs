@@ -71,6 +71,8 @@
 
 (use-package general
   :config
+  (general-auto-unbind-keys)
+  (general-define-key "C-w u" 'winner-undo :which-key "Undo window change")
   (general-create-definer zt/leader-keys
     :keymaps '(normal insert visual emacs)
     :prefix "SPC"
@@ -363,16 +365,15 @@
 
 (use-package doom-themes
   :init 
-    (set-face-foreground font-lock-type-face          "dark green")
-    (set-face-foreground font-lock-builtin-face       "Orchid4")
-    (set-face-foreground font-lock-constant-face      "CadetBlue4")
-    (set-face-foreground font-lock-keyword-face       "Purple4")
-    (set-face-foreground font-lock-string-face        "IndianRed4")
-    (set-face-foreground font-lock-variable-name-face "SaddleBrown")
-    :config (load-theme 'doom-one t)
-    (add-hook 'server-after-make-frame-hook (lambda () (load-theme 'doom-one t)))
+    ;; :config (load-theme 'doom-one t)
+    ;; (add-hook 'server-after-make-frame-hook (lambda () (load-theme 'doom-one t)))
     )
 
+(use-package spacemacs-theme
+  :defer t
+  )
+
+(load-theme 'spacemacs-dark t)
 
 (add-to-list 'auto-mode-alist '("\\.dsc" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.inf" . conf-mode))
