@@ -456,6 +456,9 @@
 (use-package nix-mode
   :mode "\\.nix\\'")
 
+(use-package cuda-mode
+  :mode "\\.cu\\'")
+
 (use-package olivetti
   :hook ((text-mode         . olivetti-mode)
          (prog-mode         . olivetti-mode)
