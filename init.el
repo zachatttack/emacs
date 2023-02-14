@@ -97,6 +97,7 @@
     "bb" '(ibuffer :which-key "buffers")
     "bm" '(bookmark-jump :which-key "jump to bookmark")
     "bo" '(previous-buffer :which-key "jump to previous buffer")
+    "wl" '(zt-toggle-window-dedication :which-key "Toggle window dedication")
     )
 
 
@@ -551,3 +552,9 @@
   ;; Enable indentation+completion using the TAB key.
   ;; `completion-at-point' is often bound to M-TAB.
   (setq tab-always-indent 'complete))
+
+(defun zt-toggle-window-dedication ()
+  "Toggles window dedication in the selected window."
+  (interactive)
+  (set-window-dedicated-p (selected-window)
+     (not (window-dedicated-p (selected-window)))))
