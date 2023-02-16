@@ -376,6 +376,10 @@
 (add-to-list 'auto-mode-alist '("\\.robot" . python-mode))
 
 (add-to-list 'auto-mode-alist '("\\.bin\\'" . hexl-mode))
+(add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
+
+
+
 (setq tramp-default-method "sshx")
 
 ;; Dired stuff
@@ -449,8 +453,6 @@
 (use-package nix-mode
   :mode "\\.nix\\'")
 
-(use-package cuda-mode
-  :mode "\\.cu\\'")
 
 (use-package olivetti
   :hook ((text-mode         . olivetti-mode)
