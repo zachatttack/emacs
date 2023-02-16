@@ -558,3 +558,5 @@
   (interactive)
   (set-window-dedicated-p (selected-window)
      (not (window-dedicated-p (selected-window)))))
+
+(add-hook 'shell-mode-hook 'compilation-shell-minor-mode)
