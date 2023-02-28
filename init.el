@@ -277,6 +277,9 @@
 (use-package org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
+(use-package org-download)
+(setq org-startup-with-inline-images t)
+
 (setq browse-url-browser-function 'eww-browse-url
     shr-use-colors nil
     shr-bullet "• "
