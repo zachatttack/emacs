@@ -376,6 +376,7 @@
 (add-to-list 'auto-mode-alist '("\\.dec" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.dsc" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.fdf" . conf-mode))
+(add-to-list 'auto-mode-alist '("\\.vfr" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.robot" . python-mode))
 
 (add-to-list 'auto-mode-alist '("\\.bin\\'" . hexl-mode))
