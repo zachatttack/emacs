@@ -567,3 +567,6 @@
      (not (window-dedicated-p (selected-window)))))
 
 (add-hook 'shell-mode-hook 'compilation-shell-minor-mode)
+
+(fset 'perl-mode 'cperl-mode)
+(setq cperl-invalid-face nil)
