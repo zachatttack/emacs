@@ -234,6 +234,12 @@
 (tree-sitter-require 'c)
 (global-tree-sitter-mode)
 (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+
+;; (use-package treesit-auto
+;;   :config (setq treesit-auto-install 'prompt)
+;;   :config
+;;   (global-treesit-auto-mode))
+
 (use-package ripgrep)
 (use-package hl-todo
        :ensure t
@@ -524,7 +530,7 @@
 (use-package corfu
   ;; Optional customizations
   :custom
-  ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
   (corfu-auto t)                 ;; Enable auto completion
   ;; (corfu-separator ?\s)          ;; Orderless field separator
   ;; (corfu-quit-at-boundary nil)   ;; Never quit at completion boundary
