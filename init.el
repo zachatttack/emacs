@@ -576,3 +576,5 @@
 
 (fset 'perl-mode 'cperl-mode)
 (setq cperl-invalid-face nil)
+
+(modify-syntax-entry ?_ "w")
