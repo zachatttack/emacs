@@ -68,6 +68,12 @@
 
 
 (use-package all-the-icons)
+(use-package all-the-icons-completion
+  :after all-the-icons
+  :init 
+  (all-the-icons-completion-mode)
+  (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
+  )
 
 (use-package general
   :config
@@ -526,6 +532,7 @@
   (setq completion-styles '(orderless basic)
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
+
 
 (use-package corfu
   ;; Optional customizations
