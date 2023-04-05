@@ -69,11 +69,10 @@
 
 (use-package all-the-icons)
 (use-package all-the-icons-completion
-  :after all-the-icons
-  :init 
-  (all-the-icons-completion-mode)
-  (add-hook 'marginalia-mode-hook #'all-the-icons-completion-marginalia-setup)
-  )
+  :after (marginalia all-the-icons)
+  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
+  :init
+  (all-the-icons-completion-mode))
 
 (use-package general
   :config
