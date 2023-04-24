@@ -291,6 +291,9 @@
 (use-package org-download)
 (setq org-startup-with-inline-images t)
 
+(setq org-todo-keywords
+      '((sequence "TODO" "WAITING" "|" "DONE" )))
+
 (setq browse-url-browser-function 'eww-browse-url
     shr-use-colors nil
     shr-bullet "• "
@@ -413,7 +416,7 @@
 
 (when (eq system-type 'windows-nt)
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe")
+      browse-url-generic-program "C:/Program Files/Google/Chrome/Application/chrome.exe")
 )
 (when (eq system-type 'gnu/linux)
 (setq browse-url-browser-function 'browse-url-generic
@@ -625,10 +628,10 @@
   (eyebrowse-mode)
   )
 
-(use-package undo-tree
-  :ensure t
-  :init
-  (global-undo-tree-mode))
+;; (use-package undo-tree
+;;   :ensure t
+;;   :init
+;;   (global-undo-tree-mode))
 
 (use-package yasnippet
   :ensure t
