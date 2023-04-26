@@ -1,0 +1,2 @@
+alias cmd /mnt/c/windows/system32/cmd.exe /c $*
+alias ll ls -l $*
