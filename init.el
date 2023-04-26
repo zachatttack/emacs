@@ -16,7 +16,7 @@
 (load-file custom-file)
 
 
-(set-face-attribute 'default nil :font "Fira Code" :height 130)
+(set-face-attribute 'default nil :font "Fira Code" :height 200)
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -254,13 +254,14 @@
               (yaml-mode . hl-todo-mode)))
 (global-hl-todo-mode)
 
-(when (eq system-type 'windows-nt)
-  (setq org-directory "H:/zthomas/private/org")
-  )
-(when (eq system-type 'gnu/linux)
-  (setq org-directory "/mnt/nas/org")
-  )
-
+(cond 
+ ((string-match-p "WSL2" (shell-command-to-string "uname -a"))
+		 (setq org-directory "/mnt/home/zthomas/private/org"))
+ ((eq system-type 'windows-nt)
+     (setq org-directory "H:/zthomas/private/org"))
+ (t
+  (setq org-directory "/mnt/nas/org"))
+ )
 
 (setq path-to-ctags "C:/Users/zthomas/Documents/emacs-28.1/bin/ctags.exe")
 
@@ -473,19 +474,19 @@
   :mode "\\.nix\\'")
 
 
-(use-package olivetti
-  :hook ((text-mode         . olivetti-mode)
-         (prog-mode         . olivetti-mode)
-         (Info-mode         . olivetti-mode)
-         (org-mode          . olivetti-mode)
-         (nov-mode          . olivetti-mode)
-         (markdown-mode     . olivetti-mode)
-         (mu4e-view-mode    . olivetti-mode)
-         (elfeed-show-mode  . olivetti-mode)
-         (mu4e-compose-mode . olivetti-mode))
- :custom
-  (olivetti-body-width 120)
-  :delight " ⊗") ; Ⓐ ⊛
+;; (use-package olivetti
+;;   :hook ((text-mode         . olivetti-mode)
+;;          (prog-mode         . olivetti-mode)
+;;          (Info-mode         . olivetti-mode)
+;;          (org-mode          . olivetti-mode)
+;;          (nov-mode          . olivetti-mode)
+;;          (markdown-mode     . olivetti-mode)
+;;          (mu4e-view-mode    . olivetti-mode)
+;;          (elfeed-show-mode  . olivetti-mode)
+;;          (mu4e-compose-mode . olivetti-mode))
+;;  :custom
+;;   (olivetti-body-width 200)
+;;   :delight " ⊗") ; Ⓐ ⊛
 
 (winner-mode)
 
