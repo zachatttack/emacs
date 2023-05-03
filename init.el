@@ -16,7 +16,7 @@
 (load-file custom-file)
 
 
-(set-face-attribute 'default nil :font "Fira Code" :height 200)
+(set-face-attribute 'default nil :font "Fira Code" :height 140)
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -188,10 +188,11 @@
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
     "h" 'dired-single-up-directory
-    "l" 'dired-single-buffer))
-
-(use-package all-the-icons-dired
-  :hook (dired-mode . all-the-icons-dired-mode))
+    "l" 'dired-single-buffer)
+  (use-package treemacs-icons-dired
+    :if (display-graphic-p)
+    :config (treemacs-icons-dired-mode))
+  )
 
 (use-package dired-single)
 
@@ -485,17 +486,17 @@
 ;;          (elfeed-show-mode  . olivetti-mode)
 ;;          (mu4e-compose-mode . olivetti-mode))
 ;;  :custom
-;;   (olivetti-body-width 200)
+  ;; (setq olivetti-body-width 200)
 ;;   :delight " ⊗") ; Ⓐ ⊛
 
 (winner-mode)
 
-(use-package sticky-shell
-  :ensure t ; install
-  :custom
-  (sticky-shell-global-mode)
-  ;; add your customization here
-  )
+;; (use-package sticky-shell
+;;   :ensure t ; install
+;;   :custom
+;;   (sticky-shell-global-mode)
+;;   ;; add your customization here
+;;   )
 
 ;;;;;;Vertico 
 (use-package vertico
