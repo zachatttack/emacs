@@ -179,6 +179,7 @@
 (use-package magit
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+(setq magit-git-executable "~/.emacs.d/bin/git")
 
 (use-package dired
   :ensure nil
@@ -434,12 +435,12 @@
 
 (use-package async)
 
-(when (eq system-type 'windows-nt)
-  (setq org-agenda-files '("H:/zthomas/private/org"))
-  )
-(when (eq system-type 'gnu/linux)
-  (setq org-agenda-files '("/mnt/nas/org"))
-  )
+;; (when (eq system-type 'windows-nt)
+;;   (setq org-agenda-files '("H:/zthomas/private/org"))
+;;   )
+;; (when (eq system-type 'gnu/linux)
+;;   (setq org-agenda-files '("/mnt/nas/org"))
+;;   )
 
 (setq ibuffer-saved-filter-groups
           (quote (("default"
