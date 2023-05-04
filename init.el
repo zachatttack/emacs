@@ -78,32 +78,34 @@
   :config
   (general-auto-unbind-keys)
   (general-define-key "C-w u" 'winner-undo :which-key "Undo window change")
+  (general-define-key "M-j" 'next-error)
+  (general-define-key "M-k" 'previous-error)
   (general-create-definer zt/leader-keys
     :keymaps '(normal insert visual emacs)
     :prefix "SPC"
     :global-prefix "C-SPC")) 
  
-  (zt/leader-keys
-    "t"  '(:ignore t :which-key "toggles")
-    "g"  '(:ignore g :which-key "git")
-    "p"  '(:ignore p :which-key "project")
-    "f"  '(:ignore f :which-key "file")
-    "pp"  '(projectile-switch-project :which-key "open project")
-    "gs" '(magit-status :which-key "Open Magit")
-    "gb" '(magit-blame :which-key "Inline git blame")
-    "gh" '(magit-log-buffer-file :which-key "Open git history for open buffer")
-    "gl" '(magit-log :which-key "Open git log")
-    ;; "gs" '((lambda () (interactive)(counsel-projectile-switch-project 13)):which-key "open magit for project")
-    "sr" '(ripgrep-regexp :which-key "ripgrep")
-    "oe" '(eshell :which-key "open eshell")
-    "os" '(shell :which-key "open shell")
-    "od" '(dired-jump :which-key "open dired")
-    "SPC" '(projectile-find-file :which-key "search in project")
-    "bb" '(ibuffer :which-key "buffers")
-    "bm" '(bookmark-jump :which-key "jump to bookmark")
-    "bo" '(previous-buffer :which-key "jump to previous buffer")
-    "wl" '(zt-toggle-window-dedication :which-key "Toggle window dedication")
-    )
+(zt/leader-keys
+  "t"  '(:ignore t :which-key "toggles")
+  "g"  '(:ignore g :which-key "git")
+  "p"  '(:ignore p :which-key "project")
+  "f"  '(:ignore f :which-key "file")
+  "pp"  '(projectile-switch-project :which-key "open project")
+  "gs" '(magit-status :which-key "Open Magit")
+  "gb" '(magit-blame :which-key "Inline git blame")
+  "gh" '(magit-log-buffer-file :which-key "Open git history for open buffer")
+  "gl" '(magit-log :which-key "Open git log")
+  ;; "gs" '((lambda () (interactive)(counsel-projectile-switch-project 13)):which-key "open magit for project")
+  "sr" '(ripgrep-regexp :which-key "ripgrep")
+  "oe" '(eshell :which-key "open eshell")
+  "os" '(shell :which-key "open shell")
+  "od" '(dired-jump :which-key "open dired")
+  "SPC" '(projectile-find-file :which-key "search in project")
+  "bb" '(ibuffer :which-key "buffers")
+  "bm" '(bookmark-jump :which-key "jump to bookmark")
+  "bo" '(previous-buffer :which-key "jump to previous buffer")
+  "wl" '(zt-toggle-window-dedication :which-key "Toggle window dedication")
+  )
 
 
 (defun zt/evil-hook ()
@@ -179,7 +181,7 @@
 (use-package magit
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
-(setq magit-git-executable "~/.emacs.d/bin/git")
+;; (setq magit-git-executable "~/.emacs.d/bin/git")
 
 (use-package dired
   :ensure nil
@@ -224,13 +226,6 @@
 (use-package dashboard
   :config
   (dashboard-setup-startup-hook)
-  )
-
-(defun create-tags (dir-name)
-    "Create tags file."
-    (interactive "DDirectory: ")
-    (shell-command
-     (format "%s -f TAGS -e -R %s" path-to-ctags (directory-file-name dir-name)))
   )
 
 ;; (autoload 'turn-on-ctags-auto-update-mode "ctags-update" "turn on 'ctags-auto-update-mode'." t)
@@ -327,6 +322,16 @@
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
               (ggtags-mode 1))))
 
+(advice-add 'ggtags-prev-mark :override
+	    (lambda () (pop-tag-mark)))
+
+(use-package dumb-jump
+  :config
+  (setq dumb-jump-force-searcher 'rg)
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+  (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
+  )
+
 (when (window-system)
   (set-frame-font "Fira Code"))
 (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
@@ -371,8 +376,6 @@
 	  (lambda () (global-idle-highlight-mode))
 	  )
 
-(advice-add 'ggtags-prev-mark :override
-	    (lambda () (pop-tag-mark)))
 ; Default colours are too light (to see colour names do M-x list-colors-display
 ; and to see faces do M-x list-faces-display):
 
