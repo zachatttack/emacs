@@ -684,3 +684,9 @@
   (setq yas-snippet-dir "~/.emacs.d/snippets"))
 
 (use-package yasnippet-snippets)
+
+(use-package beacon
+  :config
+  (beacon-mode 1)
+  )
+
