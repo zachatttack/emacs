@@ -690,3 +690,11 @@
   (beacon-mode 1)
   )
 
+(use-package ace-window
+  :config
+  (advice-add 'evil-window-next :override
+              (lambda ()
+                (interactive)
+                (ace-window 0)
+                ))
+  )
