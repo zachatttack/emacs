@@ -447,6 +447,7 @@
 
 (setq ibuffer-saved-filter-groups
           (quote (("default"
+                   ("shells" (mode . shell-mode))
                    ("dired" (mode . dired-mode))
                    ("emacs" (or
                              (name . "^\\*scratch\\*$")
