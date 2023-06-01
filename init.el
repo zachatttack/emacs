@@ -105,6 +105,10 @@
   "bm" '(bookmark-jump :which-key "jump to bookmark")
   "bo" '(previous-buffer :which-key "jump to previous buffer")
   "wl" '(zt-toggle-window-dedication :which-key "Toggle window dedication")
+  "gt" 'eyebrowse-next-window-config
+  "gT" 'eyebrowse-prev-window-config
+  "gc" 'eyebrowse-close-window-config
+  "g." 'eyebrowse-switch-to-window-config
   )
 
 
@@ -479,29 +483,20 @@
 (use-package nix-mode
   :mode "\\.nix\\'")
 
-
 ;; (use-package olivetti
-;;   :hook ((text-mode         . olivetti-mode)
-;;          (prog-mode         . olivetti-mode)
-;;          (Info-mode         . olivetti-mode)
-;;          (org-mode          . olivetti-mode)
-;;          (nov-mode          . olivetti-mode)
-;;          (markdown-mode     . olivetti-mode)
-;;          (mu4e-view-mode    . olivetti-mode)
-;;          (elfeed-show-mode  . olivetti-mode)
-;;          (mu4e-compose-mode . olivetti-mode))
-;;  :custom
-  ;; (setq olivetti-body-width 200)
-;;   :delight " ⊗") ; Ⓐ ⊛
+;;   :custom
+;;   (olivetti-body-width 130))
+;; (use-package auto-olivetti
+;;   :elpaca (auto-olivetti :host sourcehut :repo "ashton314/auto-olivetti")
+;;   :config
+;;   (auto-olivetti-mode))
 
 (winner-mode)
 
-;; (use-package sticky-shell
-;;   :ensure t ; install
-;;   :custom
-;;   (sticky-shell-global-mode)
-;;   ;; add your customization here
-;;   )
+(use-package sticky-shell
+  :config
+  (sticky-shell-global-mode)
+  )
 
 ;;;;;;Vertico 
 (use-package vertico
@@ -602,6 +597,8 @@
   ;;(add-to-list 'completion-at-point-functions #'cape-line)
 )
 
+(use-package consult)
+
 (use-package kind-icon
   :ensure t
   :after corfu
@@ -690,6 +687,12 @@
   :config
   (beacon-mode 1)
   )
+
+(setq c-set-offset 2)
+(setq-default tab-width 4)
+
+(setq-default indent-tabs-mode nil)
+(setq-default tab-always-indent 'complete)
 
 (use-package ace-window
   :config
