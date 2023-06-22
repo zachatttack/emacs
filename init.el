@@ -706,3 +706,9 @@
                 (ace-window 0)
                 ))
   )
+
+(use-package capf-autosuggest
+  :config
+  (add-hook 'comint-mode-hook #'capf-autosuggest-mode)
+  (add-hook 'eshell-mode-hook #'capf-autosuggest-mode)
+  )
