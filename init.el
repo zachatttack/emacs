@@ -143,7 +143,12 @@
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
 
   (evil-set-initial-state 'messages-buffer-mode 'normal)
-  (evil-set-initial-state 'dashboard-mode 'normal))
+  (evil-set-initial-state 'dashboard-mode 'normal)
+  ;;emacs-mode instead of insert mode
+  (defalias 'evil-insert-state 'evil-emacs-state)
+  (define-key evil-emacs-state-map (kbd "<escape>") 'evil-normal-state)
+  (setq evil-emacs-state-cursor '(bar . 1))
+  )
 
 (use-package evil-goggles
   :ensure t
@@ -528,8 +533,7 @@
 
 ;; Optionally use the `orderless' completion style.
 (use-package orderless
-  :ensure t
-  :init
+  :custom
   ;; Configure a custom style dispatcher (see the Consult wiki)
   ;; (setq orderless-style-dispatchers '(+orderless-dispatch)
   ;;       orderless-component-separator #'orderless-escapable-split-on-space)
