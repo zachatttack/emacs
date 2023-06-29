@@ -111,61 +111,6 @@
   "g." 'eyebrowse-switch-to-window-config
   )
 
-
-(defun zt/evil-hook ()
-  (dolist (mode '(custom-mode
-                  eshell-mode
-                  git-rebase-mode
-                  erc-mode
-                  circe-server-mode
-                  circe-chat-mode
-                  circe-query-mode
-                  sauron-mode
-                  term-mode))
-   (add-to-list 'evil-emacs-state-modes mode)))
-
-(use-package evil
-  :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  (setq evil-want-C-u-scroll t)
-  (setq evil-want-C-i-jump t)
-  (setq evil-undo-system 'undo-fu)
-  (setq evil-want-minibuffer nil)
-  :hook (evil-mode . zt/evil-hook)
-  :config
-  (evil-mode 1)
-  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
-  ;;(define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
-
-  ;; Use visual line motions even outside of visual-line-mode buffers
-  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
-  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-
-  (evil-set-initial-state 'messages-buffer-mode 'normal)
-  (evil-set-initial-state 'dashboard-mode 'normal)
-  ;;emacs-mode instead of insert mode
-  (defalias 'evil-insert-state 'evil-emacs-state)
-  (define-key evil-emacs-state-map (kbd "<escape>") 'evil-normal-state)
-  (setq evil-emacs-state-cursor '(bar . 1))
-  )
-
-(use-package evil-goggles
-  :ensure t
-  :init 
-  (setq evil-goggles-duration 0.100)
-  :config
-  (evil-goggles-mode))
-
-(use-package evil-collection
-  :after evil
-  :custom (evil-collection-setup-minibuffer nil)
-  :config
-  (evil-collection-init))
-
-(use-package evil-nerd-commenter
-  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
-
 (use-package undo-fu)
 
 (use-package projectile
@@ -198,9 +143,6 @@
   :custom ((dired-listing-switches "-agho --group-directories-first"))
   :bind (("C-x C-j" . dired-jump))
   :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "h" 'dired-single-up-directory
-    "l" 'dired-single-buffer)
   (use-package treemacs-icons-dired
     :if (display-graphic-p)
     :config (treemacs-icons-dired-mode))
@@ -211,8 +153,7 @@
 (use-package dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
   :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "H" 'dired-hide-dotfiles-mode))
+  )
 
 (use-package recentf
   :config
@@ -315,8 +256,6 @@
   (setq-default pdf-view-display-size 'fit-page)
   )
 (blink-cursor-mode -1)
-;;(define-key evil-normal-state-map (kbd "C-c C-c") 'evil-normal-state)
-(define-key evil-insert-state-map (kbd "C-c") 'evil-normal-state)
 
 (use-package savehist
   :init
@@ -378,21 +317,15 @@
   (global-idle-highlight-mode)
   )
 
-(add-hook 'evil-visual-state-entry-hook
-	  (lambda () (global-idle-highlight-mode -1))
-	  )
-(add-hook 'evil-visual-state-exit-hook
-	  (lambda () (global-idle-highlight-mode))
-	  )
 
 ; Default colours are too light (to see colour names do M-x list-colors-display
 ; and to see faces do M-x list-faces-display):
 
-(use-package doom-themes
-  :init 
-    ;; :config (load-theme 'doom-one t)
-    ;; (add-hook 'server-after-make-frame-hook (lambda () (load-theme 'doom-one t)))
-    )
+;(use-package doom-themes
+ ; :init 
+  ;  ;; :config (load-theme 'doom-one t)
+   ; ;; (add-hook 'server-after-make-frame-hook (lambda () (load-theme 'doom-one t)))
+    ;)
 
 (use-package spacemacs-theme
   :defer t
@@ -697,15 +630,6 @@
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-always-indent 'complete)
-
-(use-package ace-window
-  :config
-  (advice-add 'evil-window-next :override
-              (lambda ()
-                (interactive)
-                (ace-window 0)
-                ))
-  )
 
 (use-package capf-autosuggest
   :config
