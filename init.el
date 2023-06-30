@@ -316,7 +316,7 @@
 
 (use-package idle-highlight-mode
   :config (setq idle-highlight-idle-time 0.4)
-  (global-idle-highlight-mode)
+  ;; (global-idle-highlight-mode)
   )
 
 
@@ -431,7 +431,7 @@
 ;;   :config
 ;;   (auto-olivetti-mode))
 
-;; (winner-mode)
+(winner-mode)
 
 (use-package sticky-shell
   :config
@@ -724,6 +724,7 @@
   :config
   (meow-setup)
   (meow-global-mode)
+  (setq meow-use-clipboard t)
   )
 
 (use-package god-mode
@@ -731,3 +732,4 @@
   (global-set-key (kbd "<escape>") #'god-local-mode)
   (define-key god-local-mode-map (kbd "i") 'god-local-mode)
   )
+
