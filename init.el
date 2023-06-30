@@ -77,9 +77,11 @@
 (use-package general
   :config
   (general-auto-unbind-keys)
-  (general-define-key "C-w u" 'winner-undo :which-key "Undo window change")
+  ;; (general-define-key "C-w u" 'winner-undo :which-key "Undo window change")
   (general-define-key "M-j" 'next-error)
   (general-define-key "M-k" 'previous-error)
+  (general-define-key "M-n" 'scroll-up)
+  (general-define-key "M-e" 'scroll-down)
   (general-create-definer zt/leader-keys
     :keymaps '(normal insert visual emacs)
     :prefix "SPC"
@@ -429,7 +431,7 @@
 ;;   :config
 ;;   (auto-olivetti-mode))
 
-(winner-mode)
+;; (winner-mode)
 
 (use-package sticky-shell
   :config
@@ -722,4 +724,10 @@
   :config
   (meow-setup)
   (meow-global-mode)
+  )
+
+(use-package god-mode
+  :config
+  (global-set-key (kbd "<escape>") #'god-local-mode)
+  (define-key god-local-mode-map (kbd "i") 'god-local-mode)
   )
