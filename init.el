@@ -43,6 +43,11 @@
 
 (use-package no-littering)
 
+(use-package kaolin-themes
+  :config
+  (load-theme 'kaolin-temple t)
+  (kaolin-treemacs-theme))
+
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
   :custom ((doom-modeline-height 15)))
@@ -331,9 +336,9 @@
 
 (use-package spacemacs-theme
   :defer t
+  ;; (load-theme 'spacemacs-dark t)
   )
 
-(load-theme 'spacemacs-dark t)
 
 (add-to-list 'auto-mode-alist '("\\.dsc" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.inf" . conf-mode))
@@ -601,10 +606,10 @@
         ;; tabs -> » else >
         (tab-mark ?\t [187 ?\t] [62 ?\t])))
 
-(use-package eyebrowse
-  :init
-  (eyebrowse-mode)
-  )
+;; (use-package eyebrowse
+;;   :init
+;;   (eyebrowse-mode)
+;;   )
 
 ;; (use-package undo-tree
 ;;   :ensure t
@@ -733,3 +738,9 @@
   (define-key god-local-mode-map (kbd "i") 'god-local-mode)
   )
 
+(setq tab-bar-close-button-show nil
+      tab-bar-new-button-show nil)
+
+(use-package highlight-numbers
+  (highlight-numbers-mode)
+  )
