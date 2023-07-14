@@ -289,6 +289,7 @@
 
 (when (window-system)
   (set-frame-font "Fira Code"))
+(add-to-list 'default-frame-alist '(font . "Fira Code"))
 (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
                (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
                (36 . ".\\(?:>\\)")
