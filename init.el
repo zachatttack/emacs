@@ -44,9 +44,9 @@
 (use-package no-littering)
 
 (use-package kaolin-themes
-  :config
+ :config
   (load-theme 'kaolin-temple t)
-  (kaolin-treemacs-theme))
+ (kaolin-treemacs-theme))
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
@@ -355,7 +355,6 @@
 
 
 (setq tramp-default-method "sshx")
-
 ;; Dired stuff
 
 ;; Open dired folders in same buffer
@@ -649,7 +648,10 @@
    ;; Use e to move up, n to move down.
    ;; Since special modes usually use n to move down, we only overwrite e here.
    '("e" . meow-prev)
-   '("<escape>" . ignore))
+   '("N" . end-of-buffer)
+   '("E" . beginning-of-buffer)
+   '("<escape>" . ignore)
+   )
   (meow-leader-define-key
    '("?" . meow-cheatsheet)
    ;; To execute the originally e in MOTION state, use SPC e.
@@ -741,6 +743,18 @@
 (setq tab-bar-close-button-show nil
       tab-bar-new-button-show nil)
 
-(use-package highlight-numbers
-  (highlight-numbers-mode)
+(use-package virtualenvwrapper
+  :ensure t
+  :config
+  (venv-initialize-interactive-shells)
+  (venv-initialize-eshell)
   )
+
+;; (add-to-list 'tramp-connection-properties
+;;              (list (regexp-quote "/sshx:zthomas@zthomas2:")
+;;                    "remote-shell" "/usr/bin/zsh"))
+
+;; (use-package forge
+;;   :after magit)
+
+(use-package emacsql-sqlite3)
