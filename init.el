@@ -735,11 +735,13 @@
   (setq meow-use-clipboard t)
   )
 
-(use-package god-mode
-  :config
-  (global-set-key (kbd "<escape>") #'god-local-mode)
-  (define-key god-local-mode-map (kbd "i") 'god-local-mode)
-  )
+(add-to-list 'meow-mode-state-list '(elfeed-show-mode . motion))
+
+;; (use-package god-mode
+;;   :config
+;;   (global-set-key (kbd "<escape>") #'god-local-mode)
+;;   (define-key god-local-mode-map (kbd "i") 'god-local-mode)
+;;   )
 
 (setq tab-bar-close-button-show nil
       tab-bar-new-button-show nil)
@@ -758,4 +760,17 @@
 ;; (use-package forge
 ;;   :after magit)
 
-(use-package emacsql-sqlite3)
+(use-package elfeed
+  :config
+  (setq elfeed-db-directory (expand-file-name "elfeed" user-emacs-directory)
+        elfeed-show-entry-switch 'display-buffer)
+  (define-key elfeed-show-mode-map (kbd "n") 'meow-next)
+  :bind
+  ("C-x w" . elfeed ))
+
+(use-package elfeed-org
+  :config
+  (elfeed-org)
+  (setq rmh-elfeed-org-files (list (expand-file-name "elfeed.org" user-emacs-directory)))
+  )
+
