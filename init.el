@@ -643,6 +643,7 @@
   (add-hook 'comint-mode-hook #'capf-autosuggest-mode)
   (add-hook 'eshell-mode-hook #'capf-autosuggest-mode)
   )
+
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-colemak-dh)
   (meow-motion-overwrite-define-key
@@ -731,7 +732,7 @@
 (use-package meow
   :config
   (meow-setup)
-  (meow-global-mode)
+  ;; (meow-global-mode)                    ;
   (setq meow-use-clipboard t)
   )
 
