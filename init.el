@@ -835,3 +835,7 @@
   (setq rmh-elfeed-org-files (list (expand-file-name "elfeed.org" user-emacs-directory)))
   )
 
+(use-package avy
+  :ensure t
+  :bind ("M-s" . avy-goto-char-timer)
+  )
