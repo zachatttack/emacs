@@ -289,8 +289,6 @@
   :init (setq org-roam-v2-ack t) ;; Acknowledge V2 upgrade
   :custom
   (org-roam-directory (file-truename org-directory))
-  :config
-  (org-roam-setup)
   :bind (("C-c n f" . org-roam-node-find)
          
 	 ("C-c n r" . org-roam-node-random)		    
@@ -300,7 +298,14 @@
 		("C-c n t" . org-roam-tag-add)
 		("C-c n a" . org-roam-alias-add)
 		("C-c n l" . org-roam-buffer-toggle))))
+  :bind-keymap
+  ("C-c n d" . org-roam-dailies-map)
+  :config
+  (require 'org-roam-dailies)
+  (org-roam-setup)
   )
+
+(setq org-roam-dailies-directory "worklog/")
 
 (use-package org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
