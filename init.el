@@ -62,7 +62,7 @@
   (setq evil-want-keybinding nil)
   (setq evil-want-C-u-scroll t)
   (setq evil-want-C-i-jump t)
-  (setq evil-undo-system 'undo-fu)
+  (setq evil-undo-system 'undo-tree)
   (setq evil-want-minibuffer nil)
   :hook (evil-mode . zt/evil-hook)
   :config
@@ -292,13 +292,15 @@
   :config
   (org-roam-setup)
   :bind (("C-c n f" . org-roam-node-find)
+         
 	 ("C-c n r" . org-roam-node-random)		    
 	 (:map org-mode-map
 	       (("C-c n i" . org-roam-node-insert)
 		("C-c n o" . org-id-get-create)
 		("C-c n t" . org-roam-tag-add)
 		("C-c n a" . org-roam-alias-add)
-		("C-c n l" . org-roam-buffer-toggle)))))
+		("C-c n l" . org-roam-buffer-toggle))))
+  )
 
 (use-package org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
@@ -666,10 +668,10 @@
         ;; tabs -> » else >
         (tab-mark ?\t [187 ?\t] [62 ?\t])))
 
-;; (use-package undo-tree
-;;   :ensure t
-;;   :init
-;;   (global-undo-tree-mode))
+(use-package undo-tree
+  :ensure t
+  :init
+  (global-undo-tree-mode))
 
 (use-package yasnippet
   :ensure t
