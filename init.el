@@ -734,3 +734,7 @@
   :ensure t
   :bind ("M-s" . avy-goto-char-timer)
   )
+
+(when (eq system-type 'windows-nt)
+  (setq consult-find-args "find . -not ( -wholename `*/.*` -prune )")
+  )
