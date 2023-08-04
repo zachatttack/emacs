@@ -98,11 +98,16 @@
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
-(use-package kaolin-themes
- :config
-  (load-theme 'kaolin-temple t)
- (kaolin-treemacs-theme))
+;; (use-package kaolin-themes
+;;  :config
+;;   (load-theme 'kaolin-temple t)
+;;  (kaolin-treemacs-theme))
  
+(use-package catppuccin-theme
+  :config
+  (setq catppuccin-flavor 'frappe)
+  (catppuccin-reload)
+  )
  
 
 (use-package doom-modeline
