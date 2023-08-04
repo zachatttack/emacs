@@ -213,6 +213,9 @@
   (use-package treemacs-icons-dired
     :if (display-graphic-p)
     :config (treemacs-icons-dired-mode))
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-single-up-directory
+    "l" 'dired-single-buffer)
   )
 
 (use-package dired-single)
@@ -220,7 +223,8 @@
 (use-package dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
   :config
-  )
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "H" 'dired-hide-dotfiles-mode))
 
 (use-package recentf
   :config
