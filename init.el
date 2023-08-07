@@ -1,3 +1,4 @@
+(setq native-comp-speed 3)
 (setq inhibit-startup-message t)
 (setq visible-bell t)
 
