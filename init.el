@@ -419,7 +419,7 @@
 
 (use-package idle-highlight-mode
   :config (setq idle-highlight-idle-time 0.4)
-  ;; (global-idle-highlight-mode)
+  (global-idle-highlight-mode)
   )
 
 
