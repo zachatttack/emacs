@@ -570,14 +570,13 @@
 
 ;; Optionally use the `orderless' completion style.
 (use-package orderless
-  :custom
+  :config
   ;; Configure a custom style dispatcher (see the Consult wiki)
   ;; (setq orderless-style-dispatchers '(+orderless-dispatch)
   ;;       orderless-component-separator #'orderless-escapable-split-on-space)
-  (setq completion-styles '(orderless basic)
+  (setq completion-styles '(orderless orderless-flex basic)
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
-
 
 (use-package corfu
   ;; Optional customizations
