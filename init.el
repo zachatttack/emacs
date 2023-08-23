@@ -774,5 +774,14 @@
 (when (eq system-type 'windows-nt)
   (setq consult-find-args "find . -not ( -wholename `*/.*` -prune )")
   )
+
+;; (use-package org-gcal
+;;   :init
+;;   (setq org-gcal-client-id ""
+;;         org-gcal-client-secret ""
+;;         org-gcal-fetch-file-alist '(("zach.thomas1.zt@gmail.com" .  "~/gmail.org")
+;;                                     ))
+;;   )
+
 (use-package tex
   :ensure auctex)
