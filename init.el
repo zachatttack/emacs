@@ -775,3 +775,5 @@
 (when (eq system-type 'windows-nt)
   (setq consult-find-args "find . -not ( -wholename `*/.*` -prune )")
   )
+(use-package tex
+  :ensure auctex)
