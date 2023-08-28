@@ -825,3 +825,17 @@
 (use-package focus
   )
 
+(defun my-window-split-and-focus ()
+  "Split the window and focus on the new window."
+  (interactive)
+  (split-window-below)
+  (select-window (next-window)))
+
+(defun my-window-vsplit-and-focus ()
+  "Split the vertically window and focus on the new window."
+  (interactive)
+  (split-window-right)
+  (select-window (next-window)))
+
+(define-key evil-normal-state-map (kbd "C-w C-s") 'my-window-split-and-focus)
+(define-key evil-normal-state-map (kbd "C-w C-v") 'my-window-vsplit-and-focus)
