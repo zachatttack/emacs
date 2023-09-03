@@ -839,3 +839,11 @@
 
 (define-key evil-normal-state-map (kbd "C-w C-s") 'my-window-split-and-focus)
 (define-key evil-normal-state-map (kbd "C-w C-v") 'my-window-vsplit-and-focus)
+
+(windmove-default-keybindings 'shift)
+(setq framemove-hook-into-windmove t)
+(define-key evil-normal-state-map (kbd "H") 'windmove-left)
+(define-key evil-normal-state-map (kbd "L") 'windmove-right)
+(define-key evil-normal-state-map (kbd "J") 'windmove-down)
+(define-key evil-normal-state-map (kbd "K") 'windmove-up)
+
