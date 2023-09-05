@@ -840,7 +840,6 @@
 (define-key evil-normal-state-map (kbd "C-w C-s") 'my-window-split-and-focus)
 (define-key evil-normal-state-map (kbd "C-w C-v") 'my-window-vsplit-and-focus)
 
-
 (defvar ediff-do-hexl-diff nil
   "variable used to store trigger for doing diff in hexl-mode")
 (defadvice ediff-files-internal (around ediff-files-internal-for-binary-files activate)
@@ -882,3 +881,11 @@ isn't there and triggers an error"
                                  (line-end-position)))
                 (y-or-n-p "The binary files differ, look at the differences in hexl-mode? ")))
      (error (error-message-string err)))))
+
+(windmove-default-keybindings 'shift)
+(setq framemove-hook-into-windmove t)
+(define-key evil-normal-state-map (kbd "H") 'windmove-left)
+(define-key evil-normal-state-map (kbd "L") 'windmove-right)
+(define-key evil-normal-state-map (kbd "J") 'windmove-down)
+(define-key evil-normal-state-map (kbd "K") 'windmove-up)
+
