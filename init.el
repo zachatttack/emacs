@@ -78,7 +78,7 @@
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal)
   ;;emacs-mode instead of insert mode
-  (defalias 'evil-insert-state 'evil-emacs-state)
+  ;; (defalias 'evil-insert-state 'evil-emacs-state)
   (define-key evil-emacs-state-map (kbd "<escape>") 'evil-normal-state)
   (setq evil-emacs-state-cursor '(bar . 1))
   )
