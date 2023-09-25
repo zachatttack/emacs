@@ -889,3 +889,7 @@ isn't there and triggers an error"
 (define-key evil-normal-state-map (kbd "J") 'windmove-down)
 (define-key evil-normal-state-map (kbd "K") 'windmove-up)
 
+(use-package git-link
+  :config
+  (global-set-key (kbd "C-c g l") 'git-link)
+  )
