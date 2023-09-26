@@ -173,6 +173,7 @@
   "oe" '(eshell :which-key "open eshell")
   "os" '(shell :which-key "open shell")
   "od" '(dired-jump :which-key "open dired")
+  "oi" 'my-open-init-file
   "SPC" '(projectile-find-file :which-key "search in project")
   "bb" '(ibuffer :which-key "buffers")
   "bm" '(bookmark-jump :which-key "jump to bookmark")
@@ -893,3 +894,8 @@ isn't there and triggers an error"
   :config
   (global-set-key (kbd "C-c g l") 'git-link)
   )
+
+(defun my-open-init-file ()
+  "Open the init file."
+  (interactive)
+  (find-file user-init-file))
