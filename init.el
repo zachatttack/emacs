@@ -182,6 +182,7 @@
   "gT" 'eyebrowse-prev-window-config
   "gc" 'eyebrowse-close-window-config
   "g." 'eyebrowse-switch-to-window-config
+  "." 'avy-goto-char-timer
   )
 
 (use-package undo-fu)
