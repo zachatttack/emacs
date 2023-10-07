@@ -16,6 +16,7 @@
 (setq custom-file "~/.emacs.d/custom-file.el")
 (load-file custom-file)
 
+(setq comp-async-report-warnings-errors nil)
 
 (set-face-attribute 'default nil :font "Fira Code" :height 140)
 
