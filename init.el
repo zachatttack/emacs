@@ -44,6 +44,7 @@
 (setq use-package-always-ensure t)
 
 (use-package no-littering)
+(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
 
 
 (defun zt/evil-hook ()
