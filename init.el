@@ -905,3 +905,5 @@ isn't there and triggers an error"
   "Open the init file."
   (interactive)
   (find-file user-init-file))
+
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
