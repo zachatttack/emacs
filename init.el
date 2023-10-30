@@ -45,7 +45,7 @@
 
 (use-package no-littering)
 (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
-
+(setq make-backup-files nil)
 
 (defun zt/evil-hook ()
   (dolist (mode '(custom-mode
@@ -532,13 +532,10 @@
 (use-package nix-mode
   :mode "\\.nix\\'")
 
-;; (use-package olivetti
-;;   :custom
-;;   (olivetti-body-width 130))
-;; (use-package auto-olivetti
-;;   :elpaca (auto-olivetti :host sourcehut :repo "ashton314/auto-olivetti")
-;;   :config
-;;   (auto-olivetti-mode))
+(use-package perfect-margin
+  :config
+  (setq perfect-margin-visible-width 128)
+  )
 
 (winner-mode)
 
@@ -547,7 +544,7 @@
   (sticky-shell-global-mode)
   )
 
-;;;;;;Vertico 
+               ;;;;;;Vertico 
 (use-package vertico
   :init
   (vertico-mode)
