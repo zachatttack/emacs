@@ -162,26 +162,19 @@
     :global-prefix "C-SPC")) 
  
 (zt/leader-keys
-  "t"  '(:ignore t :which-key "toggles")
   "g"  '(:ignore g :which-key "git")
-  "p"  '(:ignore p :which-key "project")
-  "f"  '(:ignore f :which-key "file")
-  "pp"  '(projectile-switch-project :which-key "open project")
+  ;; "p"  '(:ignore p :which-key "project")
+  "p"  '(projectile-switch-project :which-key "open project")
   "gs" '(magit-status :which-key "Open Magit")
   "gb" '(magit-blame :which-key "Inline git blame")
   "gh" '(magit-log-buffer-file :which-key "Open git history for open buffer")
   "gl" '(magit-log :which-key "Open git log")
   ;; "gs" '((lambda () (interactive)(counsel-projectile-switch-project 13)):which-key "open magit for project")
-  "sr" '(ripgrep-regexp :which-key "ripgrep")
   "oe" '(eshell :which-key "open eshell")
   "os" '(shell :which-key "open shell")
   "od" '(dired-jump :which-key "open dired")
   "oi" 'my-open-init-file
   "SPC" '(projectile-find-file :which-key "search in project")
-  "bb" '(ibuffer :which-key "buffers")
-  "bm" '(bookmark-jump :which-key "jump to bookmark")
-  "bo" '(previous-buffer :which-key "jump to previous buffer")
-  "wl" '(zt-toggle-window-dedication :which-key "Toggle window dedication")
   "gt" 'eyebrowse-next-window-config
   "gT" 'eyebrowse-prev-window-config
   "gc" 'eyebrowse-close-window-config
