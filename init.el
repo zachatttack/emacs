@@ -913,3 +913,9 @@ isn't there and triggers an error"
   (find-file user-init-file))
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+(use-package rg
+  :config
+  (rg-enable-default-bindings)
+)
+
