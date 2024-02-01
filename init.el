@@ -10,6 +10,10 @@
 (menu-bar-mode -1)            ; Disable the menu bar
 (global-auto-revert-mode 1)
 
+(use-package auto-compile
+  :config (auto-compile-on-load-mode))
+(setq load-prefer-newer t)
+
 ;; Revert Dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
 (setq create-lockfiles nil)
