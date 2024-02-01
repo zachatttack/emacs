@@ -29,8 +29,6 @@
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-;;Execute extend command add binding 
-(global-set-key (kbd "C-;") 'execute-extended-command)
 
 ;; Initialize package sources
 (require 'package)
