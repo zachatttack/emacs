@@ -1,6 +1,7 @@
 (setq native-comp-speed 3)
 (setq inhibit-startup-message t)
 (setq visible-bell t)
+(setq native-comp-async-report-warnings-errors nil)
 
 (scroll-bar-mode -1)        ; Disable visible scrollbar
 (tool-bar-mode -1)          ; Disable the toolbar
@@ -22,6 +23,8 @@
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+;;Execute extend command add binding 
+(global-set-key (kbd "C-;") 'execute-extended-command)
 
 ;; Initialize package sources
 (require 'package)
@@ -919,3 +922,14 @@ isn't there and triggers an error"
   (rg-enable-default-bindings)
 )
 
+;; (use-package forge
+;;   :after magit)
+
+;; (setq package-check-signature nil);;https://emacs.stackexchange.com/questions/233/how-to-proceed-on-package-el-signature-check-failure
+
+(require 'ob-eshell)
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)
+   (python . t)
+   )
