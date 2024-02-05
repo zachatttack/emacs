@@ -25,7 +25,7 @@
 
 (setq comp-async-report-warnings-errors nil)
 
-(set-face-attribute 'default nil :font "Fira Code" :height 140)
+(set-face-attribute 'default nil :font "Iosevka NF" :height 140)
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -409,8 +409,9 @@
   )
 
 (when (window-system)
-  (set-frame-font "Fira Code"))
-(add-to-list 'default-frame-alist '(font . "Fira Code"))
+  (set-frame-font "Iosevka NF"))
+(add-to-list 'default-frame-alist '(font . "Iosevka NF"))
+
 (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
                (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
                (36 . ".\\(?:>\\)")
