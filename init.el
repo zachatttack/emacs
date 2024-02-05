@@ -243,9 +243,9 @@
   (evil-collection-define-key 'normal 'dired-mode-map
     "h" 'dired-single-up-directory
     "l" 'dired-single-buffer)
+  (setq dired-kill-when-opening-new-dired-buffer t)
   )
 
-(use-package dired-single)
 
 (use-package dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
@@ -857,7 +857,7 @@
 
 (use-package dimmer
   :init
-  (dimmer-mode t))
+  (dimmer-mode -1))
 
 (use-package focus
   )
@@ -954,5 +954,6 @@ isn't there and triggers an error"
  '((python . t)
    (python . t)
    )
+
 
 
