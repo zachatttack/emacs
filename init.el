@@ -114,10 +114,26 @@
 ;;   (load-theme 'kaolin-temple t)
 ;;  (kaolin-treemacs-theme))
  
-(use-package catppuccin-theme
+;; (use-package catppuccin-theme
+;;   :config
+;;   (setq catppuccin-flavor 'frappe)
+;;   (catppuccin-reload)
+;   )
+
+(use-package spaceway-theme
+  :ensure nil
+  :load-path "lisp/spaceway/"
   :config
-  (setq catppuccin-flavor 'frappe)
-  (catppuccin-reload)
+  (global-hl-line-mode t)
+  (set-frame-parameter nil 'cursor-color "#dc322f")
+  (add-to-list 'default-frame-alist '(cursor-color . "#dc322f"))
+
+  ;; (when my/my-system
+  ;;   (set-frame-parameter nil 'alpha-background 85)
+  ;;   (add-to-list 'default-frame-alist '(alpha-background . 85)))
+
+  (load-theme 'spaceway t)
+  (setenv "SCHEME" "dark")
   )
  
 
@@ -937,3 +953,5 @@ isn't there and triggers an error"
  '((python . t)
    (python . t)
    )
+
+
