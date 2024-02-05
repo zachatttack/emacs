@@ -949,11 +949,18 @@ isn't there and triggers an error"
 ;; (setq package-check-signature nil);;https://emacs.stackexchange.com/questions/233/how-to-proceed-on-package-el-signature-check-failure
 
 (require 'ob-eshell)
+(require 'ob-octave)
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)
-   (python . t)
+   (octave . t)
    )
 
+(require 'ox-latex)
+(add-to-list 'org-latex-packages-alist '("" "minted"))
+(setq org-latex-listings 'minted)
 
-
+(setq org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
