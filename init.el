@@ -550,11 +550,11 @@
 (use-package nix-mode
   :mode "\\.nix\\'")
 
-(use-package perfect-margin
-  :config
-  (setq perfect-margin-visible-width 128)
-  (perfect-margin-mode 1)
-  )
+;; (use-package perfect-margin
+;;   :config
+;;   (setq perfect-margin-visible-width 128)
+;;   (perfect-margin-mode 1)
+;;   )
 
 (winner-mode)
 
