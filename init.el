@@ -976,3 +976,9 @@ isn't there and triggers an error"
       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+(use-package openwith
+  :config
+  (openwith-mode t)
+  (setq openwith-associations '(("\\.pdf\\'" "C:/Program Files/Google/Chrome/Application/chrome.exe" (file))))
+  )
