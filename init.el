@@ -1009,23 +1009,23 @@ Uses `current-date-time-format' for the formatting the date/time."
 (global-set-key "\C-c\C-t" 'insert-current-time)
 
 
-(use-package god-mode
-  :init
-  (defun my-god-mode-update-cursor-type ()
-    (setq cursor-type (if (or god-local-mode buffer-read-only) 'box 'bar)))  
-  :config
-  (global-set-key (kbd "<escape>") #'god-local-mode)
-  (define-key god-local-mode-map (kbd "i") #'god-local-mode)
-  (global-set-key (kbd "C-x C-1") #'delete-other-windows)
-  (global-set-key (kbd "C-x C-2") #'split-window-below)
-  (global-set-key (kbd "C-x C-3") #'split-window-right)
-  (define-key god-local-mode-map (kbd ".") #'repeat)
-  (global-set-key (kbd "C-x C-0") #'delete-window)
-  (add-hook 'post-command-hook #'my-god-mode-update-cursor-type)
-  (setq god-exempt-major-modes nil)
-  (setq god-exempt-predicates nil)
-  (add-to-list 'god-exempt-major-modes 'magit-mode)
-  )
+;; (use-package god-mode
+;;   :init
+;;   (defun my-god-mode-update-cursor-type ()
+;;     (setq cursor-type (if (or god-local-mode buffer-read-only) 'box 'bar)))  
+;;   :config
+;;   (global-set-key (kbd "<escape>") #'god-local-mode)
+;;   (define-key god-local-mode-map (kbd "i") #'god-local-mode)
+;;   (global-set-key (kbd "C-x C-1") #'delete-other-windows)
+;;   (global-set-key (kbd "C-x C-2") #'split-window-below)
+;;   (global-set-key (kbd "C-x C-3") #'split-window-right)
+;;   (define-key god-local-mode-map (kbd ".") #'repeat)
+;;   (global-set-key (kbd "C-x C-0") #'delete-window)
+;;   (add-hook 'post-command-hook #'my-god-mode-update-cursor-type)
+;;   (setq god-exempt-major-modes nil)
+;;   (setq god-exempt-predicates nil)
+;;   (add-to-list 'god-exempt-major-modes 'magit-mode)
+;;   )
 
 
 (defun zt/setup-appearance (frame)
@@ -1044,3 +1044,9 @@ Uses `current-date-time-format' for the formatting the date/time."
 ;;   :config
 ;;   (global-set-key (kbd "C-c s") 'sedition-dwim)
 ;;   )
+
+
+(load (locate-user-emacs-file
+       "lisp/zt-meow-keybinds.el"))
+(require 'meow)
+(meow-setup)
