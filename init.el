@@ -1037,3 +1037,10 @@ Uses `current-date-time-format' for the formatting the date/time."
 (if (daemonp)
     (add-hook 'after-make-frame-functions 'zt/setup-appearance)
   (zt/setup-appearance (car (frame-list)))
+  )
+
+;; https://github.com/oblivia-simplex/emacs-sedition
+;; (use-package sedition
+;;   :config
+;;   (global-set-key (kbd "C-c s") 'sedition-dwim)
+;;   )
