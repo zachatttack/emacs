@@ -1006,13 +1006,13 @@ Uses `current-date-time-format' for the formatting the date/time."
        )
 
 (global-set-key "\C-c\C-d" 'insert-current-date)
-(global-et-key "\C-c\C-t" 'insert-current-time)
+(global-set-key "\C-c\C-t" 'insert-current-time)
 
-
-(defun my-god-mode-update-cursor-type ()
-  (setq cursor-type (if (or god-local-mode buffer-read-only) 'box 'bar)))
 
 (use-package god-mode
+  :init
+  (defun my-god-mode-update-cursor-type ()
+    (setq cursor-type (if (or god-local-mode buffer-read-only) 'box 'bar)))  
   :config
   (global-set-key (kbd "<escape>") #'god-local-mode)
   (define-key god-local-mode-map (kbd "i") #'god-local-mode)
@@ -1024,4 +1024,5 @@ Uses `current-date-time-format' for the formatting the date/time."
   (setq god-exempt-major-modes nil)
   (setq god-exempt-predicates nil)
   (add-to-list 'god-exempt-major-modes 'magit-mode)
-  )
+  (god-mode)
+)
