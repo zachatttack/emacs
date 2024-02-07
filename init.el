@@ -948,7 +948,7 @@ isn't there and triggers an error"
   (interactive)
   (find-file user-init-file))
 
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (use-package rg
   :config
@@ -1025,7 +1025,6 @@ Uses `current-date-time-format' for the formatting the date/time."
   (setq god-exempt-major-modes nil)
   (setq god-exempt-predicates nil)
   (add-to-list 'god-exempt-major-modes 'magit-mode)
-  (god-mode)
   )
 
 
@@ -1037,4 +1036,4 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (if (daemonp)
     (add-hook 'after-make-frame-functions 'zt/setup-appearance)
-  (zt/setup-appearance (car (frame-list))))
+  (zt/setup-appearance (car (frame-list)))
