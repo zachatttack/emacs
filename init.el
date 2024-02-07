@@ -1026,4 +1026,15 @@ Uses `current-date-time-format' for the formatting the date/time."
   (setq god-exempt-predicates nil)
   (add-to-list 'god-exempt-major-modes 'magit-mode)
   (god-mode)
-)
+  )
+
+
+(defun zt/setup-appearance (frame)
+  (with-selected-frame frame
+    (remove-hook 'after-make-frame-functions 'zt/setup-appearance)
+    (load-theme 'spaceway t)
+    ))
+
+(if (daemonp)
+    (add-hook 'after-make-frame-functions 'zt/setup-appearance)
+  (zt/setup-appearance (car (frame-list))))
