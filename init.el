@@ -699,6 +699,8 @@
   :init
   ;; TAB cycle if there are only few candidates
   (setq completion-cycle-threshold 3)
+  (setq cursor-type 'bar)
+  (global-set-key (kbd "M-o") 'other-window)
 
   ;; Emacs 28: Hide commands in M-x which do not apply to the current mode.
   ;; Corfu commands are hidden, since they are not supposed to be used via M-x.
@@ -964,7 +966,7 @@ isn't there and triggers an error"
  'org-babel-load-languages
  '((python . t)
    (octave . t)
-   )
+   ))
 
 (require 'ox-latex)
 (add-to-list 'org-latex-packages-alist '("" "minted"))
@@ -1005,3 +1007,21 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (global-set-key "\C-c\C-d" 'insert-current-date)
 (global-et-key "\C-c\C-t" 'insert-current-time)
+
+
+(defun my-god-mode-update-cursor-type ()
+  (setq cursor-type (if (or god-local-mode buffer-read-only) 'box 'bar)))
+
+(use-package god-mode
+  :config
+  (global-set-key (kbd "<escape>") #'god-local-mode)
+  (define-key god-local-mode-map (kbd "i") #'god-local-mode)
+  (global-set-key (kbd "C-x C-1") #'delete-other-windows)
+  (global-set-key (kbd "C-x C-2") #'split-window-below)
+  (global-set-key (kbd "C-x C-3") #'split-window-right)
+  (global-set-key (kbd "C-x C-0") #'delete-window)
+  (add-hook 'post-command-hook #'my-god-mode-update-cursor-type)
+  (setq god-exempt-major-modes nil)
+  (setq god-exempt-predicates nil)
+  (add-to-list 'god-exempt-major-modes 'magit-mode)
+  )
