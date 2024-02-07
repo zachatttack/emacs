@@ -1019,6 +1019,7 @@ Uses `current-date-time-format' for the formatting the date/time."
   (global-set-key (kbd "C-x C-1") #'delete-other-windows)
   (global-set-key (kbd "C-x C-2") #'split-window-below)
   (global-set-key (kbd "C-x C-3") #'split-window-right)
+  (define-key god-local-mode-map (kbd ".") #'repeat)
   (global-set-key (kbd "C-x C-0") #'delete-window)
   (add-hook 'post-command-hook #'my-god-mode-update-cursor-type)
   (setq god-exempt-major-modes nil)
