@@ -75,6 +75,7 @@
   (setq evil-want-C-i-jump t)
   (setq evil-undo-system 'undo-tree)
   (setq evil-want-minibuffer nil)
+  (setq evil-want-fine-undo t)
   :hook (evil-mode . zt/evil-hook)
   :config
   (evil-mode 1)
@@ -87,10 +88,12 @@
 
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal)
+  (evil-set-initial-state 'git-commit-mode 'insert) ;; enter insert mode to edit a commit message
   ;;emacs-mode instead of insert mode
   ;; (defalias 'evil-insert-state 'evil-emacs-state)
   (define-key evil-emacs-state-map (kbd "<escape>") 'evil-normal-state)
   (setq evil-emacs-state-cursor '(bar . 1))
+
   )
 
 (use-package evil-goggles
