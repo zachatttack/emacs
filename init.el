@@ -25,7 +25,7 @@
 
 (setq comp-async-report-warnings-errors nil)
 
-(set-face-attribute 'default nil :font "Iosevka NF" :height 140)
+(set-face-attribute 'default nil :font "Iosevka NF" :height 160)
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -76,6 +76,9 @@
   (setq evil-undo-system 'undo-tree)
   (setq evil-want-minibuffer nil)
   (setq evil-want-fine-undo t)
+  (setq evil-split-window-below t)
+  (setq evil-respect-visual-line-mode t)
+  (setq evil-vsplit-window-right t)
   :hook (evil-mode . zt/evil-hook)
   :config
   (evil-mode 1)
@@ -94,6 +97,14 @@
   (define-key evil-emacs-state-map (kbd "<escape>") 'evil-normal-state)
   (setq evil-emacs-state-cursor '(bar . 1))
   )
+
+(use-package evil-org
+  :ensure t
+  :after org
+  :hook (org-mode . (lambda () evil-org-mode))
+  :config
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
 
 (use-package evil-goggles
   :ensure t
@@ -151,10 +162,6 @@
 		pdf-view-mode-hook
 		eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-
-
-
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode)
@@ -796,13 +803,6 @@
   (venv-initialize-eshell)
   )
 
-;; (add-to-list 'tramp-connection-properties
-;;              (list (regexp-quote "/sshx:zthomas@zthomas2:")
-;;                    "remote-shell" "/usr/bin/zsh"))
-
-;; (use-package forge
-;;   :after magit)
-
 (use-package elfeed
   :config
   (setq elfeed-db-directory (expand-file-name "elfeed" user-emacs-directory)
@@ -826,42 +826,8 @@
   (setq consult-find-args "find . -not ( -wholename `*/.*` -prune )")
   )
 
-;; (use-package org-gcal
-;;   :init
-;;   (setq org-gcal-client-id ""
-;;         org-gcal-client-secret ""
-;;         org-gcal-fetch-file-alist '(("zach.thomas1.zt@gmail.com" .  "~/gmail.org")
-;;                                     ))
-;;   )
-
 (use-package tex
   :ensure auctex)
-
-;; (use-package embark
-;;   :ensure t
-
-;;   :bind
-;;   (("C-." . embark-act)         ;; pick some comfortable binding
-;;    ("C-;" . embark-dwim)        ;; good alternative: M-.
-;;    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-
-;;   :init
-
-;;   ;; Optionally replace the key help with a completing-read interface
-;;   (setq prefix-help-command #'embark-prefix-help-command)
-
-;;   ;; Show the Embark target at point via Eldoc.  You may adjust the Eldoc
-;;   ;; strategy, if you want to see the documentation from multiple providers.
-;;   (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
-;;   ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
-
-;;   :config
-
-;;   ;; Hide the mode line of the Embark live/completions buffers
-;;   (add-to-list 'display-buffer-alist
-;;                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-;;                  nil
-;;                  (window-parameters (mode-line-format . none)))))
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
@@ -875,21 +841,6 @@
 
 (use-package focus
   )
-
-(defun my-window-split-and-focus ()
-  "Split the window and focus on the new window."
-  (interactive)
-  (split-window-below)
-  (select-window (next-window)))
-
-(defun my-window-vsplit-and-focus ()
-  "Split the vertically window and focus on the new window."
-  (interactive)
-  (split-window-right)
-  (select-window (next-window)))
-
-(define-key evil-normal-state-map (kbd "C-w C-s") 'my-window-split-and-focus)
-(define-key evil-normal-state-map (kbd "C-w C-v") 'my-window-vsplit-and-focus)
 
 (defvar ediff-do-hexl-diff nil
   "variable used to store trigger for doing diff in hexl-mode")
@@ -957,11 +908,6 @@ isn't there and triggers an error"
   (rg-enable-default-bindings)
 )
 
-;; (use-package forge
-;;   :after magit)
-
-;; (setq package-check-signature nil);;https://emacs.stackexchange.com/questions/233/how-to-proceed-on-package-el-signature-check-failure
-
 (require 'ob-eshell)
 (require 'ob-octave)
 (org-babel-do-load-languages
@@ -979,12 +925,6 @@ isn't there and triggers an error"
       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-
-;; (use-package openwith
-;;   :config
-;;   (openwith-mode t)
-;;   (setq openwith-associations '(("\\.pdf\\'" "C:/Program Files/Google/Chrome/Application/chrome.exe" (file))))
-;;   )
 
 (defvar current-date-format "%Y-%m-%d"
   "Format of date to insert with `insert-current-date-time' func
@@ -1011,26 +951,6 @@ Uses `current-date-time-format' for the formatting the date/time."
 (global-set-key "\C-c\C-d" 'insert-current-date)
 (global-set-key "\C-c\C-t" 'insert-current-time)
 
-
-;; (use-package god-mode
-;;   :init
-;;   (defun my-god-mode-update-cursor-type ()
-;;     (setq cursor-type (if (or god-local-mode buffer-read-only) 'box 'bar)))  
-;;   :config
-;;   (global-set-key (kbd "<escape>") #'god-local-mode)
-;;   (define-key god-local-mode-map (kbd "i") #'god-local-mode)
-;;   (global-set-key (kbd "C-x C-1") #'delete-other-windows)
-;;   (global-set-key (kbd "C-x C-2") #'split-window-below)
-;;   (global-set-key (kbd "C-x C-3") #'split-window-right)
-;;   (define-key god-local-mode-map (kbd ".") #'repeat)
-;;   (global-set-key (kbd "C-x C-0") #'delete-window)
-;;   (add-hook 'post-command-hook #'my-god-mode-update-cursor-type)
-;;   (setq god-exempt-major-modes nil)
-;;   (setq god-exempt-predicates nil)
-;;   (add-to-list 'god-exempt-major-modes 'magit-mode)
-;;   )
-
-
 (defun zt/setup-appearance (frame)
   (with-selected-frame frame
     (remove-hook 'after-make-frame-functions 'zt/setup-appearance)
@@ -1041,17 +961,5 @@ Uses `current-date-time-format' for the formatting the date/time."
     (add-hook 'after-make-frame-functions 'zt/setup-appearance)
   (zt/setup-appearance (car (frame-list)))
   )
-
-;; https://github.com/oblivia-simplex/emacs-sedition
-;; (use-package sedition
-;;   :config
-;;   (global-set-key (kbd "C-c s") 'sedition-dwim)
-;;   )
-
-
-;; (load (locate-user-emacs-file
-;;        "lisp/zt-meow-keybinds.el"))
-;; (require 'meow)
-;; (meow-setup)
 
 (setq shr-max-image-proportion 0.8)
