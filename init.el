@@ -93,7 +93,6 @@
   ;; (defalias 'evil-insert-state 'evil-emacs-state)
   (define-key evil-emacs-state-map (kbd "<escape>") 'evil-normal-state)
   (setq evil-emacs-state-cursor '(bar . 1))
-
   )
 
 (use-package evil-goggles
@@ -969,6 +968,7 @@ isn't there and triggers an error"
  'org-babel-load-languages
  '((python . t)
    (octave . t)
+   (latex . t)
    ))
 
 (require 'ox-latex)
@@ -980,11 +980,11 @@ isn't there and triggers an error"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
-(use-package openwith
-  :config
-  (openwith-mode t)
-  (setq openwith-associations '(("\\.pdf\\'" "C:/Program Files/Google/Chrome/Application/chrome.exe" (file))))
-  )
+;; (use-package openwith
+;;   :config
+;;   (openwith-mode t)
+;;   (setq openwith-associations '(("\\.pdf\\'" "C:/Program Files/Google/Chrome/Application/chrome.exe" (file))))
+;;   )
 
 (defvar current-date-format "%Y-%m-%d"
   "Format of date to insert with `insert-current-date-time' func
@@ -1049,7 +1049,9 @@ Uses `current-date-time-format' for the formatting the date/time."
 ;;   )
 
 
-(load (locate-user-emacs-file
-       "lisp/zt-meow-keybinds.el"))
-(require 'meow)
-(meow-setup)
+;; (load (locate-user-emacs-file
+;;        "lisp/zt-meow-keybinds.el"))
+;; (require 'meow)
+;; (meow-setup)
+
+(setq shr-max-image-proportion 0.8)
