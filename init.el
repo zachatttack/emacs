@@ -383,6 +383,27 @@
 (use-package org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
+;; ;; Improve org mode looks
+;; (setq-default org-startup-indented t
+;;               org-pretty-entities t
+;;               org-use-sub-superscripts "{}"
+;;               org-hide-emphasis-markers t
+;;               org-startup-with-inline-images t
+;;               org-image-actual-width '(300))
+
+(use-package org-appear
+  :hook
+  (org-mode . org-appear-mode))
+
+(use-package org-modern
+  :hook
+  (org-mode . global-org-modern-mode)
+  ;; :custom
+  ;; (org-modern-keyword nil)
+  ;; (org-modern-checkbox nil)
+  ;; (org-modern-table nil)
+  )
+
 (use-package org-download)
 (setq org-startup-with-inline-images t)
 
