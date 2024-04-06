@@ -555,6 +555,7 @@
 ;; (when (eq system-type 'gnu/linux)
 ;;   (setq org-agenda-files '("/mnt/nas/org"))
 ;;   )
+(setq org-agenda-files '("/mnt/nas/org/agenda/"))
 
 (setq ibuffer-saved-filter-groups
           (quote (("default"
@@ -984,3 +985,6 @@ Uses `current-date-time-format' for the formatting the date/time."
   )
 
 (setq shr-max-image-proportion 0.8)
+(setq org-agenda-span 21)
+
+(setq org-deadline-warning-days 21)
