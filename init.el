@@ -60,6 +60,7 @@
                   eshell-mode
                   git-rebase-mode
                   erc-mode
+                  vterm-mode
                   circe-server-mode
                   circe-chat-mode
                   circe-query-mode
@@ -155,6 +156,14 @@
   :custom ((doom-modeline-height 15)))
 
 (column-number-mode)
+(dolist (mode '(org-mode-hook
+                term-mode-hook
+                vterm-mode-hook
+                shell-mode-hook
+                treemacs-mode-hook
+                eshell-mode-hook))
+  (add-hook mode (lambda() (display-line-numbers-mode 0))))
+
 (global-display-line-numbers-mode t)
 (setq display-line-numbers-type 'relative)
 (dolist (mode '(
@@ -340,7 +349,7 @@
 
 (cond 
  ((string-match-p "WSL2" (shell-command-to-string "uname -a"))
-		 (setq org-directory "/mnt/home/zthomas/private/org"))
+		 (setq org-directory "/home/zach/org/roam"))
  ((eq system-type 'windows-nt)
      (setq org-directory "H:/zthomas/private/org"))
  (t
@@ -360,6 +369,11 @@
 (use-package org-roam
   :after org
   :init (setq org-roam-v2-ack t) ;; Acknowledge V2 upgrade
+  (setq org-roam-dailies-directory "daily/")
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry "** %?" :if-new
+           (file+head+olp "%<%G-W%V>.org" "#+title: %<%G-W%V>\n"
+                          ("%<%A %Y-%m-%d>")))))
   :custom
   (org-roam-directory (file-truename org-directory))
   :bind (("C-c n f" . org-roam-node-find)
@@ -449,7 +463,8 @@
   )
 
 (when (window-system)
-  (set-frame-font "Iosevka NF"))
+ (set-frame-font "Iosevka NF"))
+(set-face-attribute 'default nil :font "Iosevka NF" :height 160)
 (add-to-list 'default-frame-alist '(font . "Iosevka NF"))
 
 (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
@@ -561,6 +576,7 @@
           (quote (("default"
                    ("shells" (mode . shell-mode))
                    ("dired" (mode . dired-mode))
+                   ("org" (mode . org-mode))
                    ("emacs" (or
                              (name . "^\\*scratch\\*$")
                              (name . "^\\*Messages\\*$")))
@@ -568,7 +584,6 @@
                    ))))
 
 (require 'ibuf-ext)
-(add-to-list 'ibuffer-never-show-predicates "\\.org")
 
  (add-hook 'ibuffer-mode-hook
               (lambda ()
@@ -937,6 +952,7 @@ isn't there and triggers an error"
  '((python . t)
    (octave . t)
    (latex . t)
+   (plantuml . t)
    ))
 
 (require 'ox-latex)
@@ -988,3 +1004,31 @@ Uses `current-date-time-format' for the formatting the date/time."
 (setq org-agenda-span 21)
 
 (setq org-deadline-warning-days 21)
+
+(use-package lsp-mode
+  :init
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c q")
+  (setq lsp-clients-clangd-args '("-j=4" "--log=verbose" ))
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         (c-ts-mode . lsp)
+         ;; if you want which-key integration
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+;; optionally
+(use-package lsp-ui :commands lsp-ui-mode)
+
+;; Sample executable configuration
+(use-package plantuml-mode
+  :init
+  (setq plantuml-executable-path "/usr/bin/plantuml")
+  (setq plantuml-default-exec-mode 'executable)
+  ;; Enable plantuml-mode for PlantUML files
+  (add-to-list 'auto-mode-alist '("\\.plantuml\\'" . plantuml-mode))
+  (add-to-list
+  'org-src-lang-modes '("plantuml" . plantuml))
+  (setq org-plantuml-exec-mode 'plantuml)
+  )
+
+
