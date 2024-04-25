@@ -616,11 +616,11 @@
 
 (winner-mode)
 
-(use-package sticky-shell
-  :config
-  (sticky-shell-global-mode)
-  )
-
+;;(use-package sticky-shell
+  ;;:config
+  ;;(sticky-shell-global-mode)
+  ;;)
+;;
                ;;;;;;Vertico 
 (use-package vertico
   :init
