@@ -128,11 +128,10 @@
 ;;   (load-theme 'kaolin-temple t)
 ;;  (kaolin-treemacs-theme))
  
-;; (use-package catppuccin-theme
-;;   :config
-;;   (setq catppuccin-flavor 'frappe)
-;;   (catppuccin-reload)
-;   )
+(use-package catppuccin-theme
+  :config
+  (setq catppuccin-flavor 'mocha)
+  )
 
 (use-package spaceway-theme
   :ensure nil
