@@ -462,10 +462,10 @@
   (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
   )
 
-(when (window-system)
- (set-frame-font "Iosevka NF"))
-(set-face-attribute 'default nil :font "Iosevka NF" :height 160)
-(add-to-list 'default-frame-alist '(font . "Iosevka NF"))
+;; (when (window-system)
+;;  (set-frame-font "Iosevka NF"))
+;; (set-face-attribute 'default nil :font "Iosevka NF" :height 160)
+;; (add-to-list 'default-frame-alist '(font . "Iosevka NF"))
 
 (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
                (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
