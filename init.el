@@ -222,7 +222,7 @@
   "gl" '(magit-log :which-key "Open git log")
   ;; "gs" '((lambda () (interactive)(counsel-projectile-switch-project 13)):which-key "open magit for project")
   "oe" '(eshell :which-key "open eshell")
-  "os" '(shell :which-key "open shell")
+  "ot" '(vterm :which-key "open vterm")
   "od" '(dired-jump :which-key "open dired")
   "oi" 'my-open-init-file
   "SPC" '(projectile-find-file :which-key "search in project")
@@ -530,6 +530,8 @@
 (add-to-list 'auto-mode-alist '("\\.bin\\'" . hexl-mode))
 (add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
 
+(add-to-list 'auto-mode-alist '("\\.dts\\'" . devicetree-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.dtsi\\'" . devicetree-ts-mode))
 
 
 (setq tramp-default-method "sshx")
@@ -1031,4 +1033,21 @@ Uses `current-date-time-format' for the formatting the date/time."
   (setq org-plantuml-exec-mode 'plantuml)
   )
 
+(defun zephyr-term ()
+  "Opens ttyACM0 for zephyr terminal"
+  (interactive)
+(if (get-buffer buffer-name)
+      ;; If the buffer exists, switch to it
+      (switch-to-buffer buffer-name)
+    ;; Otherwise, display a message
+    (message "Buffer %s does not exist" buffer-name))
+  (serial-term "/dev/ttyACM0" 115200 'term-line-mode)
+  )
 
+(defun zephyr-term (buffer-name)
+  "Open a buffer with BUFFER-NAME if it exists, otherwise display a message."
+  (if (get-buffer buffer-name)
+      ;; If the buffer exists, switch to it
+      (switch-to-buffer buffer-name)
+    ;; Otherwise, display a message
+    (message "Buffer %s does not exist" buffer-name)))
