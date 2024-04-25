@@ -128,11 +128,10 @@
 ;;   (load-theme 'kaolin-temple t)
 ;;  (kaolin-treemacs-theme))
  
-;; (use-package catppuccin-theme
-;;   :config
-;;   (setq catppuccin-flavor 'frappe)
-;;   (catppuccin-reload)
-;   )
+(use-package catppuccin-theme
+  :config
+  (setq catppuccin-flavor 'mocha)
+  )
 
 (use-package spaceway-theme
   :ensure nil
@@ -146,7 +145,7 @@
   ;;   (set-frame-parameter nil 'alpha-background 85)
   ;;   (add-to-list 'default-frame-alist '(alpha-background . 85)))
 
-  (load-theme 'spaceway t)
+  ;; (load-theme 'spaceway t)
   (setenv "SCHEME" "dark")
   )
  
@@ -994,7 +993,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 (defun zt/setup-appearance (frame)
   (with-selected-frame frame
     (remove-hook 'after-make-frame-functions 'zt/setup-appearance)
-    (load-theme 'spaceway t)
+    (catppuccin-reload)
     ))
 
 (if (daemonp)
