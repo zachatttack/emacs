@@ -247,8 +247,8 @@
     (setq projectile-switch-project-action #'projectile-dired)
     )
   (when (eq system-type 'gnu/linux)
-    (when (file-directory-p "~/")
-      (setq projectile-project-search-path '("~/")))
+    (when (file-directory-p "~/repos")
+      (setq projectile-project-search-path '("~/repos")))
     (setq projectile-switch-project-action #'projectile-dired)
     )
   )
@@ -552,10 +552,11 @@
       browse-url-generic-program "C:/Program Files/Google/Chrome/Application/chrome.exe")
 )
 (when (eq system-type 'gnu/linux)
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "firefox")
-)
-
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program (if (string-match-p "Windows" (getenv "PATH"))
+                                       "/mnt/c/Program Files/Mozilla Firefox/firefox.exe"
+                                     "firefox"))
+  )
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (add-hook 'ibuffer-mode-hook
