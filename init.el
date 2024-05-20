@@ -25,7 +25,7 @@
 
 (setq comp-async-report-warnings-errors nil)
 
-(set-face-attribute 'default nil :font "Iosevka NF" :height 160)
+(set-face-attribute 'default nil :font "Iosevka NF" :height 200)
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -221,7 +221,7 @@
   "gl" '(magit-log :which-key "Open git log")
   ;; "gs" '((lambda () (interactive)(counsel-projectile-switch-project 13)):which-key "open magit for project")
   "oe" '(eshell :which-key "open eshell")
-  "ot" '(vterm :which-key "open vterm")
+  "ot" '(multi-vterm-dedicated-toggle :which-key "toggle dedicated vterm")
   "od" '(dired-jump :which-key "open dired")
   "oi" 'my-open-init-file
   "SPC" '(projectile-find-file :which-key "search in project")
@@ -531,7 +531,13 @@
 
 (add-to-list 'auto-mode-alist '("\\.dts\\'" . devicetree-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.dtsi\\'" . devicetree-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.overlay\\'" . devicetree-ts-mode))
 
+(add-to-list 'auto-mode-alist '("\\.defconfig\\'" . kconfig-mode))
+(add-to-list 'auto-mode-alist '("\\.board\\'" . kconfig-mode))
+
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-ts-mode))
 
 (setq tramp-default-method "sshx")
 ;; Dired stuff
@@ -576,6 +582,7 @@
 
 (setq ibuffer-saved-filter-groups
           (quote (("default"
+                   ("vterm" (mode . vterm-mode))
                    ("shells" (mode . shell-mode))
                    ("dired" (mode . dired-mode))
                    ("org" (mode . org-mode))
@@ -770,7 +777,7 @@
 (fset 'perl-mode 'cperl-mode)
 (setq cperl-invalid-face nil)
 
-(modify-syntax-entry ?_ "w")
+;; (modify-syntax-entry ?_ "w")
 
 ;; Define the whitespace style.
 (setq-default whitespace-style
@@ -1051,3 +1058,44 @@ Uses `current-date-time-format' for the formatting the date/time."
       (switch-to-buffer buffer-name)
     ;; Otherwise, display a message
     (message "Buffer %s does not exist" buffer-name)))
+
+(use-package vterm)
+(use-package multi-vterm
+	:config
+	(add-hook 'vterm-mode-hook
+			(lambda ()
+			(setq-local evil-insert-state-cursor 'box)
+			(evil-insert-state)))
+	(define-key vterm-mode-map [return]                      #'vterm-send-return)
+
+	(setq vterm-keymap-exceptions nil)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-e")      #'vterm--self-insert)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-f")      #'vterm--self-insert)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-a")      #'vterm--self-insert)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-v")      #'vterm--self-insert)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-b")      #'vterm--self-insert)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-w")      #'vterm--self-insert)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-u")      #'vterm--self-insert)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-d")      #'vterm--self-insert)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-n")      #'vterm--self-insert)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-m")      #'vterm--self-insert)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-p")      #'vterm--self-insert)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-j")      #'vterm--self-insert)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-k")      #'vterm--self-insert)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-r")      #'vterm--self-insert)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-t")      #'vterm--self-insert)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-g")      #'vterm--self-insert)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-c")      #'vterm--self-insert)
+	(evil-define-key 'insert vterm-mode-map (kbd "C-SPC")    #'vterm--self-insert)
+	;; (evil-define-key 'normal vterm-mode-map (kbd "C-d")      #'vterm--self-insert)
+	(evil-define-key 'normal vterm-mode-map (kbd ",c")       #'multi-vterm)
+	(evil-define-key 'normal vterm-mode-map (kbd ",n")       #'multi-vterm-next)
+	(evil-define-key 'normal vterm-mode-map (kbd ",p")       #'multi-vterm-prev)
+	(evil-define-key 'normal vterm-mode-map (kbd "i")        #'evil-insert-resume)
+	(evil-define-key 'normal vterm-mode-map (kbd "o")        #'evil-insert-resume)
+	(evil-define-key 'normal vterm-mode-map (kbd "<return>") #'evil-insert-resume))
+
+(use-package ace-window
+  :config
+  (global-set-key (kbd "M-o") 'ace-window)
+  )
