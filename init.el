@@ -1096,6 +1096,9 @@ Uses `current-date-time-format' for the formatting the date/time."
 	(evil-define-key 'normal vterm-mode-map (kbd "<return>") #'evil-insert-resume))
 
 (use-package ace-window
-  :config
-  (global-set-key (kbd "M-o") 'ace-window)
+  :bind (("M-o" . ace-window))
+  :custom
+  (aw-scope 'frame)
+  (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k l))
+  (aw-minibuffer-flags t))
   )
