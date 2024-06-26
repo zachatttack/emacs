@@ -1099,6 +1099,6 @@ Uses `current-date-time-format' for the formatting the date/time."
   :bind (("M-o" . ace-window))
   :custom
   (aw-scope 'frame)
-  (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k l))
-  (aw-minibuffer-flags t))
+  (aw-keys '(?t ?s ?n ?e ?r ?i ?a ?k o))
+  (aw-minibuffer-flags t)
   )
