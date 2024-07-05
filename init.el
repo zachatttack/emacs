@@ -230,6 +230,11 @@
   "gc" 'eyebrowse-close-window-config
   "g." 'eyebrowse-switch-to-window-config
   "." 'avy-goto-char-timer
+  "b" '(:ignore t :wk "buffer")
+  "b i" '(ibuffer :wk "Ibuffer")
+  "f" '(:ignore t :wk "file")
+  "f f" '(find-file t :wk "find file")
+  "f c" '(my-open-init-file t :wk "init file")
   )
 
 (use-package undo-fu)
