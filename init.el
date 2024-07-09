@@ -1107,3 +1107,4 @@ Uses `current-date-time-format' for the formatting the date/time."
   (aw-keys '(?t ?s ?n ?e ?r ?i ?a ?k o))
   (aw-minibuffer-flags t)
   )
+(setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
