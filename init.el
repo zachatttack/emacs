@@ -210,7 +210,9 @@
     :keymaps '(normal insert visual emacs)
     :prefix "SPC"
     :global-prefix "C-SPC")) 
- 
+
+(global-set-key (kbd "<f5>") 'compile)
+
 (zt/leader-keys
   "g"  '(:ignore g :which-key "git")
   ;; "p"  '(:ignore p :which-key "project")
@@ -1022,7 +1024,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 (use-package lsp-mode
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix "C-c q")
+  (setq lsp-keymap-prefix "C-c l")
   (setq lsp-clients-clangd-args '("-j=4" "--log=verbose" ))
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (c-ts-mode . lsp)
@@ -1103,7 +1105,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 (use-package ace-window
   :bind (("M-o" . ace-window))
   :custom
-  (aw-scope 'frame)
+  (aw-scope 'global)
   (aw-keys '(?t ?s ?n ?e ?r ?i ?a ?k o))
   (aw-minibuffer-flags t)
   )
