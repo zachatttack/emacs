@@ -669,7 +669,7 @@
   ;; Configure a custom style dispatcher (see the Consult wiki)
   ;; (setq orderless-style-dispatchers '(+orderless-dispatch)
   ;;       orderless-component-separator #'orderless-escapable-split-on-space)
-  (completion-styles '(orderless basic))
+  (completion-styles '(orderless partial-completion basic))
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles partial-completion))))
   (orderless-component-separator 'orderless-escapable-split-on-space)
@@ -685,6 +685,7 @@
      ;; orderless-without-literal          ; Recommended for dispatches instead
      ))
   )
+
 
 (use-package corfu
   :after orderless
@@ -732,17 +733,16 @@
   :init
   ;; Add `completion-at-point-functions', used by `completion-at-point'.
   ;; NOTE: The order matters!
+  (add-to-list 'completion-at-point-functions #'cape-history)
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-elisp-block)
-  ;;(add-to-list 'completion-at-point-functions #'cape-history)
   (add-to-list 'completion-at-point-functions #'cape-keyword)
   ;;(add-to-list 'completion-at-point-functions #'cape-tex)
   ;;(add-to-list 'completion-at-point-functions #'cape-sgml)
   ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345)
   ;;(add-to-list 'completion-at-point-functions #'cape-abbrev)
   ;;(add-to-list 'completion-at-point-functions #'cape-dict)
-  ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
   ;;(add-to-list 'completion-at-point-functions #'cape-line)
 )
 
@@ -1022,18 +1022,34 @@ Uses `current-date-time-format' for the formatting the date/time."
 (setq org-deadline-warning-days 21)
 
 (use-package lsp-mode
+  :custom
+  (lsp-completion-provider :none) ;; we use Corfu!
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
   (setq lsp-keymap-prefix "C-c l")
   (setq lsp-clients-clangd-args '("-j=4" "--log=verbose" ))
+  (defun my/lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          ;; '(flex))) ;; Configure flex
+          '(orderless))) ;; Configure orderless
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (c-ts-mode . lsp)
+         (elisp-mode . lsp)
          ;; if you want which-key integration
-         (lsp-mode . lsp-enable-which-key-integration))
+         (lsp-mode . lsp-enable-which-key-integration)
+         (lsp-completion-mode . my/lsp-mode-setup-completion)
+         )
   :commands lsp)
 
 ;; optionally
-(use-package lsp-ui :commands lsp-ui-mode)
+(use-package lsp-ui
+  :commands lsp-ui-mode
+  :custom
+  (lsp-ui-doc-position 'bottom)
+  )
+
+;; needed for lsp-sideline
+(use-package flycheck)
 
 ;; Sample executable configuration
 (use-package plantuml-mode
