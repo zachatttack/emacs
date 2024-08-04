@@ -130,7 +130,7 @@
  
 (use-package catppuccin-theme
   :config
-  (setq catppuccin-flavor 'mocha)
+  (setq catppuccin-flavor 'macchiato)
   )
 
 (use-package spaceway-theme
