@@ -10,6 +10,23 @@
 (menu-bar-mode -1)            ; Disable the menu bar
 (global-auto-revert-mode 1)
 
+(defvar bootstrap-version)
+(let ((bootstrap-file
+      (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+        "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+        'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+;; Use straight.el for use-package expressions
+(straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
+
 (use-package auto-compile
   :config (auto-compile-on-load-mode))
 (setq load-prefer-newer t)
@@ -48,8 +65,7 @@
 (unless (package-installed-p 'use-package)
    (package-install 'use-package))
 
-(require 'use-package)
-(setq use-package-always-ensure t)
+;; (require 'use-package)
 
 (use-package no-littering)
 (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
@@ -133,21 +149,21 @@
   (setq catppuccin-flavor 'mocha)
   )
 
-(use-package spaceway-theme
-  :ensure nil
-  :load-path "lisp/spaceway/"
-  :config
-  (global-hl-line-mode t)
-  (set-frame-parameter nil 'cursor-color "#dc322f")
-  (add-to-list 'default-frame-alist '(cursor-color . "#dc322f"))
+;; (use-package spaceway-theme
+;;   :ensure nil
+;;   :load-path "lisp/spaceway/"
+;;   :config
+;;   (global-hl-line-mode t)
+;;   (set-frame-parameter nil 'cursor-color "#dc322f")
+;;   (add-to-list 'default-frame-alist '(cursor-color . "#dc322f"))
 
   ;; (when my/my-system
   ;;   (set-frame-parameter nil 'alpha-background 85)
   ;;   (add-to-list 'default-frame-alist '(alpha-background . 85)))
 
   ;; (load-theme 'spaceway t)
-  (setenv "SCHEME" "dark")
-  )
+  ;; (setenv "SCHEME" "dark")
+  ;; )
  
 
 (use-package doom-modeline
@@ -265,21 +281,25 @@
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 ;; (setq magit-git-executable "~/.emacs.d/bin/git")
 
-(use-package dired
-  :ensure nil
-  :commands (dired dired-jump)
-  :custom ((dired-listing-switches "-agho --group-directories-first"))
-  :bind (("C-x C-j" . dired-jump))
-  :config
-  (use-package treemacs-icons-dired
-    :if (display-graphic-p)
-    :config (treemacs-icons-dired-mode))
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "h" 'dired-single-up-directory
-    "l" 'dired-single-buffer)
-  (setq dired-kill-when-opening-new-dired-buffer t)
-  )
+;; (use-package dired
+;;   :commands (dired dired-jump)
+;;   :custom ((dired-listing-switches "-agho --group-directories-first"))
+;;   :bind (("C-x C-j" . dired-jump))
+;;   :config
+;; (evil-collection-define-key 'normal 'dired-mode-map
+;;   "h" 'dired-single-up-directory
+;;   "l" 'dired-single-buffer)
+;; (setq dired-kill-when-opening-new-dired-buffer t)
+;;   )
 
+(evil-collection-define-key 'normal 'dired-mode-map
+  "h" 'dired-single-up-directory
+  "l" 'dired-single-buffer)
+(setq dired-kill-when-opening-new-dired-buffer t)
+
+(use-package treemacs-icons-dired
+  :if (display-graphic-p)
+  :config (treemacs-icons-dired-mode))
 
 (use-package dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
@@ -879,8 +899,8 @@
   (setq consult-find-args "find . -not ( -wholename `*/.*` -prune )")
   )
 
-(use-package tex
-  :ensure auctex)
+;; (use-package tex
+;;   :ensure auctex)
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
@@ -1126,3 +1146,31 @@ Uses `current-date-time-format' for the formatting the date/time."
   (aw-minibuffer-flags t)
   )
 (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
+
+(use-package dap-mode
+  :config
+  (dap-mode 1)
+  ;; (dap-ui-mode 1)
+  ;; (dap-tooltip-mode 1)
+  ;; (tooltip-mode 1)
+  ;; (dap-ui-controls-mode 1)
+  )
+
+(require 'dap-gdb)
+
+(setq dap-debug-template-configurations
+      '(
+        ("Zephyr"
+         :type "gdbserver"
+         :request "launch"
+         :gdbpath "/home/zach/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb" ;; Specify the path to your custom GDB executable
+         :target ":2331"
+         :executable "${workspaceFolder}/build/zephyr/zephyr.elf"
+         :cwd "${workspaceFolder}"
+         :environment []
+         :args []
+         :remote :json-true
+         :stopAtEntry t
+         :externalConsole nil)))
+
+;; (setq debug-on-message t)
