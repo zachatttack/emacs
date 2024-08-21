@@ -146,7 +146,7 @@
  
 (use-package catppuccin-theme
   :config
-  (setq catppuccin-flavor 'mocha)
+  (setq catppuccin-flavor 'macchiato)
   )
 
 ;; (use-package spaceway-theme
@@ -373,14 +373,7 @@
               (yaml-mode . hl-todo-mode)))
 (global-hl-todo-mode)
 
-(cond 
- ((string-match-p "WSL2" (shell-command-to-string "uname -a"))
-		 (setq org-directory "/home/zach/org/roam"))
- ((eq system-type 'windows-nt)
-     (setq org-directory "H:/zthomas/private/org"))
- (t
-  (setq org-directory "/mnt/nas/org"))
- )
+(setq org-directory "/home/zach/org")
 
 (setq path-to-ctags "C:/Users/zthomas/Documents/emacs-28.1/bin/ctags.exe")
 
