@@ -394,7 +394,7 @@
            (file+head+olp "%<%G-W%V>.org" "#+title: %<%G-W%V>\n"
                           ("%<%A %Y-%m-%d>")))))
   :custom
-  (org-roam-directory (file-truename org-directory))
+  (org-roam-directory (file-truename (expand-file-name "roam" org-directory)))
   :bind (("C-c n f" . org-roam-node-find)
          
 	 ("C-c n r" . org-roam-node-random)		    
@@ -410,8 +410,6 @@
   (require 'org-roam-dailies)
   (org-roam-setup)
   )
-
-(setq org-roam-dailies-directory "worklog/")
 
 (use-package org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
