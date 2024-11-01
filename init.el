@@ -385,6 +385,12 @@
 (eval-after-load "org"
   '(require 'ox-md nil t))
 
+;; (use-package org-mode
+;;   :ensure nil
+;;   :config
+(setq org-confirm-babel-evaluate nil)
+  ;; )
+
 (use-package org-roam
   :after org
   :init (setq org-roam-v2-ack t) ;; Acknowledge V2 upgrade
@@ -892,6 +898,8 @@
 
 ;; (use-package tex
 ;;   :ensure auctex)
+;; prettyify symbol mode
+;;latexmk
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
@@ -1045,6 +1053,7 @@ Uses `current-date-time-format' for the formatting the date/time."
           '(orderless))) ;; Configure orderless
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (c-ts-mode . lsp)
+         (python-mode . lsp)
          (elisp-mode . lsp)
          ;; if you want which-key integration
          (lsp-mode . lsp-enable-which-key-integration)
@@ -1164,4 +1173,11 @@ Uses `current-date-time-format' for the formatting the date/time."
          :stopAtEntry t
          :externalConsole nil)))
 
+(use-package envrc
+  :config
+  (envrc-global-mode)
+  )
+
 ;; (setq debug-on-message t)
+
+;; (setq tramp-verbose 10)
