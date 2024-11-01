@@ -298,7 +298,6 @@
 (setq dired-kill-when-opening-new-dired-buffer t)
 
 (use-package treemacs-icons-dired
-  :if (display-graphic-p)
   :config (treemacs-icons-dired-mode))
 
 (use-package dired-hide-dotfiles
