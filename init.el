@@ -45,7 +45,7 @@
 (set-face-attribute 'default nil :font "Iosevka NF" :height 200)
 
 ;; Make ESC quit prompts
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+;; (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ;; Initialize package sources
 (require 'package)
@@ -70,71 +70,6 @@
 (use-package no-littering)
 (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
 (setq make-backup-files nil)
-
-;; (defun zt/evil-hook ()
-;;   (dolist (mode '(custom-mode
-;;                   eshell-mode
-;;                   git-rebase-mode
-;;                   erc-mode
-;;                   vterm-mode
-;;                   circe-server-mode
-;;                   circe-chat-mode
-;;                   circe-query-mode
-;;                   sauron-mode
-;;                   term-mode))
-;;    (add-to-list 'evil-emacs-state-modes mode)))
-
-;; (use-package evil
-;;   :init
-;;   (setq evil-want-integration t)
-;;   (setq evil-want-keybinding nil)
-;;   (setq evil-want-C-u-scroll t)
-;;   (setq evil-want-C-i-jump t)
-;;   (setq evil-undo-system 'undo-tree)
-;;   (setq evil-want-minibuffer nil)
-;;   (setq evil-want-fine-undo t)
-;;   (setq evil-split-window-below t)
-;;   (setq evil-respect-visual-line-mode t)
-;;   (setq evil-vsplit-window-right t)
-;;   :hook (evil-mode . zt/evil-hook)
-;;   :config
-;;   (evil-mode 0)
-;;   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
-;;   ;;(define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
-
-;;   ;; Use visual line motions even outside of visual-line-mode buffers
-;;   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
-;;   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-
-;;   (evil-set-initial-state 'messages-buffer-mode 'normal)
-;;   (evil-set-initial-state 'dashboard-mode 'normal)
-;;   (evil-set-initial-state 'git-commit-mode 'insert) ;; enter insert mode to edit a commit message
-;;   ;;emacs-mode instead of insert mode
-;;   ;; (defalias 'evil-insert-state 'evil-emacs-state)
-;;   (define-key evil-emacs-state-map (kbd "<escape>") 'evil-normal-state)
-;;   (setq evil-emacs-state-cursor '(bar . 1))
-;;   )
-
-;; (use-package evil-org
-;;   :ensure t
-;;   :after org
-;;   :hook (org-mode . (lambda () evil-org-mode))
-;;   :config
-;;   (require 'evil-org-agenda)
-;;   (evil-org-agenda-set-keys))
-
-;; (use-package evil-goggles
-;;   :ensure t
-;;   :init 
-;;   (setq evil-goggles-duration 0.100)
-;;   :config
-;;   (evil-goggles-mode))
-
-;; (use-package evil-collection
-;;   :after evil
-;;   :custom (evil-collection-setup-minibuffer nil)
-;;   :config
-;;   (evil-collection-init))
 
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
@@ -220,8 +155,8 @@
   :config
   (general-auto-unbind-keys)
   ;; (general-define-key "C-w u" 'winner-undo :which-key "Undo window change")
-  (general-define-key "M-j" 'next-error)
-  (general-define-key "M-k" 'previous-error)
+  ;; (general-define-key "M-j" 'next-error)
+  ;; (general-define-key "M-k" 'previous-error)
   (general-create-definer zt/leader-keys
     :keymaps '(normal insert visual emacs)
     :prefix "SPC"
@@ -279,32 +214,13 @@
 (use-package magit
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
-;; (setq magit-git-executable "~/.emacs.d/bin/git")
-
-;; (use-package dired
-;;   :commands (dired dired-jump)
-;;   :custom ((dired-listing-switches "-agho --group-directories-first"))
-;;   :bind (("C-x C-j" . dired-jump))
-;;   :config
-;; (evil-collection-define-key 'normal 'dired-mode-map
-;;   "h" 'dired-single-up-directory
-;;   "l" 'dired-single-buffer)
-;; (setq dired-kill-when-opening-new-dired-buffer t)
-;;   )
-
-;; (evil-collection-define-key 'normal 'dired-mode-map
-;;   "h" 'dired-single-up-directory
-;;   "l" 'dired-single-buffer)
-;; (setq dired-kill-when-opening-new-dired-buffer t)
 
 (use-package treemacs-icons-dired
   :config (treemacs-icons-dired-mode))
 
 (use-package dired-hide-dotfiles
-  :hook (dired-mode . dired-hide-dotfiles-mode)
-  :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "H" 'dired-hide-dotfiles-mode))
+  :hook (dired-mode . dired-hide-dotfiles-mode))
+
 
 (use-package recentf
   :config
@@ -957,10 +873,6 @@ isn't there and triggers an error"
 
 (windmove-default-keybindings 'shift)
 (setq framemove-hook-into-windmove t)
-;; (define-key evil-normal-state-map (kbd "H") 'windmove-left)
-;; (define-key evil-normal-state-map (kbd "L") 'windmove-right)
-;; (define-key evil-normal-state-map (kbd "J") 'windmove-down)
-;; (define-key evil-normal-state-map (kbd "K") 'windmove-up)
 
 (use-package git-link
   :config
@@ -1102,40 +1014,7 @@ Uses `current-date-time-format' for the formatting the date/time."
     (message "Buffer %s does not exist" buffer-name)))
 
 (use-package vterm)
-(use-package multi-vterm
-	:config
-	(add-hook 'vterm-mode-hook
-			(lambda ()
-			(setq-local evil-insert-state-cursor 'box)
-			(evil-insert-state)))
-	(define-key vterm-mode-map [return]                      #'vterm-send-return)
-
-	(setq vterm-keymap-exceptions nil)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-e")      #'vterm--self-insert)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-f")      #'vterm--self-insert)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-a")      #'vterm--self-insert)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-v")      #'vterm--self-insert)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-b")      #'vterm--self-insert)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-w")      #'vterm--self-insert)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-u")      #'vterm--self-insert)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-d")      #'vterm--self-insert)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-n")      #'vterm--self-insert)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-m")      #'vterm--self-insert)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-p")      #'vterm--self-insert)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-j")      #'vterm--self-insert)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-k")      #'vterm--self-insert)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-r")      #'vterm--self-insert)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-t")      #'vterm--self-insert)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-g")      #'vterm--self-insert)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-c")      #'vterm--self-insert)
-	(evil-define-key 'insert vterm-mode-map (kbd "C-SPC")    #'vterm--self-insert)
-	;; (evil-define-key 'normal vterm-mode-map (kbd "C-d")      #'vterm--self-insert)
-	(evil-define-key 'normal vterm-mode-map (kbd ",c")       #'multi-vterm)
-	(evil-define-key 'normal vterm-mode-map (kbd ",n")       #'multi-vterm-next)
-	(evil-define-key 'normal vterm-mode-map (kbd ",p")       #'multi-vterm-prev)
-	(evil-define-key 'normal vterm-mode-map (kbd "i")        #'evil-insert-resume)
-	(evil-define-key 'normal vterm-mode-map (kbd "o")        #'evil-insert-resume)
-	(evil-define-key 'normal vterm-mode-map (kbd "<return>") #'evil-insert-resume))
+(use-package multi-vterm)
 
 (use-package ace-window
   :bind (("M-o" . ace-window))
