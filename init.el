@@ -71,70 +71,70 @@
 (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
 (setq make-backup-files nil)
 
-(defun zt/evil-hook ()
-  (dolist (mode '(custom-mode
-                  eshell-mode
-                  git-rebase-mode
-                  erc-mode
-                  vterm-mode
-                  circe-server-mode
-                  circe-chat-mode
-                  circe-query-mode
-                  sauron-mode
-                  term-mode))
-   (add-to-list 'evil-emacs-state-modes mode)))
+;; (defun zt/evil-hook ()
+;;   (dolist (mode '(custom-mode
+;;                   eshell-mode
+;;                   git-rebase-mode
+;;                   erc-mode
+;;                   vterm-mode
+;;                   circe-server-mode
+;;                   circe-chat-mode
+;;                   circe-query-mode
+;;                   sauron-mode
+;;                   term-mode))
+;;    (add-to-list 'evil-emacs-state-modes mode)))
 
-(use-package evil
-  :init
-  (setq evil-want-integration t)
-  (setq evil-want-keybinding nil)
-  (setq evil-want-C-u-scroll t)
-  (setq evil-want-C-i-jump t)
-  (setq evil-undo-system 'undo-tree)
-  (setq evil-want-minibuffer nil)
-  (setq evil-want-fine-undo t)
-  (setq evil-split-window-below t)
-  (setq evil-respect-visual-line-mode t)
-  (setq evil-vsplit-window-right t)
-  :hook (evil-mode . zt/evil-hook)
-  :config
-  (evil-mode 1)
-  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
-  ;;(define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+;; (use-package evil
+;;   :init
+;;   (setq evil-want-integration t)
+;;   (setq evil-want-keybinding nil)
+;;   (setq evil-want-C-u-scroll t)
+;;   (setq evil-want-C-i-jump t)
+;;   (setq evil-undo-system 'undo-tree)
+;;   (setq evil-want-minibuffer nil)
+;;   (setq evil-want-fine-undo t)
+;;   (setq evil-split-window-below t)
+;;   (setq evil-respect-visual-line-mode t)
+;;   (setq evil-vsplit-window-right t)
+;;   :hook (evil-mode . zt/evil-hook)
+;;   :config
+;;   (evil-mode 0)
+;;   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+;;   ;;(define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
 
-  ;; Use visual line motions even outside of visual-line-mode buffers
-  (evil-global-set-key 'motion "j" 'evil-next-visual-line)
-  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+;;   ;; Use visual line motions even outside of visual-line-mode buffers
+;;   (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+;;   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
 
-  (evil-set-initial-state 'messages-buffer-mode 'normal)
-  (evil-set-initial-state 'dashboard-mode 'normal)
-  (evil-set-initial-state 'git-commit-mode 'insert) ;; enter insert mode to edit a commit message
-  ;;emacs-mode instead of insert mode
-  ;; (defalias 'evil-insert-state 'evil-emacs-state)
-  (define-key evil-emacs-state-map (kbd "<escape>") 'evil-normal-state)
-  (setq evil-emacs-state-cursor '(bar . 1))
-  )
+;;   (evil-set-initial-state 'messages-buffer-mode 'normal)
+;;   (evil-set-initial-state 'dashboard-mode 'normal)
+;;   (evil-set-initial-state 'git-commit-mode 'insert) ;; enter insert mode to edit a commit message
+;;   ;;emacs-mode instead of insert mode
+;;   ;; (defalias 'evil-insert-state 'evil-emacs-state)
+;;   (define-key evil-emacs-state-map (kbd "<escape>") 'evil-normal-state)
+;;   (setq evil-emacs-state-cursor '(bar . 1))
+;;   )
 
-(use-package evil-org
-  :ensure t
-  :after org
-  :hook (org-mode . (lambda () evil-org-mode))
-  :config
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
+;; (use-package evil-org
+;;   :ensure t
+;;   :after org
+;;   :hook (org-mode . (lambda () evil-org-mode))
+;;   :config
+;;   (require 'evil-org-agenda)
+;;   (evil-org-agenda-set-keys))
 
-(use-package evil-goggles
-  :ensure t
-  :init 
-  (setq evil-goggles-duration 0.100)
-  :config
-  (evil-goggles-mode))
+;; (use-package evil-goggles
+;;   :ensure t
+;;   :init 
+;;   (setq evil-goggles-duration 0.100)
+;;   :config
+;;   (evil-goggles-mode))
 
-(use-package evil-collection
-  :after evil
-  :custom (evil-collection-setup-minibuffer nil)
-  :config
-  (evil-collection-init))
+;; (use-package evil-collection
+;;   :after evil
+;;   :custom (evil-collection-setup-minibuffer nil)
+;;   :config
+;;   (evil-collection-init))
 
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
@@ -292,10 +292,10 @@
 ;; (setq dired-kill-when-opening-new-dired-buffer t)
 ;;   )
 
-(evil-collection-define-key 'normal 'dired-mode-map
-  "h" 'dired-single-up-directory
-  "l" 'dired-single-buffer)
-(setq dired-kill-when-opening-new-dired-buffer t)
+;; (evil-collection-define-key 'normal 'dired-mode-map
+;;   "h" 'dired-single-up-directory
+;;   "l" 'dired-single-buffer)
+;; (setq dired-kill-when-opening-new-dired-buffer t)
 
 (use-package treemacs-icons-dired
   :config (treemacs-icons-dired-mode))
@@ -957,10 +957,10 @@ isn't there and triggers an error"
 
 (windmove-default-keybindings 'shift)
 (setq framemove-hook-into-windmove t)
-(define-key evil-normal-state-map (kbd "H") 'windmove-left)
-(define-key evil-normal-state-map (kbd "L") 'windmove-right)
-(define-key evil-normal-state-map (kbd "J") 'windmove-down)
-(define-key evil-normal-state-map (kbd "K") 'windmove-up)
+;; (define-key evil-normal-state-map (kbd "H") 'windmove-left)
+;; (define-key evil-normal-state-map (kbd "L") 'windmove-right)
+;; (define-key evil-normal-state-map (kbd "J") 'windmove-down)
+;; (define-key evil-normal-state-map (kbd "K") 'windmove-up)
 
 (use-package git-link
   :config
