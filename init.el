@@ -151,44 +151,8 @@
   :init
   (all-the-icons-completion-mode))
 
-(use-package general
-  :config
-  (general-auto-unbind-keys)
-  ;; (general-define-key "C-w u" 'winner-undo :which-key "Undo window change")
-  ;; (general-define-key "M-j" 'next-error)
-  ;; (general-define-key "M-k" 'previous-error)
-  (general-create-definer zt/leader-keys
-    :keymaps '(normal insert visual emacs)
-    :prefix "SPC"
-    :global-prefix "C-SPC")) 
 
 (global-set-key (kbd "<f5>") 'compile)
-
-(zt/leader-keys
-  "g"  '(:ignore g :which-key "git")
-  ;; "p"  '(:ignore p :which-key "project")
-  "p"  '(projectile-switch-project :which-key "open project")
-  "gs" '(magit-status :which-key "Open Magit")
-  "gb" '(magit-blame :which-key "Inline git blame")
-  "gh" '(magit-log-buffer-file :which-key "Open git history for open buffer")
-  "gl" '(magit-log :which-key "Open git log")
-  ;; "gs" '((lambda () (interactive)(counsel-projectile-switch-project 13)):which-key "open magit for project")
-  "oe" '(eshell :which-key "open eshell")
-  "ot" '(multi-vterm-dedicated-toggle :which-key "toggle dedicated vterm")
-  "od" '(dired-jump :which-key "open dired")
-  "oi" 'my-open-init-file
-  "SPC" '(projectile-find-file :which-key "search in project")
-  "gt" 'eyebrowse-next-window-config
-  "gT" 'eyebrowse-prev-window-config
-  "gc" 'eyebrowse-close-window-config
-  "g." 'eyebrowse-switch-to-window-config
-  "." 'avy-goto-char-timer
-  "b" '(:ignore t :wk "buffer")
-  "b i" '(ibuffer :wk "Ibuffer")
-  "f" '(:ignore t :wk "file")
-  "f f" '(find-file t :wk "find file")
-  "f c" '(my-open-init-file t :wk "init file")
-  )
 
 (use-package undo-fu)
 
