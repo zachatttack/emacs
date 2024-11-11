@@ -1180,3 +1180,12 @@ Uses `current-date-time-format' for the formatting the date/time."
 ;; (setq debug-on-message t)
 
 ;; (setq tramp-verbose 10)
+
+(defun add-ssh-agent-to-tramp ()
+  (cl-pushnew '("-A")
+              (cadr (assoc 'tramp-login-args
+                           ; if on Windows using Putty with Pageant,
+                           ; replace "ssh" with "plink"
+                           (assoc "ssh" tramp-methods)))
+              :test #'equal))
+(add-ssh-agent-to-tramp)
