@@ -399,10 +399,10 @@
     (set-char-table-range composition-function-table (car char-regexp)
                           `([,(cdr char-regexp) 0 font-shape-gstring]))))
 
-(use-package idle-highlight-mode
-  :config (setq idle-highlight-idle-time 0.4)
-  (global-idle-highlight-mode)
-  )
+;; (use-package idle-highlight-mode
+;;   :config (setq idle-highlight-idle-time 0.4)
+;;   (global-idle-highlight-mode)
+;;   )
 
 
 ; Default colours are too light (to see colour names do M-x list-colors-display
@@ -727,7 +727,7 @@
 
 (use-package beacon
   :config
-  (beacon-mode 1)
+  (beacon-mode 0)
   )
 
 (setq c-set-offset 2)
@@ -769,6 +769,7 @@
 (use-package avy
   :ensure t
   :bind ("M-s" . avy-goto-char-timer)
+  (setq avy-timeout-seconds 1)
   )
 
 (when (eq system-type 'windows-nt)
@@ -843,7 +844,7 @@ isn't there and triggers an error"
   (global-set-key (kbd "C-c g l") 'git-link)
   )
 
-(defun my-open-init-file ()
+(defun zt/my-open-init-file ()
   "Open the init file."
   (interactive)
   (find-file user-init-file))
@@ -1023,3 +1024,16 @@ Uses `current-date-time-format' for the formatting the date/time."
 ;; (setq debug-on-message t)
 
 ;; (setq tramp-verbose 10)
+(use-package expand-region
+  :bind ("M-'" . er/expand-region))
+
+(global-set-key (kbd "M-i") 'imenu)
+
+(defun newline-without-break-of-line ()
+  "1. move to end of the line.
+2. open new line and move to new line"
+  (interactive)
+  (end-of-line)
+  (open-line 1)
+  (right-char))
+(global-set-key (kbd "<M-return>") 'newline-without-break-of-line)
