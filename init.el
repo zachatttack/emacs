@@ -12,13 +12,13 @@
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
-      (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
       (bootstrap-version 5))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
         (url-retrieve-synchronously
-        "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-        'silent 'inhibit-cookies)
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
@@ -54,16 +54,16 @@
                          ("org" . "https://orgmode.org/elpa/")
                          ("elpa" . "https://elpa.gnu.org/packages/")
                          '("nongnu" . "https://elpa.nongnu.org/nongnu/")
-			 ("melpa-stable" . "https://stable.melpa.org/packages/")
-			 ))
+			             ("melpa-stable" . "https://stable.melpa.org/packages/")
+			             ))
 
 (package-initialize)
 (unless package-archive-contents
- (package-refresh-contents))
+  (package-refresh-contents))
 
 ;; Initialize use-package on non-Linux platforms
 (unless (package-installed-p 'use-package)
-   (package-install 'use-package))
+  (package-install 'use-package))
 
 ;; (require 'use-package)
 
@@ -78,7 +78,7 @@
 ;;  :config
 ;;   (load-theme 'kaolin-temple t)
 ;;  (kaolin-treemacs-theme))
- 
+
 (use-package catppuccin-theme
   :config
   (setq catppuccin-flavor 'macchiato)
@@ -92,14 +92,14 @@
 ;;   (set-frame-parameter nil 'cursor-color "#dc322f")
 ;;   (add-to-list 'default-frame-alist '(cursor-color . "#dc322f"))
 
-  ;; (when my/my-system
-  ;;   (set-frame-parameter nil 'alpha-background 85)
-  ;;   (add-to-list 'default-frame-alist '(alpha-background . 85)))
+;; (when my/my-system
+;;   (set-frame-parameter nil 'alpha-background 85)
+;;   (add-to-list 'default-frame-alist '(alpha-background . 85)))
 
-  ;; (load-theme 'spaceway t)
-  ;; (setenv "SCHEME" "dark")
-  ;; )
- 
+;; (load-theme 'spaceway t)
+;; (setenv "SCHEME" "dark")
+;; )
+
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
@@ -117,9 +117,9 @@
 (global-display-line-numbers-mode t)
 (setq display-line-numbers-type 'relative)
 (dolist (mode '(
-		term-mode-hook
-		pdf-view-mode-hook
-		eshell-mode-hook))
+		        term-mode-hook
+		        pdf-view-mode-hook
+		        eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 (use-package rainbow-delimiters
@@ -245,11 +245,11 @@
 
 (use-package ripgrep)
 (use-package hl-todo
-       :ensure t
-       :custom-face
-       (hl-todo ((t (:inherit hl-todo :italic t))))
-       :hook ((prog-mode . hl-todo-mode)
-              (yaml-mode . hl-todo-mode)))
+  :ensure t
+  :custom-face
+  (hl-todo ((t (:inherit hl-todo :italic t))))
+  :hook ((prog-mode . hl-todo-mode)
+         (yaml-mode . hl-todo-mode)))
 (global-hl-todo-mode)
 
 (setq org-directory "/home/zach/org")
@@ -268,7 +268,7 @@
 ;;   :ensure nil
 ;;   :config
 (setq org-confirm-babel-evaluate nil)
-  ;; )
+;; )
 
 (use-package org-roam
   :after org
@@ -282,13 +282,13 @@
   (org-roam-directory (file-truename (expand-file-name "roam" org-directory)))
   :bind (("C-c n f" . org-roam-node-find)
          
-	 ("C-c n r" . org-roam-node-random)		    
-	 (:map org-mode-map
-	       (("C-c n i" . org-roam-node-insert)
-		("C-c n o" . org-id-get-create)
-		("C-c n t" . org-roam-tag-add)
-		("C-c n a" . org-roam-alias-add)
-		("C-c n l" . org-roam-buffer-toggle))))
+	     ("C-c n r" . org-roam-node-random)		    
+	     (:map org-mode-map
+	           (("C-c n i" . org-roam-node-insert)
+		        ("C-c n o" . org-id-get-create)
+		        ("C-c n t" . org-roam-tag-add)
+		        ("C-c n a" . org-roam-alias-add)
+		        ("C-c n l" . org-roam-buffer-toggle))))
   :bind-keymap
   ("C-c n d" . org-roam-dailies-map)
   :config
@@ -327,11 +327,11 @@
       '((sequence "TODO" "WAITING" "|" "DONE" )))
 
 (setq browse-url-browser-function 'eww-browse-url
-    shr-use-colors nil
-    shr-bullet "• "
-    shr-folding-mode t
-    eww-search-prefix "https://duckduckgo.com/html?q="
-    url-privacy-level '(email agent cookies lastloc))
+      shr-use-colors nil
+      shr-bullet "• "
+      shr-folding-mode t
+      eww-search-prefix "https://duckduckgo.com/html?q="
+      url-privacy-level '(email agent cookies lastloc))
 (use-package pdf-tools
   :config
   (pdf-tools-install)
@@ -355,7 +355,7 @@
               (ggtags-mode 1))))
 
 (advice-add 'ggtags-prev-mark :override
-	    (lambda () (pop-tag-mark)))
+	        (lambda () (pop-tag-mark)))
 
 (use-package dumb-jump
   :config
@@ -405,14 +405,14 @@
 ;;   )
 
 
-; Default colours are too light (to see colour names do M-x list-colors-display
-; and to see faces do M-x list-faces-display):
+                                        ; Default colours are too light (to see colour names do M-x list-colors-display
+                                        ; and to see faces do M-x list-faces-display):
 
-;(use-package doom-themes
- ; :init 
-  ;  ;; :config (load-theme 'doom-one t)
-   ; ;; (add-hook 'server-after-make-frame-hook (lambda () (load-theme 'doom-one t)))
-    ;)
+                                        ;(use-package doom-themes
+                                        ; :init 
+                                        ;  ;; :config (load-theme 'doom-one t)
+                                        ; ;; (add-hook 'server-after-make-frame-hook (lambda () (load-theme 'doom-one t)))
+                                        ;)
 
 (use-package spacemacs-theme
   :defer t
@@ -457,9 +457,9 @@
 (setq large-file-warning-threshold 100000000)
 
 (when (eq system-type 'windows-nt)
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "C:/Program Files/Google/Chrome/Application/chrome.exe")
-)
+  (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "C:/Program Files/Google/Chrome/Application/chrome.exe")
+  )
 (when (eq system-type 'gnu/linux)
   (setq browse-url-browser-function 'browse-url-generic
         browse-url-generic-program (if (string-match-p "Windows" (getenv "PATH"))
@@ -469,8 +469,8 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (add-hook 'ibuffer-mode-hook
-	  #'(lambda ()
-	     (ibuffer-auto-mode 1)))
+	      #'(lambda ()
+	          (ibuffer-auto-mode 1)))
 
 
 (use-package async)
@@ -484,35 +484,35 @@
 (setq org-agenda-files '("/mnt/nas/org/agenda/"))
 
 (setq ibuffer-saved-filter-groups
-          (quote (("default"
-                   ("vterm" (mode . vterm-mode))
-                   ("shells" (mode . shell-mode))
-                   ("dired" (mode . dired-mode))
-                   ("org" (mode . org-mode))
-                   ("emacs" (or
-                             (name . "^\\*scratch\\*$")
-                             (name . "^\\*Messages\\*$")))
-		   ("pdfs" (name . "\\.pdf"))
-                   ))))
+      (quote (("default"
+               ("vterm" (mode . vterm-mode))
+               ("shells" (mode . shell-mode))
+               ("dired" (mode . dired-mode))
+               ("org" (mode . org-mode))
+               ("emacs" (or
+                         (name . "^\\*scratch\\*$")
+                         (name . "^\\*Messages\\*$")))
+		       ("pdfs" (name . "\\.pdf"))
+               ))))
 
 (require 'ibuf-ext)
 
- (add-hook 'ibuffer-mode-hook
-              (lambda ()
-                (ibuffer-switch-to-saved-filter-groups "default")))
+(add-hook 'ibuffer-mode-hook
+          (lambda ()
+            (ibuffer-switch-to-saved-filter-groups "default")))
 (when (eq system-type 'windows-nt)
   (setq org-capture-templates
-	'(("t" "Todo" entry (file+headline "H:/zthomas/private/org/GTD.org" "Tasks")
-	   "* TODO %?\n  %i\n")
-	  ("j" "Journal" entry (file+datetree "h:/zthomas/private/org/journal.org")
-	   "* %?\nEntered on %U\n  %i\n  %a")))
+	    '(("t" "Todo" entry (file+headline "H:/zthomas/private/org/GTD.org" "Tasks")
+	       "* TODO %?\n  %i\n")
+	      ("j" "Journal" entry (file+datetree "h:/zthomas/private/org/journal.org")
+	       "* %?\nEntered on %U\n  %i\n  %a")))
   )
 (when (eq system-type 'gnu/linux)
   (setq org-capture-templates
-	'(("t" "Todo" entry (file+headline "/mnt/nas/org/GTD.org" "Tasks")
-	   "* TODO %?\n  %i\n")
-	  ("j" "Journal" entry (file+datetree "/mnt/nas/org/journal.org")
-	   "* %?\nEntered on %U\n  %i\n  %a")))
+	    '(("t" "Todo" entry (file+headline "/mnt/nas/org/GTD.org" "Tasks")
+	       "* TODO %?\n  %i\n")
+	      ("j" "Journal" entry (file+datetree "/mnt/nas/org/journal.org")
+	       "* %?\nEntered on %U\n  %i\n  %a")))
   )
 
 (use-package nix-mode
@@ -527,9 +527,9 @@
 (winner-mode)
 
 ;;(use-package sticky-shell
-  ;;:config
-  ;;(sticky-shell-global-mode)
-  ;;)
+;;:config
+;;(sticky-shell-global-mode)
+;;)
 ;;
                ;;;;;;Vertico 
 (use-package vertico
@@ -640,7 +640,7 @@
   ;;(add-to-list 'completion-at-point-functions #'cape-abbrev)
   ;;(add-to-list 'completion-at-point-functions #'cape-dict)
   ;;(add-to-list 'completion-at-point-functions #'cape-line)
-)
+  )
 
 (use-package consult)
 
@@ -673,7 +673,7 @@
   "Toggles window dedication in the selected window."
   (interactive)
   (set-window-dedicated-p (selected-window)
-     (not (window-dedicated-p (selected-window)))))
+                          (not (window-dedicated-p (selected-window)))))
 
 (add-hook 'shell-mode-hook 'compilation-shell-minor-mode)
 
@@ -699,15 +699,15 @@
    `(whitespace-trailing               ((t (:foreground ,ws-color))))))
 ;; Make these characters represent whitespace.
 (setq-default whitespace-display-mappings
-      '(
-        ;; space -> · else .
-        (space-mark 32 [183] [46])
-        ;; new line -> ¬ else $
-        (newline-mark ?\n [172 ?\n] [36 ?\n])
-        ;; carriage return (Windows) -> ¶ else #
-        (newline-mark ?\r [182] [35])
-        ;; tabs -> » else >
-        (tab-mark ?\t [187 ?\t] [62 ?\t])))
+              '(
+                ;; space -> · else .
+                (space-mark 32 [183] [46])
+                ;; new line -> ¬ else $
+                (newline-mark ?\n [172 ?\n] [36 ?\n])
+                ;; carriage return (Windows) -> ¶ else #
+                (newline-mark ?\r [182] [35])
+                ;; tabs -> » else >
+                (tab-mark ?\t [187 ?\t] [62 ?\t])))
 
 (use-package undo-tree
   :ensure t
@@ -769,6 +769,7 @@
 (use-package avy
   :ensure t
   :bind ("M-s" . avy-goto-char-timer)
+  :config
   (setq avy-timeout-seconds 1)
   )
 
@@ -1035,5 +1036,28 @@ Uses `current-date-time-format' for the formatting the date/time."
   (interactive)
   (end-of-line)
   (open-line 1)
-  (right-char))
-(global-set-key (kbd "<M-return>") 'newline-without-break-of-line)
+  (right-char)
+  (indent-according-to-mode))
+
+(defun newline-above-without-break-of-line ()
+  "1. move to end of the line.
+2. open new line and move to new line"
+  (interactive)
+  (end-of-line 0)
+  (open-line 1)
+  (right-char)
+  (indent-according-to-mode))
+
+
+(global-set-key (kbd "<C-return>") 'newline-without-break-of-line)
+(global-set-key (kbd "<C-S-return>") 'newline-above-without-break-of-line)
+
+(global-set-key (kbd "C-1") 'delete-other-windows)
+(global-set-key (kbd "C-2") 'split-window-below)
+(global-set-key (kbd "C-3") 'split-window-right)
+
+(setq select-active-regions nil)
+
+(use-package boon)
+(load-file "./boon-colemak-lefty.el")
+;; (require 'boon-colemak-lefty)
