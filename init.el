@@ -1060,8 +1060,11 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
+(use-package multiple-cursors
+  :bind
+  (("C-S-J" . mc/mark-all-dwim)
+  ("C-<" . mc/mark-all-like-this)
+  ("C->" . mc/mark-next-like-this)))
+
 (require 'zt-boon)
 
-(use-package multiple-cursors
-  :bind (("C-<" . mc/mark-all-like-this)
-         ("C->" . mc/mark-next-like-this)))
