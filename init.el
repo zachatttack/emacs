@@ -1058,6 +1058,9 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (setq select-active-regions nil)
 
+(use-package multiple-cursors)
+
 (use-package boon)
-(load-file "/home/zach/.emacs.d/boon-colemak-lefty.el")
-;; (require 'boon-colemak-lefty)
+(load-file "/home/zach/.emacs.d/boon-colemak-dh-lefty.el")
+(boon-mode)
+
