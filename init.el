@@ -1058,8 +1058,10 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (setq select-active-regions nil)
 
-(use-package multiple-cursors)
-
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (require 'zt-boon)
+
+(use-package multiple-cursors
+  :bind (("C-<" . mc/mark-all-like-this)
+         ("C->" . mc/mark-next-like-this)))
