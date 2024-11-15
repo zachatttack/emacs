@@ -67,8 +67,8 @@
   (define-key boon-command-map "v" 'boon-replace-by-character)
   (define-key boon-command-map "B" 'boon-copy-to-register)
   (define-key boon-command-map "b" '("bank" . insert-register))
-  (define-key boon-command-map (kbd "C-u") 'scroll-down-line)
-  (define-key boon-command-map (kbd "C-y") 'scroll-up-line)
+  (define-key boon-command-map (kbd "C-w") 'scroll-down-line)
+  (define-key boon-command-map (kbd "C-f") 'scroll-up-line)
   (define-key indent-rigidly-map "r" 'indent-rigidly-right)
   (define-key indent-rigidly-map "s" 'indent-rigidly-left)
 
