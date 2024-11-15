@@ -1061,6 +1061,8 @@ Uses `current-date-time-format' for the formatting the date/time."
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (use-package multiple-cursors
+  :config
+  (setq mc/always-run-for-all t)
   :bind
   (("C-S-J" . mc/mark-all-dwim)
   ("C-<" . mc/mark-all-like-this)
