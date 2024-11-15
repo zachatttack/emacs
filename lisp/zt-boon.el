@@ -2,7 +2,8 @@
 
 ;;; Commentary:
 ;;; Code:
-(require 'boon)
+(use-package boon)
+;; (require 'boon)
 
 (define-key boon-select-map "j"  'boon-select-outside-quotes)
 (define-key boon-select-map "l"  'boon-select-word)
@@ -117,5 +118,7 @@
 (define-key indent-rigidly-map "r" 'indent-rigidly-right)
 (define-key indent-rigidly-map "s" 'indent-rigidly-left)
 
-(provide 'boon-colemak-lefty)
+(provide 'zt-boon)
 ;;; boon-colemak.el ends here
+
+(boon-mode)

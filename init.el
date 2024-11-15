@@ -1060,7 +1060,6 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (use-package multiple-cursors)
 
-(use-package boon)
-(load-file "/home/zach/.emacs.d/boon-colemak-dh-lefty.el")
-(boon-mode)
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
+(require 'zt-boon)
