@@ -1070,3 +1070,4 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (require 'zt-boon)
 
+(setq compilation-scroll-output t)
