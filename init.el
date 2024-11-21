@@ -72,82 +72,11 @@
 (setq make-backup-files nil)
 
 
-;; (use-package kaolin-themes
-;;  :config
-;;   (load-theme 'kaolin-temple t)
-;;  (kaolin-treemacs-theme))
-
-(use-package catppuccin-theme
-  :config
-  (setq catppuccin-flavor 'macchiato)
-  )
-
-;; (use-package spaceway-theme
-;;   :ensure nil
-;;   :load-path "lisp/spaceway/"
-;;   :config
-;;   (global-hl-line-mode t)
-;;   (set-frame-parameter nil 'cursor-color "#dc322f")
-;;   (add-to-list 'default-frame-alist '(cursor-color . "#dc322f"))
-
-;; (when my/my-system
-;;   (set-frame-parameter nil 'alpha-background 85)
-;;   (add-to-list 'default-frame-alist '(alpha-background . 85)))
-
-;; (load-theme 'spaceway t)
-;; (setenv "SCHEME" "dark")
-;; )
-
-
-(use-package doom-modeline
-  :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 15)))
-
-(column-number-mode)
-(dolist (mode '(org-mode-hook
-                term-mode-hook
-                vterm-mode-hook
-                shell-mode-hook
-                treemacs-mode-hook
-                eshell-mode-hook))
-  (add-hook mode (lambda() (display-line-numbers-mode 0))))
-
-(global-display-line-numbers-mode t)
-(setq display-line-numbers-type 'relative)
-(dolist (mode '(
-		        term-mode-hook
-		        pdf-view-mode-hook
-		        eshell-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode)
-  :config
-  (custom-set-faces
-   '(rainbow-delimiters-depth-1-face ((t (:inherit rainbow-delimiters-base-face :foreground "SlateBlue1"))))
-   '(rainbow-delimiters-depth-2-face ((t (:inherit rainbow-delimiters-base-face :foreground "chartreuse4"))))
-   '(rainbow-delimiters-depth-3-face ((t (:inherit rainbow-delimiters-base-face :foreground "medium orchid"))))
-   '(rainbow-delimiters-depth-4-face ((t (:inherit rainbow-delimiters-base-face :foreground "HotPink1"))))
-   '(rainbow-delimiters-depth-5-face ((t (:inherit rainbow-delimiters-base-face :foreground "SystemHilight"))))
-   '(rainbow-delimiters-depth-6-face ((t (:inherit rainbow-delimiters-base-face :foreground "gray55"))))
-   '(rainbow-delimiters-depth-7-face ((t (:inherit rainbow-delimiters-base-face :foreground "firebrick1"))))
-   '(rainbow-delimiters-depth-8-face ((t (:inherit rainbow-delimiters-base-face :foreground "chartreuse2"))))
-   '(rainbow-delimiters-depth-9-face ((t (:inherit rainbow-delimiters-base-face :foreground "purple3"))))
-   ))
-
 (use-package which-key
   :init (which-key-mode)
   :diminish which-key-mode
   :config
   (setq which-key-idle-delay 0.3))
-
-
-(use-package all-the-icons)
-(use-package all-the-icons-completion
-  :after (marginalia all-the-icons)
-  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
-  :init
-  (all-the-icons-completion-mode))
 
 
 (global-set-key (kbd "<f5>") 'compile)
@@ -173,9 +102,6 @@
     )
   )
 
-(use-package magit
-  :custom
-  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 (use-package treemacs-icons-dired
   :config (treemacs-icons-dired-mode))
@@ -192,13 +118,6 @@
   (recentf-mode t)
   :diminish nil)
 
-(use-package git-gutter
-  :config
-  (setq git-gutter:modified-sign "|")
-  (setq git-gutter:added-sign "|")
-  (setq git-gutter:deleted-sign "|")
-  (global-git-gutter-mode t)
-  )
 
 (set-default-coding-systems 'utf-8)
 
@@ -290,60 +209,11 @@
   (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
   )
 
-;; (when (window-system)
-;;  (set-frame-font "Iosevka NF"))
-;; (set-face-attribute 'default nil :font "Iosevka NF" :height 160)
-;; (add-to-list 'default-frame-alist '(font . "Iosevka NF"))
-
-(let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
-               (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
-               (36 . ".\\(?:>\\)")
-               (37 . ".\\(?:\\(?:%%\\)\\|%\\)")
-               (38 . ".\\(?:\\(?:&&\\)\\|&\\)")
-               (42 . ".\\(?:\\(?:\\*\\*/\\)\\|\\(?:\\*[*/]\\)\\|[*/>]\\)")
-               (43 . ".\\(?:\\(?:\\+\\+\\)\\|[+>]\\)")
-               (45 . ".\\(?:\\(?:-[>-]\\|<<\\|>>\\)\\|[<>}~-]\\)")
-               (46 . ".\\(?:\\(?:\\.[.<]\\)\\|[.=-]\\)")
-               (47 . ".\\(?:\\(?:\\*\\*\\|//\\|==\\)\\|[*/=>]\\)")
-               (48 . ".\\(?:x[a-zA-Z]\\)")
-               (58 . ".\\(?:::\\|[:=]\\)")
-               (59 . ".\\(?:;;\\|;\\)")
-               (60 . ".\\(?:\\(?:!--\\)\\|\\(?:~~\\|->\\|\\$>\\|\\*>\\|\\+>\\|--\\|<[<=-]\\|=[<=>]\\||>\\)\\|[*$+~/<=>|-]\\)")
-               (61 . ".\\(?:\\(?:/=\\|:=\\|<<\\|=[=>]\\|>>\\)\\|[<=>~]\\)")
-               (62 . ".\\(?:\\(?:=>\\|>[=>-]\\)\\|[=>-]\\)")
-               (63 . ".\\(?:\\(\\?\\?\\)\\|[:=?]\\)")
-               (91 . ".\\(?:]\\)")
-               (92 . ".\\(?:\\(?:\\\\\\\\\\)\\|\\\\\\)")
-               (94 . ".\\(?:=\\)")
-               (119 . ".\\(?:ww\\)")
-               (123 . ".\\(?:-\\)")
-               (124 . ".\\(?:\\(?:|[=|]\\)\\|[=>|]\\)")
-               (126 . ".\\(?:~>\\|~~\\|[>=@~-]\\)")
-               )
-             ))
-  (dolist (char-regexp alist)
-    (set-char-table-range composition-function-table (car char-regexp)
-                          `([,(cdr char-regexp) 0 font-shape-gstring]))))
 
 ;; (use-package idle-highlight-mode
 ;;   :config (setq idle-highlight-idle-time 0.4)
 ;;   (global-idle-highlight-mode)
 ;;   )
-
-
-                                        ; Default colours are too light (to see colour names do M-x list-colors-display
-                                        ; and to see faces do M-x list-faces-display):
-
-                                        ;(use-package doom-themes
-                                        ; :init 
-                                        ;  ;; :config (load-theme 'doom-one t)
-                                        ; ;; (add-hook 'server-after-make-frame-hook (lambda () (load-theme 'doom-one t)))
-                                        ;)
-
-(use-package spacemacs-theme
-  :defer t
-  ;; (load-theme 'spacemacs-dark t)
-  )
 
 
 (add-to-list 'auto-mode-alist '("\\.dsc" . conf-mode))
@@ -588,21 +458,6 @@
   (setq rmh-elfeed-org-files (list (expand-file-name "elfeed.org" user-emacs-directory)))
   )
 
-(use-package avy
-  :ensure t
-  :bind ("M-s" . avy-goto-char-timer)
-  :config
-  (setq avy-timeout-seconds 1)
-  )
-
-(when (eq system-type 'windows-nt)
-  (setq consult-find-args "find . -not ( -wholename `*/.*` -prune )")
-  )
-
-;; (use-package tex
-;;   :ensure auctex)
-;; prettyify symbol mode
-;;latexmk
 
 ;; Consult users will also want the embark-consult package.
 (use-package embark-consult
@@ -662,15 +517,7 @@ isn't there and triggers an error"
 (windmove-default-keybindings 'shift)
 (setq framemove-hook-into-windmove t)
 
-(use-package git-link
-  :config
-  (global-set-key (kbd "C-c g l") 'git-link)
-  )
 
-(defun zt/my-open-init-file ()
-  "Open the init file."
-  (interactive)
-  (find-file user-init-file))
 
 ;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
@@ -678,74 +525,6 @@ isn't there and triggers an error"
   :config
   (rg-enable-default-bindings)
 )
-
-
-(defvar current-date-format "%Y-%m-%d"
-  "Format of date to insert with `insert-current-date-time' func
-See help of `format-time-string' for possible replacements")
-
-(defvar current-time-format "%a %H:%M:%S"
-  "Format of date to insert with `insert-current-time' func.
-Note the weekly scope of the command's precision.")
-
-(defun insert-current-date ()
-  "insert the current date and time into current buffer.
-Uses `current-date-time-format' for the formatting the date/time."
-       (interactive)
-       (insert (format-time-string current-date-format (current-time)))
-       )
-
-(defun insert-current-time ()
-  "insert the current time (1-week scope) into the current buffer."
-       (interactive)
-       (insert (format-time-string current-time-format (current-time)))
-       (insert "\n")
-       )
-
-(global-set-key "\C-c\C-d" 'insert-current-date)
-(global-set-key "\C-c\C-t" 'insert-current-time)
-
-(defun zt/setup-appearance (frame)
-  (with-selected-frame frame
-    (remove-hook 'after-make-frame-functions 'zt/setup-appearance)
-    (catppuccin-reload)
-    ))
-
-(if (daemonp)
-    (add-hook 'after-make-frame-functions 'zt/setup-appearance)
-  (zt/setup-appearance (car (frame-list)))
-  )
-
-(use-package lsp-mode
-  :custom
-  (lsp-completion-provider :none) ;; we use Corfu!
-  :init
-  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix "C-c l")
-  (setq lsp-clients-clangd-args '("-j=4" "--log=verbose" ))
-  (defun my/lsp-mode-setup-completion ()
-    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-          ;; '(flex))) ;; Configure flex
-          '(orderless))) ;; Configure orderless
-  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-         (c-ts-mode . lsp)
-         (python-mode . lsp)
-         (elisp-mode . lsp)
-         ;; if you want which-key integration
-         (lsp-mode . lsp-enable-which-key-integration)
-         (lsp-completion-mode . my/lsp-mode-setup-completion)
-         )
-  :commands lsp)
-
-;; optionally
-(use-package lsp-ui
-  :commands lsp-ui-mode
-  :custom
-  (lsp-ui-doc-position 'bottom)
-  )
-
-;; needed for lsp-sideline
-(use-package flycheck)
 
 ;; Sample executable configuration
 (use-package plantuml-mode
@@ -759,27 +538,6 @@ Uses `current-date-time-format' for the formatting the date/time."
   (setq org-plantuml-exec-mode 'plantuml)
   )
 
-(defun zephyr-term ()
-  "Opens ttyACM0 for zephyr terminal"
-  (interactive)
-(if (get-buffer buffer-name)
-      ;; If the buffer exists, switch to it
-      (switch-to-buffer buffer-name)
-    ;; Otherwise, display a message
-    (message "Buffer %s does not exist" buffer-name))
-  (serial-term "/dev/ttyACM0" 115200 'term-line-mode)
-  )
-
-(defun zephyr-term (buffer-name)
-  "Open a buffer with BUFFER-NAME if it exists, otherwise display a message."
-  (if (get-buffer buffer-name)
-      ;; If the buffer exists, switch to it
-      (switch-to-buffer buffer-name)
-    ;; Otherwise, display a message
-    (message "Buffer %s does not exist" buffer-name)))
-
-(use-package vterm)
-(use-package multi-vterm)
 
 (use-package ace-window
   :bind (("M-o" . ace-window))
@@ -790,85 +548,25 @@ Uses `current-date-time-format' for the formatting the date/time."
   )
 (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
 
-(use-package dap-mode
-  :config
-  (dap-mode 1)
-  ;; (dap-ui-mode 1)
-  ;; (dap-tooltip-mode 1)
-  ;; (tooltip-mode 1)
-  ;; (dap-ui-controls-mode 1)
-  )
-
-(require 'dap-gdb)
-
-(setq dap-debug-template-configurations
-      '(
-        ("Zephyr"
-         :type "gdbserver"
-         :request "launch"
-         :gdbpath "/home/zach/zephyr-sdk-0.16.5-1/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb" ;; Specify the path to your custom GDB executable
-         :target ":2331"
-         :executable "${workspaceFolder}/build/zephyr/zephyr.elf"
-         :cwd "${workspaceFolder}"
-         :environment []
-         :args []
-         :remote :json-true
-         :stopAtEntry t
-         :externalConsole nil)))
 
 (use-package envrc
   :config
   (envrc-global-mode)
   )
 
-;; (setq debug-on-message t)
-
-;; (setq tramp-verbose 10)
-(use-package expand-region
-  :bind ("M-'" . er/expand-region))
-
-(global-set-key (kbd "M-i") 'imenu)
-
-(defun newline-without-break-of-line ()
-  "1. move to end of the line.
-2. open new line and move to new line"
-  (interactive)
-  (end-of-line)
-  (open-line 1)
-  (right-char)
-  (indent-according-to-mode))
-
-(defun newline-above-without-break-of-line ()
-  "1. move to end of the line.
-2. open new line and move to new line"
-  (interactive)
-  (end-of-line 0)
-  (open-line 1)
-  (right-char)
-  (indent-according-to-mode))
-
-
-(global-set-key (kbd "<C-return>") 'newline-without-break-of-line)
-(global-set-key (kbd "<C-S-return>") 'newline-above-without-break-of-line)
-
-(global-set-key (kbd "C-1") 'delete-other-windows)
-(global-set-key (kbd "C-2") 'split-window-below)
-(global-set-key (kbd "C-3") 'split-window-right)
-
 (setq select-active-regions nil)
+(setq compilation-scroll-output t)
+
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
-(use-package multiple-cursors
-  :config
-  (setq mc/always-run-for-all t)
-  :bind
-  (("C-S-J" . mc/mark-all-dwim)
-  ("C-<" . mc/mark-all-like-this)
-  ("C->" . mc/mark-next-like-this)))
-
+(require 'zt-themes)
+(require 'zt-lsp)
 (require 'zt-boon)
 (require 'zt-org)
 (require 'zt-minibuffer)
 (require 'zt-completion)
-(setq compilation-scroll-output t)
+(require 'zt-term)
+(require 'zt-editing)
+(require 'zt-git)
+(require 'zt-custom-commands)
