@@ -11,6 +11,7 @@
           '(orderless))) ;; Configure orderless
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (c-ts-mode . lsp)
+         (c++-ts-mode . lsp)
          (python-mode . lsp)
          (elisp-mode . lsp)
          ;; if you want which-key integration
