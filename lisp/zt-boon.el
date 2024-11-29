@@ -69,8 +69,8 @@
   (define-key boon-command-map "b" '("bank" . insert-register))
   (define-key boon-command-map (kbd "C-w") 'scroll-down-line)
   (define-key boon-command-map (kbd "C-f") 'scroll-up-line)
-  (define-key indent-rigidly-map "r" 'indent-rigidly-right)
-  (define-key indent-rigidly-map "s" 'indent-rigidly-left)
+  (define-key indent-rigidly-map "r" 'indent-rigidly-left)
+  (define-key indent-rigidly-map "s" 'indent-rigidly-right)
 
   (boon-mode)
 
