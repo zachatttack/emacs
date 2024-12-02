@@ -570,3 +570,7 @@ isn't there and triggers an error"
 (require 'zt-editing)
 (require 'zt-git)
 (require 'zt-custom-commands)
+
+(add-hook 'occur-hook
+          '(lambda ()
+             (switch-to-buffer-other-window "*Occur*")))
