@@ -14,6 +14,7 @@
          (c++-ts-mode . lsp)
          (python-mode . lsp)
          (elisp-mode . lsp)
+         (rust-ts-mode . lsp)
          ;; if you want which-key integration
          (lsp-mode . lsp-enable-which-key-integration)
          (lsp-completion-mode . my/lsp-mode-setup-completion)

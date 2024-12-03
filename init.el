@@ -144,6 +144,7 @@
         (yaml "https://github.com/ikatyang/tree-sitter-yaml")
         (c "https://github.com/tree-sitter/tree-sitter-c")
         (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
+        (rust "https://github.com/tree-sitter/tree-sitter-rust")
         ))
 
 (setq major-mode-remap-alist
@@ -215,7 +216,6 @@
 ;;   (global-idle-highlight-mode)
 ;;   )
 
-
 (add-to-list 'auto-mode-alist '("\\.dsc" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.inf" . conf-mode))
 (add-to-list 'auto-mode-alist '("\\.dec" . conf-mode))
@@ -237,6 +237,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-ts-mode))
+
 
 (setq tramp-default-method "sshx")
 ;; Dired stuff
@@ -553,6 +554,8 @@ isn't there and triggers an error"
   :config
   (envrc-global-mode)
   )
+
+(use-package rust-ts-mode)
 
 (setq select-active-regions nil)
 (setq compilation-scroll-output t)
