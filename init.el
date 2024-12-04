@@ -126,40 +126,47 @@
   (dashboard-setup-startup-hook)
   )
 
-(setq treesit-language-source-alist
-      '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-        (cmake "https://github.com/uyha/tree-sitter-cmake")
-        (css "https://github.com/tree-sitter/tree-sitter-css")
-        (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-        (go "https://github.com/tree-sitter/tree-sitter-go")
-        (html "https://github.com/tree-sitter/tree-sitter-html")
-        (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-        (json "https://github.com/tree-sitter/tree-sitter-json")
-        (make "https://github.com/alemuller/tree-sitter-make")
-        (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-        (python "https://github.com/tree-sitter/tree-sitter-python")
-        (toml "https://github.com/tree-sitter/tree-sitter-toml")
-        (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-        (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-        (yaml "https://github.com/ikatyang/tree-sitter-yaml")
-        (c "https://github.com/tree-sitter/tree-sitter-c")
-        (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
-        (rust "https://github.com/tree-sitter/tree-sitter-rust")
-        ))
+;; (setq treesit-language-source-alist
+;;       '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+;;         (cmake "https://github.com/uyha/tree-sitter-cmake")
+;;         (css "https://github.com/tree-sitter/tree-sitter-css")
+;;         (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+;;         (go "https://github.com/tree-sitter/tree-sitter-go")
+;;         (html "https://github.com/tree-sitter/tree-sitter-html")
+;;         (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+;;         (json "https://github.com/tree-sitter/tree-sitter-json")
+;;         (make "https://github.com/alemuller/tree-sitter-make")
+;;         (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+;;         (python "https://github.com/tree-sitter/tree-sitter-python")
+;;         (toml "https://github.com/tree-sitter/tree-sitter-toml")
+;;         (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+;;         (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+;;         (yaml "https://github.com/ikatyang/tree-sitter-yaml")
+;;         (c "https://github.com/tree-sitter/tree-sitter-c")
+;;         (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
+;;         (rust "https://github.com/tree-sitter/tree-sitter-rust")
+;;         ))
 
-(setq major-mode-remap-alist
-      '((yaml-mode . yaml-ts-mode)
-        (bash-mode . bash-ts-mode)
-        (js2-mode . js-ts-mode)
-        (typescript-mode . typescript-ts-mode)
-        (json-mode . json-ts-mode)
-        (css-mode . css-ts-mode)
-        (python-mode . python-ts-mode)
-        (c-mode . c-ts-mode)
-        (c++-mode . c++-ts-mode)
-        (c-or-c++-mode . c-or-c++-ts-mode)
-        ))
-(setq treesit-font-lock-level 4)
+;; (setq major-mode-remap-alist
+;;       '((yaml-mode . yaml-ts-mode)
+;;         (bash-mode . bash-ts-mode)
+;;         (js2-mode . js-ts-mode)
+;;         (typescript-mode . typescript-ts-mode)
+;;         (json-mode . json-ts-mode)
+;;         (css-mode . css-ts-mode)
+;;         (python-mode . python-ts-mode)
+;;         (c-mode . c-ts-mode)
+;;         (c++-mode . c++-ts-mode)
+;;         (c-or-c++-mode . c-or-c++-ts-mode)
+;;         ))
+(setq treesit-font-lock-level 3)
+
+(use-package treesit-auto
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
 
 (use-package ripgrep)
 (use-package hl-todo
@@ -577,3 +584,10 @@ isn't there and triggers an error"
 (add-hook 'occur-hook
           '(lambda ()
              (switch-to-buffer-other-window "*Occur*")))
+(use-package exec-path-from-shell
+  :config
+  (when (daemonp)
+  (exec-path-from-shell-initialize)))
+(add-to-list 'exec-path "~/.cargo/bin")
+
+(use-package eat)
