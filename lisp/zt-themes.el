@@ -74,16 +74,6 @@
   (all-the-icons-completion-mode))
 
 
-(defun zt/setup-appearance (frame)
-  (with-selected-frame frame
-    (remove-hook 'after-make-frame-functions 'zt/setup-appearance)
-    (catppuccin-reload)
-    ))
-
-(if (daemonp)
-    (add-hook 'after-make-frame-functions 'zt/setup-appearance)
-  (zt/setup-appearance (car (frame-list)))
-  )
 
 (let ((alist '((33 . ".\\(?:\\(?:==\\|!!\\)\\|[!=]\\)")
                (35 . ".\\(?:###\\|##\\|_(\\|[#(?[_{]\\)")
@@ -115,6 +105,24 @@
     (set-char-table-range composition-function-table (car char-regexp)
                           `([,(cdr char-regexp) 0 font-shape-gstring]))))
 
+(use-package modus-themes
+  :init
+  (setq modus-themes-italic-constructs t
+      modus-themes-bold-constructs nil)
+  ;; (setq modus-themes-mode-line '(borderless))
+  )
+
+(defun zt/setup-appearance (frame)
+  (with-selected-frame frame
+    (remove-hook 'after-make-frame-functions 'zt/setup-appearance)
+    ;; (catppuccin-reload)
+    (load-theme 'modus-vivendi t)
+    ))
+
+(if (daemonp)
+    (add-hook 'after-make-frame-functions 'zt/setup-appearance)
+  (zt/setup-appearance (car (frame-list)))
+  )
 
 
 

@@ -19,7 +19,7 @@
 
 (use-package vterm)
 (use-package multi-vterm)
-
+(use-package eat)
 
 
 (provide 'zt-term)
