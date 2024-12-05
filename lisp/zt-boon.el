@@ -74,6 +74,7 @@
 
   (boon-mode)
 
-  (add-hook 'git-commit-mode-hook (lambda () (boon-local-mode -1))))
+  (add-hook 'git-commit-mode-hook (lambda () (boon-local-mode -1)))
+  (add-hook 'eshell-mode-hook (lambda () (boon-local-mode -1))))
 
 (provide 'zt-boon)
