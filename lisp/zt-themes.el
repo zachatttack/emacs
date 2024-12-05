@@ -109,7 +109,7 @@
   :init
   (setq modus-themes-italic-constructs t
       modus-themes-bold-constructs nil)
-  ;; (setq modus-themes-mode-line '(borderless))
+  (setq modus-themes-common-palette-overrides modus-themes-preset-overrides-intense)
   )
 
 (defun zt/setup-appearance (frame)
