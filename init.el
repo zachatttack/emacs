@@ -581,9 +581,9 @@ isn't there and triggers an error"
 (require 'zt-git)
 (require 'zt-custom-commands)
 
-(add-hook 'occur-hook
-          '(lambda ()
-             (switch-to-buffer-other-window "*Occur*")))
+;; (add-hook 'occur-hook
+;;           '(lambda ()
+;;              (switch-to-buffer-other-window "*Occur*")))
 (use-package exec-path-from-shell
   :config
   (when (daemonp)

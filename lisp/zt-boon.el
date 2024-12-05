@@ -43,7 +43,7 @@
   (define-key boon-command-map "h"  'boon-set-insert-like-state)
   (define-key boon-command-map "?"  'boon-qsearch-previous-at-point)
   (define-key boon-command-map "/"  'boon-qsearch-next-at-point)
-  (define-key boon-command-map "m"  '("hop" . avy-goto-word-1))
+  (define-key boon-command-map "m"  '("hop" . avy-goto-char-timer))
   (define-key boon-command-map "M"  'avy-goto-char)
   (define-key boon-moves-map "q" 'beginning-of-line)
   (define-key boon-moves-map "w" 'previous-line)
