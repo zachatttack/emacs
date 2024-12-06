@@ -109,14 +109,14 @@
   :init
   (setq modus-themes-italic-constructs t
       modus-themes-bold-constructs nil)
-  (setq modus-themes-common-palette-overrides modus-themes-preset-overrides-intense)
-  )
+    )
 
 (defun zt/setup-appearance (frame)
   (with-selected-frame frame
     (remove-hook 'after-make-frame-functions 'zt/setup-appearance)
     ;; (catppuccin-reload)
-    (load-theme 'modus-vivendi t)
+  (setq modus-themes-common-palette-overrides modus-themes-preset-overrides-intense)
+  (load-theme 'modus-vivendi t)
     ))
 
 (if (daemonp)
